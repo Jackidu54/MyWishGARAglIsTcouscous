@@ -1,0 +1,36 @@
+creation de liste : 
+
+prio1 :
+	- 1. créer une nouvelle liste en lui donnant un titre, une description, une date limite de validité.
+	-2. à tout moment tant que la liste est valide, il peut ajouter des items dans la liste.
+prio2 : 
+	-4. il peut partager cette liste : pour cela il demande à l'application de générer une url qu'il
+diffuse ensuite par ses propres moyens. L'url contient un token unique identifiant la liste.
+	-5. Il peut à tout moment consulter la liste et voir quels sont les items sélectionnés, par contre il
+ne peut pas voir qui a choisi l'item.
+prio3 : 
+	-3. un item est caractérisé par un nom, un descriptif textuel et un tarif indicatif. Il peut être
+accompagné d'une url et éventuellement d'une ou plusieurs images.
+	-6. après la date limite de validité, le créateur peut consulter la liste et lire les différents
+messages associés à chaque cadeau de la liste et laissés par les utilisateurs ayant choisi ce
+cadeau (cf. II.2).
+
+
+
+
+
+
+participation a une liste : 
+prio1 : 
+	-1. choisir de réserver un item, en précisant son nom,prio2 : 
+	-
+prio3 : 
+	-
+
+
+
+
+2. ajouter un message avec une réservation d'item. Ce message est destiné au destinataire du
+cadeau,
+
+3. ajouter un message ou un commentaire global destiné à l'ensemble des utilisateurs 
