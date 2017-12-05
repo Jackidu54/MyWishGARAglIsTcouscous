@@ -1,0 +1,6 @@
+/vendor
+
+*.json
+
+/src/conf
+*.lock
