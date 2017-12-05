@@ -4,3 +4,7 @@
 
 /src/conf
 *.lock
+/.project
+/.htaccess
+/.buildpath
+/composer.phar
