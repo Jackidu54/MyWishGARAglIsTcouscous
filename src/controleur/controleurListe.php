@@ -38,6 +38,6 @@ function creerListe($user, $titre, $description){
 	$l = new Liste();
 	$l->user = $user;
 	$l->titre = $titre;
-	$l->description = $description
+	$l->description = $description;
 	$l->save();
 }
