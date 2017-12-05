@@ -1,12 +1,27 @@
 <?php
 require_once 'vendor/autoload.php';
-echo "gxfzxjf";
+use mywishlist\controleur\ControleurListe;
+use \Illuminate\Database\Capsule\Manager as DB;
+$db = new DB();
+$t=parse_ini_file( 'src/conf/conf.ini' );
+$db->addConnection( [
+    'driver' => $t['driver'],
+    'host' =>  $t['host'],
+    'database' =>  $t['database'],
+    'username' =>  $t['username'],
+    'password' =>  $t['password'],
+    'charset' => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix' => ''
+] );
+$db->setAsGlobal();
+$db->bootEloquent();
 $app = new \Slim\Slim();
 $app->get('/liste/display', function () {
     echo "yolo";
 });
 $app->get('/liste/create', function () {
-    echo "yolo";
+    $control=new ControleurListe();
 });
 $app->get('/liste/modify', function () {
     echo "yolo";
