@@ -22,8 +22,10 @@ cadeau (cf. II.2).
 
 participation a une liste : 
 prio1 : 
-	-1. choisir de réserver un item, en précisant son nom,prio2 : 
-	-
+	-1. choisir de réserver un item, en précisant son nom,
+prio2 : 
+	-afficher liste par URL
+	-annuler une reservation
 prio3 : 
 	-
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /vendor
 
 *.json
@@ -8,3 +9,12 @@
 /.htaccess
 /.buildpath
 /composer.phar
+=======
+/vendor
+
+*.json
+
+/src/conf
+*.lock
+*.htaccess
+>>>>>>> 21b1a195f0fc8cabba018fcf6fe299cdcf80dd60
