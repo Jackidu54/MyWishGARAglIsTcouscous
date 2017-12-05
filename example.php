@@ -1,10 +1,10 @@
 <?php
 
 require_once 'vendor/autoload.php';
-use Illuminate\Database\Capsule\Manager as DB;
-use mywishlist\models\Liste;
+use \Illuminate\Database\Capsule\Manager as DB;
 use mywishlist\models\Item;
-
+use mywishlist\models\Liste;
+$app = new \Slim\Slim();
 $db = new DB();
 $t=parse_ini_file( 'src/conf/conf.ini' );
 $db->addConnection( [
