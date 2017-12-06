@@ -16,7 +16,12 @@ class ControleurListe
 
     function afficherListe($num)
     {
+<<<<<<< HEAD
         $listes = Liste::select()->where('id', '=', $num)->get()->first();
+=======
+        $listes = Liste::select()->where('no', '=', $num)->get();
+        foreach ($listes as $liste) {
+>>>>>>> 458139a9bc30f20cde997562d17a4b845a3710bd
             echo $liste . "<br>";
     }
 
