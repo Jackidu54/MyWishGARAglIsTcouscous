@@ -16,10 +16,8 @@ class ControleurListe
 
     function afficherListe($num)
     {
-        $listes = Liste::select()->where('id', '=', $num)->get();
-        foreach ($listes as $liste) {
+        $listes = Liste::select()->where('id', '=', $num)->get()->first();
             echo $liste . "<br>";
-        }
     }
 
     function creerListe($user, $titre, $description)
