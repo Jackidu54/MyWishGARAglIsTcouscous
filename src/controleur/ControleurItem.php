@@ -33,4 +33,12 @@ class ControleurItem{
 		 
 		 
 	}
+	
+	function annulerReservation($idList, $idItem)
+	{
+		$item = Item::select()->where('id', '=', $idItem)->first();
+		if($item->liste_id == $idList){
+			$item->liste_id = 0;
+		}
+	}
 }
