@@ -18,16 +18,20 @@ $db->setAsGlobal();
 $db->bootEloquent();
 $app = new \Slim\Slim();
 $app->get('/liste/display', function () {
-    echo "yolo";
+    $control=new ControleurListe();
+    $control->afficherListes();
 });
 $app->get('/liste/create', function () {
+    //todo
     $control=new ControleurListe();
+    $control->creerListe($user, $titre, $description);
 });
 $app->get('/liste/modify', function () {
     echo "yolo";
 });
 $app->get('/liste/display/:num', function ($num) {
-    echo "tu veux la liste $num";
+    $control=new ControleurListe();
+    $control->afficherListe($num);
 });
 
 $app->get('/item/display/:num', function ($num) {
