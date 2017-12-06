@@ -3,7 +3,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\models\Liste;
 
-public class ControleurItem{
+class ControleurItem{
 	
 	function afficherItems()
     {
