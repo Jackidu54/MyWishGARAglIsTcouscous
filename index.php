@@ -52,7 +52,7 @@ $app->get('/item/cancel/:num', function ($num) {
     echo "tu annules $num";
 })->name('annule_item');
 
-$app->post('/liste/modify/:id', function ($id) {
+$app->post('/liste/message/:id', function ($id) {
     $control=new ControleurListe();
     $mess = $app->request->post('message');
     $control->afficherListe($id, $message);
