@@ -21,7 +21,8 @@ $app = new \Slim\Slim();
 
 $app->get('/liste/display', function () {
     $control=new ControleurListe();
-    $control->afficherListes();
+    //$control->afficherListes();
+    $control->dernierNo();
 })->name('affiche_listes');
 
 $app->get('/liste/display/:num', function ($num) {
@@ -34,9 +35,9 @@ $app->get('/liste/create/:titre/:user/:description', function ($user,$titre,$des
     $control->creerListe($user, $titre, $description);
 })->name('creation_liste');
 
-$app->get('/liste/modify', function () {
+$app->get('/liste/modify/:id/:titre/:user/:description/:expiration', function ($no,$user_id,$titre,$description,$expiration) {
     $control=new ControleurListe();
-    
+    $control->modifierListe($no,$user_id,$titre,$description,$expiration);
 })->name('modifie_liste');
 
 $app->get('/item/display/:num', function ($num) {
