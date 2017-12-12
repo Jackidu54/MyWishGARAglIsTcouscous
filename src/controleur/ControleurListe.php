@@ -50,4 +50,10 @@ class ControleurListe
     	$liste->expiration = $expiration;
     	$l->save();
     }
+
+    function ajouterMessage($id, $message){
+    	$liste = Liste::select()->where('no', '=', $id)->first();
+    	$liste->message = $message;
+    	$liste->save();
+    }
 }

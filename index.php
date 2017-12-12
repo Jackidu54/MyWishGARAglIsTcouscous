@@ -52,8 +52,10 @@ $app->get('/item/cancel/:num', function ($num) {
     echo "tu annules $num";
 })->name('annule_item');
 
-$app->get('/liste/message/create', function () {
-    echo "yolo";
+$app->post('/liste/modify/:id', function ($id) {
+    $control=new ControleurListe();
+    $mess = $app->request->post('message');
+    $control->afficherListe($id, $message);
 })->name('cree_message');
 
 $app->run();
