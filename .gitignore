@@ -1,9 +1,0 @@
-/.project
-vendor
-.settings
-/composer.json
-/composer.lock
-/composer.phar
-/.buildpath
-.htaccess
-/doc/~*
