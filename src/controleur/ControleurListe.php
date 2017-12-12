@@ -6,15 +6,6 @@ use mywishlist\models\Liste;
 class ControleurListe
 {
 
-	function dernierNo(){
-		$listes = Liste::select('no')->get();
-		foreach ($listes as $res=>$val){
-			echo $res;
-			$return = $res;
-		}
-		
-		return $return;
-	}
 
     function afficherListes()
     {
@@ -42,12 +33,11 @@ class ControleurListe
     }
 
 
-    function modifierListe($no,$user_id,$titre,$description,$expiration){
+    function modifierListe($no,$titre,$description){
     	$liste = Liste::select()->where('no', '=', $num)->first();
-    	$liste->user_id = $user_id;
     	$liste->titre = $titre;
     	$liste->description = $description;
-    	$liste->expiration = $expiration;
+    	$liste->expiration = date("Y-m-d", strtotime("+1 year"));
     	$l->save();
     }
 

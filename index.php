@@ -21,8 +21,7 @@ $app = new \Slim\Slim();
 
 $app->get('/liste/display', function () {
     $control=new ControleurListe();
-    //$control->afficherListes();
-    $control->dernierNo();
+    $control->afficherListes();
 })->name('affiche_listes');
 
 $app->get('/liste/display/:num', function ($num) {
@@ -30,14 +29,19 @@ $app->get('/liste/display/:num', function ($num) {
     $control->afficherListe($num);
 })->name('affiche_1_liste');
 
-$app->get('/liste/create/:titre/:user/:description', function ($user,$titre,$description) {
+$app->post('/liste/create', function () {
     $control=new ControleurListe();
+    $user = $app->request->post('user');
+    $titre = $app->request->post('titre');
+    $description = $app->request->post('description');
     $control->creerListe($user, $titre, $description);
 })->name('creation_liste');
 
-$app->get('/liste/modify/:id/:titre/:user/:description/:expiration', function ($no,$user_id,$titre,$description,$expiration) {
+$app->get('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
-    $control->modifierListe($no,$user_id,$titre,$description,$expiration);
+    $titre = $app->request->post('titre');
+    $description = $app->request->post('description');
+    $control->modifierListe($id, $titre,$description);
 })->name('modifie_liste');
 
 $app->get('/item/display/:num', function ($num) {
