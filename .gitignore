@@ -1,1 +1,7 @@
 vendor
+/.project
+/.buildpath
+/.htaccess
+/composer.json
+/composer.lock
+/composer.phar
