@@ -1,4 +1,5 @@
 /.project
+
 vendor
 .settings
 /composer.json

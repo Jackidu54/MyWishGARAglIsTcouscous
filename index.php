@@ -2,6 +2,7 @@
 require_once 'vendor/autoload.php';
 use mywishlist\controleur\ControleurListe;
 use \Illuminate\Database\Capsule\Manager as DB;
+use mywishlist\vue\VueItem;
 $db = new DB();
 $t=parse_ini_file( 'src/conf/conf.ini' );
 $db->addConnection( [
@@ -23,8 +24,12 @@ $app->get('/liste/display', function () {
     $control->afficherListes();
 })->name('affiche_listes');
 
+$app->get('/liste/display/:num', function ($num) {
+    $control=new ControleurListe();
+    $control->afficherListe($num);
+})->name('affiche_1_liste');
+
 $app->get('/liste/create/:titre/:user/:description', function ($user,$titre,$description) {
-    //todo
     $control=new ControleurListe();
     $control->creerListe($user, $titre, $description);
 })->name('creation_liste');
@@ -33,11 +38,6 @@ $app->get('/liste/modify', function () {
     $control=new ControleurListe();
     
 })->name('modifie_liste');
-
-$app->get('/liste/display/:num', function ($num) {
-    $control=new ControleurListe();
-    $control->afficherListe($num);
-})->name('affiche_1_liste');
 
 $app->get('/item/display/:num', function ($num) {
     echo "yolo";
