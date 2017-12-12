@@ -37,7 +37,7 @@ $app->post('/liste/create', function () {
     $control->creerListe($user, $titre, $description);
 })->name('creation_liste');
 
-$app->get('/liste/modify/:id', function ($id) {
+$app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $titre = $app->request->post('titre');
     $description = $app->request->post('description');
