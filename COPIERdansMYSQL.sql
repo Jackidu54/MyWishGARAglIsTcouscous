@@ -1,0 +1,1 @@
+Alter table liste add message(255);
