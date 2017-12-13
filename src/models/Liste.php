@@ -11,7 +11,7 @@ class Liste extends Model
     public $timestamps=false; 
     
     public function items(){
-        return $this->hasMany('models/Item','id');
+        return Item::select()->where("liste_id","=",$this->no)->get();
     }
 }
 

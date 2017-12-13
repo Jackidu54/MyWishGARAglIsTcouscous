@@ -44,3 +44,37 @@ article {
 footer{
 	width:100%
 }
+img {
+	height: 100px;
+	display: inline-block;
+}
+article ul li{
+	border-bottom: 1px solid gray;
+	border-top: 1px solid gray;
+}
+article ol {
+	counter-reset: repas;
+} /* on initialise et nomme un compteur */
+article ol li {
+	line-height: 100px;
+	border-bottom: 1px solid gray;
+	border-top: 1px solid gray;
+	list-style-type: none;
+	counter-increment: repas; /* on incrémente le compteur à chaque nouveau li */
+	margin-bottom: 10px;
+}
+article ol li:before {
+	content: counter(repas); /* on affiche le compteur */
+	padding: 0 20px 6px;
+	margin-right: 8px;
+	vertical-align: top;
+	background: #678;
+	-moz-border-radius: 60px;
+	border-radius: 60px;
+	font-weight: bold;
+	font-size: 0.8em;
+	color: white;		
+}
+.descritem{
+	display: inline-block;
+}

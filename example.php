@@ -30,6 +30,7 @@ foreach ($items as $item){
     echo $item."<br>";
 }
 echo "<br>";
+
 echo "<br>";
 if (isset($_GET['id'])){
     $items=Item::where('id','=',$_GET['id'])->first();

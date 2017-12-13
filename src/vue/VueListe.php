@@ -25,10 +25,30 @@ class VueListe
     function render()
     {
         $contenu = "";
-        if ($this->selecteur == self::$AFFICHE_1_LISTE) {}
+        if ($this->selecteur == self::$AFFICHE_1_LISTE) {
+            $liste=$this->modele;
+            $contenu=<<<html
+<h1>Wishliste $liste->titre</h1>
+<p>description : $liste->description , expire le : $liste->expiration</p>
+<ol>
+
+html;
+            $items=$liste->items();
+            foreach ($items as $item){
+                $contenu=$contenu.<<<html
+<li><p class="descritem">$item->nom, etat de reservation : non reservé</p>
+<img src="/web/img/$item->img" alt="$item->img">
+
+</li>
+html;
+            }
+            $contenu.<<<html
+</ol>
+html;
+        }
         if ($this->selecteur == self::$AFFICHE_LISTES) {
             $contenu = <<<html
-<h1>Affiche mes Listes</h1>
+<h1>Mes WishListes</h1>
   <p>Veuillez sélectionner votre liste dans cette liste de liste</p>
   <ul>
 html;

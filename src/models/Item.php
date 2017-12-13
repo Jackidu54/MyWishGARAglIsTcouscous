@@ -8,7 +8,7 @@ class Item extends Model
     public $timestamps=false; 
     
     public function liste() {
-        return $this->belongsTo('mywishlist/models/Liste','id');
+        return $this->belongsTo('mywishlist/models/Liste','no');
     }
 }
 
