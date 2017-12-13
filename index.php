@@ -38,8 +38,8 @@ $app->post('/liste/create/valide', function () {
 })->name('validation_liste');
 
 $app->post('/liste/create', function () {
-
-})->name('creation_liste')
+    echo "yolo";
+})->name('creation_liste');
 
 $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
