@@ -39,7 +39,6 @@ $app->post('/liste/create/valide', function () {
     }
 })->name('validation_liste');
 
-
 $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 

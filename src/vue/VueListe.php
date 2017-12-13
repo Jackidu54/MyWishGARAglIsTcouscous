@@ -29,7 +29,7 @@ class VueListe
         if ($this->selecteur == self::$AFFICHE_LISTES) {
             $contenu = <<<html
 <h1>Affiche mes Listes</h1>
-  <p>Veuillez s�lectionner votre liste dans cette liste de liste</p>
+  <p>Veuillez sélectionner votre liste dans cette liste de liste</p>
   <ul>
 html;
          foreach ($this->modele as $liste){   
@@ -64,10 +64,10 @@ html;
   
 <nav>
   <ul>
-    <li><a href="#">Cr�er un compte</a></li>
+    <li><a href="#">Créer un compte</a></li>
     <li><a href="#">Se connecter</a></li>
     <li><a href="#">Affiche mes listes</a></li>
-    <li><a href="#">Cr�er une liste</a></li>
+    <li><a href="#">Créer une liste</a></li>
     <li><a href="#">Modifier une liste</a></li>
     <li><a href="#">Afficher une liste</a></li>
     <li><a href="#">Ordonner les items</a></li>
@@ -80,7 +80,7 @@ html;
 
 <footer>
 <div id="gauche">
-Petit message de paix d'amour et d'amiti�
+Petit message de paix d'amour et d'amitié
 </div>
 <div id="droite">
 Copyright
