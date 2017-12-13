@@ -50,7 +50,7 @@ html;
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Titre de la page</title>
-  <link rel="stylesheet" href="/web/css/style.css">
+  <link rel="stylesheet" href="web/css/style.css">
 
 
 </head>

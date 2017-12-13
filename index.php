@@ -31,10 +31,10 @@ $app->get('/liste/display/:num', function ($num) {
 
 $app->post('/liste/create/valide', function () {
     $control=new ControleurListe();
-    $user = $app->request->post('user');
-    $titre = $app->request->post('titre');
-    $description = $app->request->post('description');
-    $control->creerListe($user, $titre, $description);
+        $user = $app->request->post('user');
+        $titre = $app->request->post('titre');
+        $description = $app->request->post('description');
+        $control->creerListe($user, $titre, $description);
 })->name('validation_liste');
 
 $app->post('/liste/create', function () {
