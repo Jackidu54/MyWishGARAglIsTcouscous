@@ -16,7 +16,8 @@ class ControleurListe
     function afficherListe($num)
     {
         $liste = Liste::select()->where('no', '=', $num)->first();
-        echo $liste;
+        $vue=new VueListe(VueListe::$AFFICHE_1_LISTE, $liste);
+        echo $vue->render();
     }
 
     function creerListe($user, $titre, $description)

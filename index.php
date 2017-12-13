@@ -29,13 +29,17 @@ $app->get('/liste/display/:num', function ($num) {
     $control->afficherListe($num);
 })->name('affiche_1_liste');
 
-$app->post('/liste/create', function () {
+$app->post('/liste/create/valide', function () {
     $control=new ControleurListe();
     $user = $app->request->post('user');
     $titre = $app->request->post('titre');
     $description = $app->request->post('description');
     $control->creerListe($user, $titre, $description);
-})->name('creation_liste');
+})->name('validation_liste');
+
+$app->post('/liste/create', function () {
+
+})->name('creation_liste')
 
 $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
