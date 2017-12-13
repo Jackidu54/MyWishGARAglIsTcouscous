@@ -44,6 +44,12 @@ $app->post('/liste/modify/:id', function ($id) {
     $control->modifierListe($id, $titre,$description);
 })->name('modifie_liste');
 
+$app->post('/liste/message/:id', function ($id) {
+    $control=new ControleurListe();
+    $mess = $app->request->post('message');
+    $control->afficherListe($id, $message);
+})->name('cree_message');
+
 $app->get('/item/display/:num', function ($num) {
     echo "yolo";
 })->name('affiche_1_item');
@@ -56,10 +62,6 @@ $app->get('/item/cancel/:num', function ($num) {
     echo "tu annules $num";
 })->name('annule_item');
 
-$app->post('/liste/message/:id', function ($id) {
-    $control=new ControleurListe();
-    $mess = $app->request->post('message');
-    $control->afficherListe($id, $message);
-})->name('cree_message');
+
 
 $app->run();

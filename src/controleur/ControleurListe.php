@@ -2,7 +2,7 @@
 namespace mywishlist\controleur;
 
 use mywishlist\models\Liste;
-
+use mywishlist\vue\VueListe;
 class ControleurListe
 {
 
@@ -10,11 +10,9 @@ class ControleurListe
     function afficherListes()
     {
         $listes = Liste::select()->get();
-        foreach ($listes as $liste) {
-            echo $liste . "<br>";
-        }
+        $vue=new VueListe(VueListe::$AFFICHE_LISTES, $listes);
+        echo $vue->render();
     }
-
     function afficherListe($num)
     {
         $liste = Liste::select()->where('no', '=', $num)->first();

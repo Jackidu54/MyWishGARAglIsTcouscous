@@ -1,6 +1,7 @@
 <?php
 namespace mywishlist\controleur;
 
+use mywishlist\models\Item;
 use mywishlist\models\Liste;
 
 class ControleurItem{
