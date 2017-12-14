@@ -48,8 +48,9 @@ $app->post('/liste/modify/:id', function ($id) {
     }
 })->name('modifie_liste');
 
-$app->post('/liste/create', function () {
-    echo "yolo";
+$app->get('/liste/create', function () {
+    $control=new ControleurListe();
+    $control->afficheCreationListe();
 })->name('creation_liste');
 
 $app->post('/liste/message/:id', function ($id) {

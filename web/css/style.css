@@ -78,3 +78,10 @@ article ol li:before {
 .descritem{
 	display: inline-block;
 }
+#formdescliste{
+	width:50em;
+	height: 3em;
+}
+article input{
+	display: block;
+}

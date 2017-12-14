@@ -26,23 +26,23 @@ class VueListe
     {
         $contenu = "";
         if ($this->selecteur == self::$AFFICHE_1_LISTE) {
-            $liste=$this->modele;
-            $contenu=<<<html
+            $liste = $this->modele;
+            $contenu = <<<html
 <h1>Wishliste $liste->titre</h1>
 <p>description : $liste->description , expire le : $liste->expiration</p>
 <ol>
 
 html;
-            $items=$liste->items();
-            foreach ($items as $item){
-                $contenu=$contenu.<<<html
+            $items = $liste->items();
+            foreach ($items as $item) {
+                $contenu = $contenu . <<<html
 <li><p class="descritem">$item->nom, etat de reservation : non reservé</p>
 <img src="/web/img/$item->img" alt="$item->img">
 
 </li>
 html;
             }
-            $contenu.<<<html
+            $contenu . <<<html
 </ol>
 html;
         }
@@ -52,18 +52,34 @@ html;
   <p>Veuillez sélectionner votre liste dans cette liste de liste</p>
   <ul>
 html;
-         foreach ($this->modele as $liste){   
-            $contenu = $contenu.<<<html
+            foreach ($this->modele as $liste) {
+                $contenu = $contenu . <<<html
     <li><a href="/liste/display/$liste->no">$liste->titre</a></li>
 html;
-        }
-           
-        $contenu=$contenu.<<<html
+            }
+            
+            $contenu = $contenu . <<<html
   </ul>
 html;
         }
-        if ($this->selecteur == self::$CREATION_LISTE) {}
-        if ($this->selecteur == self::$MODIFY_LISTE) {}
+        if ($this->selecteur == self::$CREATION_LISTE) {
+            $contenu = <<<html
+<h1>Creation d'une nouvelle liste</h1>
+<form id="formcreationliste" method="post" <!--action="/liste/modify/:id --> >
+    <label for"formnomliste">nom de la liste</label>
+   
+    <input type="text" id="formnomliste" name="nomliste" required placeholder="<nom de la liste>">
+    <label for"formdescliste">description de la liste</label>    
+    <input type="text" id="formdescliste" name="descliste" required placeholder="<description de la liste>">
+    <button type="submit" name="valid" >valider</button>
+</form>
+html;
+        }
+        if ($this->selecteur == self::$MODIFY_LISTE) {
+            $contenu=<<<html
+TODO
+html;
+        }
         $html = <<<html
 <!DOCTYPE html>
 <html lang="fr">

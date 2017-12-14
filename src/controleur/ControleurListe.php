@@ -34,6 +34,12 @@ class ControleurListe
         $l->expiration = $date;
         $l->save();
     }
+    
+    function afficheCreationListe(){
+        $user="";
+        $vue= new VueListe(VueListe::$CREATION_LISTE, $user);
+        echo $vue->render();
+    }
 
 
     function modifierListe($no,$titre,$description){
