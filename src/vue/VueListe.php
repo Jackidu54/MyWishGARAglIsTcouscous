@@ -65,13 +65,15 @@ html;
         if ($this->selecteur == self::$CREATION_LISTE) {
             $contenu = <<<html
 <h1>Creation d'une nouvelle liste</h1>
-<form id="formcreationliste" method="post" <!--action="/liste/modify/:id --> >
+<form id="formcreationliste" method="post" action="/liste/create/valide">
+
     <label for"formnomliste">nom de la liste</label>
-   
-    <input type="text" id="formnomliste" name="nomliste" required placeholder="<nom de la liste>">
+    <input type="text" id="formnomliste" name="titre" required placeholder="<nom de la liste>">
+
     <label for"formdescliste">description de la liste</label>    
-    <input type="text" id="formdescliste" name="descliste" required placeholder="<description de la liste>">
-    <button type="submit" name="valid" >valider</button>
+    <input type="text" id="formdescliste" name="description" required placeholder="<description de la liste>">
+
+    <button type="submit" name="valid" >Créer</button>
 </form>
 html;
         }
@@ -102,10 +104,8 @@ html;
   <ul>
     <li><a href="#">Créer un compte</a></li>
     <li><a href="#">Se connecter</a></li>
-    <li><a href="#">Affiche mes listes</a></li>
-    <li><a href="#">Créer une liste</a></li>
-    <li><a href="#">Modifier une liste</a></li>
-    <li><a href="#">Afficher une liste</a></li>
+    <li><a href="/liste/display">Affiche mes listes</a></li>
+    <li><a href="/liste/create">Créer une liste</a></li>
     <li><a href="#">Ordonner les items</a></li>
   </ul>
 </nav>

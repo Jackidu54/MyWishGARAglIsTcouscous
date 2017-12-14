@@ -30,12 +30,14 @@ $app->get('/liste/display/:num', function ($num) {
 })->name('affiche_1_liste');
 
 $app->post('/liste/create/valide', function () {
+    $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
-    $user = filter_var($app->request->post('user'), FILTER_SANITIZE_STRING);
-    $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
-    $description = filter_var($app->request->post('description'), FILTER_SANITIZE_STRING);
-    if(isset($user) && isset($titre) && isset($description)){
-        $control->creerListe($user, $titre, $description);
+    if($app->request->post('titre')!=null && $app->request->post('description')!=null){
+        //$user = filter_var($app->request->post('user'), FILTER_SANITIZE_STRING);
+        $user_id = 1;
+        $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
+        $description = filter_var($app->request->post('description'), FILTER_SANITIZE_STRING);
+        $control->creerListe($user_id, $titre, $description);
     }
 })->name('validation_liste');
 
