@@ -50,6 +50,11 @@ $app->post('/liste/modify/:id', function ($id) {
     }
 })->name('modifie_liste');
 
+$app->get('/', function () {
+    header('Location: /liste/display');
+    exit();
+})->name('route_defaut');
+
 $app->get('/liste/create', function () {
     $control=new ControleurListe();
     $control->afficheCreationListe();
