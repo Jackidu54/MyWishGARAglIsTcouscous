@@ -43,7 +43,7 @@ class ControleurListe
 
 
     function modifierListe($no,$titre,$description){
-    	$liste = Liste::select()->where('no', '=', $num)->first();
+    	$liste = Liste::select()->where('no', '=', $no)->first();
     	$liste->titre = $titre;
     	$liste->description = $description;
     	$liste->expiration = date("Y-m-d", strtotime("+1 year"));
@@ -54,6 +54,11 @@ class ControleurListe
     	$liste = Liste::select()->where('no', '=', $id)->first();
     	$liste->message = $message;
     	$liste->save();
+    }
+
+    function afficherModificationListe($idliste){
+        $liste = Liste::select()->where('no', '=', $idliste)->first();
+        $vue=new VueListe(VueListe::$MODIFY_LISTE, $liste);
     }
 
     function supprimerListe($id){

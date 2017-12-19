@@ -82,7 +82,18 @@ html;
         }
         if ($this->selecteur == self::$MODIFY_LISTE) {
             $contenu=<<<html
-TODO
+<h1>Modification d'une liste</h1>
+<h2>liste choisie : </h2>
+<form id="formmodifliste" method="post" action="/liste/modify/valide">
+
+    <label for"formnomliste">nom de la liste</label>
+    <input type="text" id="formnomliste" name="titre" required placeholder="<nom de la liste>">
+
+    <label for"formdescliste">description de la liste</label>    
+    <input type="text" id="formdescliste" name="description" required placeholder="<description de la liste>">
+
+    <button type="submit" name="valid" >Créer</button>
+</form>
 html;
         }
         $html = <<<html

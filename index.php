@@ -47,13 +47,19 @@ $app->post('/liste/create/valide', function () {
     }
 })->name('validation_liste');
 
-$app->post('/liste/modify/:id', function ($id) {
+$app->post('/liste/modify/valide/:id', function ($id) {
     $control=new ControleurListe();
     $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
     $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING); 
     if(isset($user) && isset($titre) && isset($description)){
         $control->modifierListe($id, $titre,$description);
     }
+})->name('modifie_liste');
+
+$app->get('/liste/modify/:id', function ($id) {
+    $control=new ControleurListe();
+    $control->afficherModificationListe($id);
+    
 })->name('modifie_liste');
 
 $app->get('/', function () {
@@ -76,9 +82,13 @@ $app->get('/item/display/:num', function ($num) {
     echo "yolo";
 })->name('affiche_1_item');
 
-$app->get('/item/reserve/:num', function ($num) {
+$app->get('/item/reserve', function ($num) {
     echo "yolo";
 })->name('reserve_item');
+
+$app->get('/item/reserve/:num', function ($num) {
+    echo "yolo";
+})->name('reserve_item_valide');
 
 $app->get('/item/cancel/:num', function ($num) {
     echo "tu annules $num";
