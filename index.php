@@ -50,7 +50,7 @@ $app->post('/liste/create/valide', function () {
 $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
-    $description = filter_var($app->request->post('description'), FILTER_SANITIZE_STRING); 
+    $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING); 
     if(isset($user) && isset($titre) && isset($description)){
         $control->modifierListe($id, $titre,$description);
     }
