@@ -84,14 +84,24 @@ $app->get('/item/display/:num', function ($num) {
     $control->afficherItem($num);
 })->name('affiche_1_item');
 
-$app->get('/item/reserve', function ($num) {
+$app->get('/item/add', function () {
     $control=new ControleurItem();
-    $control->reserverItem();
-})->name('reserve_item');
+    $control->afficherAjouterItem();
+})->name('ajoute_item');
+
+$app->post('/item/add/valid/:num', function ($num) {
+    $control=new ControleurItem();
+    $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING);
+    $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING);
+    $idliste=$app->request->post('idliste');
+    if(isset($titre) && isset($description)){
+        $control->ajouterItem($titre,$description);
+    }
+})->name('ajoute_item_valide');
 
 $app->get('/item/reserve/:num', function ($num) {
     echo "yolo";
-})->name('reserve_item_valide');
+})->name('reserve_item');
 
 $app->get('/item/cancel/:num', function ($num) {
     echo "tu annules $num";
