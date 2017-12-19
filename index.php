@@ -2,6 +2,7 @@
 require_once 'vendor/autoload.php';
 use mywishlist\controleur\ControleurListe;
 use \Illuminate\Database\Capsule\Manager as DB;
+use mywishlist\controleur\ControleurItem;
 $db = new DB();
 $t=parse_ini_file( 'src/conf/conf.ini' );
 $db->addConnection( [
@@ -84,7 +85,8 @@ $app->get('/item/display/:num', function ($num) {
 })->name('affiche_1_item');
 
 $app->get('/item/reserve', function ($num) {
-    echo "yolo";
+    $control=new ControleurItem();
+    $control->reserverItem();
 })->name('reserve_item');
 
 $app->get('/item/reserve/:num', function ($num) {

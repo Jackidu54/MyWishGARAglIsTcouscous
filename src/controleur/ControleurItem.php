@@ -3,6 +3,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
+use mywishlist\vue\VueItem;
 
 class ControleurItem{
 	
