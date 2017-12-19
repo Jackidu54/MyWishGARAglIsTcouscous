@@ -81,12 +81,10 @@ html;
 
 <nav>
   <ul>
-    <li><a href="#">Cr�er un compte</a></li>
+    <li><a href="#">Créer un compte</a></li>
     <li><a href="#">Se connecter</a></li>
-    <li><a href="#">Affiche mes listes</a></li>
-    <li><a href="#">Cr�er une liste</a></li>
-    <li><a href="#">Modifier une liste</a></li>
-    <li><a href="#">Afficher une liste</a></li>
+    <li><a href="/liste/display">Affiche mes listes</a></li>
+    <li><a href="/liste/create">Créer une liste</a></li>
     <li><a href="#">Ordonner les items</a></li>
   </ul>
 </nav>
@@ -97,7 +95,7 @@ html;
 
 <footer>
 <div id="gauche">
-Petit message de paix d'amour et d'amiti�
+Petit message de paix d'amour et d'amitié
 </div>
 <div id="droite">
 Copyright
