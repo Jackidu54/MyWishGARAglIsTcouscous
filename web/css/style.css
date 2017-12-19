@@ -85,3 +85,10 @@ article ol li:before {
 article input{
 	display: block;
 }
+#suprlist {
+	float: right;
+	height: 95%;
+}
+#liste_affichee{
+	height: 2em;
+}

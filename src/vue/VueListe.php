@@ -54,7 +54,7 @@ html;
 html;
             foreach ($this->modele as $liste) {
                 $contenu = $contenu . <<<html
-    <li><a href="/liste/display/$liste->no">$liste->titre</a></li>
+    <li id="liste_affichee"><a href="/liste/display/$liste->no">$liste->titre</a><form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" >supprimer la liste</button></form></li>
 html;
             }
             

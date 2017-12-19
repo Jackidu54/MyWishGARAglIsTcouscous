@@ -2,7 +2,6 @@
 require_once 'vendor/autoload.php';
 use mywishlist\controleur\ControleurListe;
 use \Illuminate\Database\Capsule\Manager as DB;
-use mywishlist\vue\VueItem;
 $db = new DB();
 $t=parse_ini_file( 'src/conf/conf.ini' );
 $db->addConnection( [
