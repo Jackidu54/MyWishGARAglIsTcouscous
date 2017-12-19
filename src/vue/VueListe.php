@@ -42,7 +42,7 @@ html;
 </li>
 html;
     }
-            $contenu . <<<html
+            $contenu = $contenu . <<<html
 </ol>
 <form id="ajoutItem" method="post" action="/item/ajouter/$liste->no">
 <button type="submit" name="valid" >ajouter un nouvel item</button>
