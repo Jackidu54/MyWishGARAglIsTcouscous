@@ -3,6 +3,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
+use mywishlist\vue\VueItem;
 
 class ControleurItem{
 	
@@ -16,23 +17,26 @@ class ControleurItem{
 
     function afficherItem($num)
     {
-        $items = Item::select()->where('id', '=', $num)->get();
-        foreach ($items as $item) {
-            echo $item . "<br>";
+        $item = Item::select()->where('id', '=', $num)->get()->first();
+        if(isset($item)){
+        	$vue = new VueItem(VueItem::$AFFICHER_1_ITEM, $item);
         }
+        echo $vue->render();
     }
 	
-	function reserverItem($idList, $idItem)
+	function validerItem($idItem, $liste_id, $nom, $descr, $img, $url, $tarif)
 	{
-		 $item = Item::select()->where('id', '=', $idItem)->first();
-		 if($item->liste_id == 0){
-			 $liste = Liste::select()->where('no', '=', $idList)->first();
-			 if(isset($liste)){
-				 $item->liste_id = 1;
-			 }
-		 }
-		 
-		 
+		$item = new Item();
+		$item->id = $idItem;
+		$item->liste_id = $liste_id;
+		$item->nom = $nom;
+		$item->descr = $descr;
+		$item->img = $img;
+	}
+
+	function reserverItem()
+	{
+
 	}
 	
 	function annulerReservation($idList, $idItem)
