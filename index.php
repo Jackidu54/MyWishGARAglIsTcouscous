@@ -79,7 +79,8 @@ $app->post('/liste/message/:id', function ($id) {
 })->name('cree_message');
 
 $app->get('/item/display/:num', function ($num) {
-    echo "yolo";
+    $control=new ControleurItem();
+    $control->afficherItem($num);
 })->name('affiche_1_item');
 
 $app->get('/item/reserve', function ($num) {
