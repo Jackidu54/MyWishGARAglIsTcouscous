@@ -21,10 +21,11 @@ class VueItem
         if ($this->selecteur == self::$AFFICHER_1_ITEM) {
             $tmp=$this->model;
             $contenu = <<<html
-<h1>Affiche un item</h1>
+<h1>Item : $tmp->nom</h1>
 html;
             $contenu = $contenu.<<<html
-    <a>$tmp->nom : $tmp->descr </a>
+    <a>Description : $tmp->descr </br></a>
+<img src="/web/img/$tmp->img" alt="$tmp->img">
 html;
             
             $contenu=$contenu.<<<html
