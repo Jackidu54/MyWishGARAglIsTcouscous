@@ -29,7 +29,7 @@ class VueListe
             $liste = $this->modele;
             $contenu = <<<html
 <h1>Wishliste $liste->titre</h1>
-<p>description : $liste->description , expire le : $liste->expiration</p>
+<p>description : $liste->description  Expire le : $liste->expiration</p>
 <ol>
 
 html;
