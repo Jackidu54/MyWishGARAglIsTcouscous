@@ -28,6 +28,13 @@ $app->get('/liste/display/:num', function ($num) {
     $control->afficherListe($num);
 })->name('affiche_1_liste');
 
+$app->post('/liste/delete/:id', function($id) {
+    $control=new ControleurListe();
+    $control->supprimerListe($id);
+    header('Location: /liste/display');
+    exit();
+})->name('supprimer liste');
+
 $app->post('/liste/create/valide', function () {
     $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
@@ -43,7 +50,7 @@ $app->post('/liste/create/valide', function () {
 $app->post('/liste/modify/valide/:id', function ($id) {
     $control=new ControleurListe();
     $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
-    $description = filter_var($app->request->post('description'), FILTER_SANITIZE_STRING); 
+    $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING); 
     if(isset($user) && isset($titre) && isset($description)){
         $control->modifierListe($id, $titre,$description);
     }

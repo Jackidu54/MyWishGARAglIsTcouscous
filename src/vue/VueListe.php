@@ -29,7 +29,7 @@ class VueListe
             $liste = $this->modele;
             $contenu = <<<html
 <h1>Wishliste $liste->titre</h1>
-<p>description : $liste->description , expire le : $liste->expiration</p>
+<p>description : $liste->description  Expire le : $liste->expiration</p>
 <ol>
 
 html;
@@ -41,9 +41,12 @@ html;
 
 </li>
 html;
-            }
-            $contenu . <<<html
+    }
+            $contenu = $contenu . <<<html
 </ol>
+<form id="ajoutItem" method="post" action="/item/ajouter/$liste->no">
+<button type="submit" name="valid" >ajouter un nouvel item</button>
+</form>    
 html;
         }
         if ($this->selecteur == self::$AFFICHE_LISTES) {

@@ -55,8 +55,14 @@ class ControleurListe
     	$liste->message = $message;
     	$liste->save();
     }
+
     function afficherModificationListe($idliste){
         $liste = Liste::select()->where('no', '=', $idliste)->first();
         $vue=new VueListe(VueListe::$MODIFY_LISTE, $liste);
+    }
+
+    function supprimerListe($id){
+    	$liste = Liste::select()->where('no', '=', $id)->first();
+    	$liste->delete();
     }
 }
