@@ -17,6 +17,7 @@ class VueItem
     function render()
     {
         $contenu = "";
+           
         if ($this->selecteur == self::$AFFICHER_1_ITEM) {
             $tmp=$this->model;
             $contenu = <<<html
@@ -31,10 +32,33 @@ html;
             
         }
             
-        if ($this->selecteur == self::$RESERVE_ITEM) {}
-        if ($this->selecteur == self::$ANNULER_ITEM) {}
-        if ($this->selecteur == self::$CREATION_MESSAGE) {}
+        if ($this->selecteur == self::$RESERVE_ITEM) {
+            $contenu = <<<html
+<h1>Reservation d'un item</h1>
+<form id="formreserveitem" method="post" action="/liste/display/id">
+
+    <label for"formnomreserve">Nom de l'item</label>
+    <input type="text" id="formnomreserve" name="nom" required placeholder="<nom de l'item>">
+    
+    <label for"formdescitem">Description de l'item</label>
+    <input type="text" id="formdescitem" name="descr" required placeholder="<description de l'item>">
+
+    <label for"formimageitem">Image de l'item</label>
+    <input type="text" id="formimageitem" name="img" required placeholder="<image de l'item>">
+    
+    <button type="submit" name="valid" >Ajouter</button>
+</form>
+html;
+        }
         
+        if ($this->selecteur == self::$ANNULER_ITEM) {
+            
+                
+            
+        }
+        
+        if ($this->selecteur == self::$CREATION_MESSAGE) {}
+
         
         $html = <<<html
 <!DOCTYPE html>
