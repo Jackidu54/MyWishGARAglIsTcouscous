@@ -36,9 +36,11 @@ html;
             $items = $liste->items();
             foreach ($items as $item) {
                 $contenu = $contenu . <<<html
-<li><p class="descritem">$item->nom, etat de reservation : non reservé</p>
+<li>
+<a href="/item/display/$item->id">
+<p class="descritem">$item->nom, etat de reservation : non reservé</p>
 <img src="/web/img/$item->img" alt="$item->img">
-
+</a>
 </li>
 html;
     }
