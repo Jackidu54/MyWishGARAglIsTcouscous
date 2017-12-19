@@ -55,4 +55,9 @@ class ControleurListe
     	$liste->message = $message;
     	$liste->save();
     }
+
+    function supprimerListe($id){
+    	$liste = Liste::select()->where('no', '=', $id)->first();
+    	$liste->delete();
+    }
 }

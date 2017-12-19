@@ -28,6 +28,13 @@ $app->get('/liste/display/:num', function ($num) {
     $control->afficherListe($num);
 })->name('affiche_1_liste');
 
+$app->post('/liste/delete/:id', function($id) {
+    $control=new ControleurListe();
+    $control->supprimerListe($id);
+    header('Location: /liste/display');
+    exit();
+})->name('supprimer liste');
+
 $app->post('/liste/create/valide', function () {
     $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
