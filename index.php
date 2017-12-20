@@ -49,11 +49,7 @@ $app->post('/liste/create/valide', function () {
 })->name('validation_liste');
 
 $app->post('/liste/modify/valide/:id', function ($id) {
-<<<<<<< HEAD
     $app = \Slim\Slim::getInstance();
-=======
-	$app = \Slim\Slim::getInstance();
->>>>>>> 70cb149a72df6d1ee708ad6f7a1c261fa4183e34
     $control=new ControleurListe();
     $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
     $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING); 
