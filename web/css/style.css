@@ -4,6 +4,16 @@ div.container {
     border: 1px solid gray;
 }
 
+
+
+a:visited {
+	color: blue;
+}
+
+a:hover {
+	color: black;
+}
+
 header, footer {
     padding: 1em;
     color: white;
