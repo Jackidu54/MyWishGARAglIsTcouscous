@@ -55,7 +55,7 @@ $app->post('/liste/modify/valide/:id', function ($id) {
     if(isset($user) && isset($titre) && isset($description)){
         $control->modifierListe($id, $titre,$description);
     }
-})->name('modifie_liste');
+})->name('modifie_liste_valide');
 
 $app->get('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
@@ -78,6 +78,7 @@ $app->post('/liste/message/:id', function ($id) {
     $mess = $app->request->post('message');
     $control->afficherListe($id, $message);
 })->name('cree_message');
+
 
 $app->get('/item/display/:num', function ($num) {
     $control=new ControleurItem();
