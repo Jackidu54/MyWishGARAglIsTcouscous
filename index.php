@@ -79,9 +79,12 @@ $app->get('/liste/create', function () {
 })->name('creation_liste');
 
 $app->post('/liste/message/:id', function ($id) {
+    $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
-    $mess = $app->request->post('message');
-    $control->afficherListe($id, $message);
+    $message = $app->request->post('message');
+    $control->ajouterMessage($id, $message);
+    header("Location: /liste/display/$id");
+    exit();
 })->name('cree_message');
 
 

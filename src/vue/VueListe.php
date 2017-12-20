@@ -27,9 +27,17 @@ class VueListe
         $contenu = "";
         if ($this->selecteur == self::$AFFICHE_1_LISTE) {
             $liste = $this->modele;
+            $message="";
+            if (isset($liste->message)) {
+                $message=<<<html
+<p>$liste->message</p>
+html;
+            }
             $contenu = <<<html
 <h1>Wishliste $liste->titre</h1>
-<p>description : $liste->description  Expire le : $liste->expiration</p>
+<p>description : $liste->description </p>  
+<p>Expire le : $liste->expiration</p>
+$message
 <ol>
 
 html;
@@ -43,15 +51,34 @@ html;
 </a>
 </li>
 html;
-    }
+            }
+            if (isset($liste->message)) {
+                $message = $liste->message;
+                $formulaire = <<<html
+<form id="modifMessage" method="post" action="/liste/message/$liste->no">
+<label>modifier le message de la liste</label>
+<input type="text" id="messageliste" name="message" value="$message">
+<button type="submit" name="valid" >Valider</button>
+</form>   
+html;
+            } else {
+                $formulaire = <<<html
+<form id="ajoutMessage" method="post" action="/liste/message/$liste->no">
+<label>ajouter un message de la liste</label>
+<input type="text" id="messageliste" name="message">
+<button type="submit" name="valid" >Valider</button>
+</form> 
+            
+html;
+            }
             $contenu = $contenu . <<<html
 </ol>
 <form id="ajoutItem" method="post" action="/item/ajouter/$liste->no">
 <button type="submit" name="valid" >ajouter un nouvel item</button>
 </form>
-<form id="ajoutMessage" methode=post" action="/liste/message/$liste->id">   
+<br>
+$formulaire
 html;
-            
         }
         if ($this->selecteur == self::$AFFICHE_LISTES) {
             $contenu = <<<html
@@ -88,7 +115,7 @@ html;
         }
         if ($this->selecteur == self::$MODIFY_LISTE) {
             $liste = $this->modele;
-            $contenu=<<<html
+            $contenu = <<<html
 <h1>Modification d'une liste</h1>
 <h2>liste choisie : </h2>
 <form id="formmodifliste" method="post" action="/liste/modify/valide/$liste->no">
