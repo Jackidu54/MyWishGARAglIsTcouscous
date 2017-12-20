@@ -76,8 +76,6 @@ $app->get('/', function () {
 $app->get('/liste/create', function () {
     $control=new ControleurListe();
     $control->afficheCreationListe();
-    header('Location: /liste/display');
-    exit();
 })->name('creation_liste');
 
 $app->post('/liste/message/:id', function ($id) {
