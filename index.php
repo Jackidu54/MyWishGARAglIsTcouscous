@@ -49,6 +49,7 @@ $app->post('/liste/create/valide', function () {
 })->name('validation_liste');
 
 $app->post('/liste/modify/valide/:id', function ($id) {
+    $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
     $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
     $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING); 
@@ -60,7 +61,6 @@ $app->post('/liste/modify/valide/:id', function ($id) {
 $app->get('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $control->afficherModificationListe($id);
-    
 })->name('modifie_liste');
 
 $app->get('/', function () {

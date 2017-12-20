@@ -83,18 +83,19 @@ html;
 html;
         }
         if ($this->selecteur == self::$MODIFY_LISTE) {
+            $liste = $this->modele;
             $contenu=<<<html
 <h1>Modification d'une liste</h1>
 <h2>liste choisie : </h2>
-<form id="formmodifliste" method="post" action="/liste/modify/valide">
+<form id="formmodifliste" method="post" action="/liste/modify/valide/$liste->no">
 
     <label for"formnomliste">nom de la liste</label>
-    <input type="text" id="formnomliste" name="titre" required placeholder="<nom de la liste>">
+    <input type="text" id="formnomliste" name="titre" value="$liste->titre">
 
     <label for"formdescliste">description de la liste</label>    
-    <input type="text" id="formdescliste" name="description" required placeholder="<description de la liste>">
+    <input type="text" id="formdescliste" name="description" value="$liste->description">
 
-    <button type="submit" name="valid" >Créer</button>
+    <button type="submit" name="valid" >Enregistrer modification</button>
 </form>
 html;
         }

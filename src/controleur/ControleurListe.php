@@ -59,6 +59,7 @@ class ControleurListe
     function afficherModificationListe($idliste){
         $liste = Liste::select()->where('no', '=', $idliste)->first();
         $vue=new VueListe(VueListe::$MODIFY_LISTE, $liste);
+        echo $vue->render();
     }
 
     function supprimerListe($id){
