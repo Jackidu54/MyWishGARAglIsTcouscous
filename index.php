@@ -49,17 +49,16 @@ $app->post('/liste/create/valide', function () {
 })->name('validation_liste');
 
 $app->post('/liste/modify/valide/:id', function ($id) {
-<<<<<<< HEAD
-    $app = \Slim\Slim::getInstance();
-=======
 	$app = \Slim\Slim::getInstance();
->>>>>>> 70cb149a72df6d1ee708ad6f7a1c261fa4183e34
     $control=new ControleurListe();
+    $user_id = 1; //temporaire
     $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
     $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING); 
-    if(isset($user) && isset($titre) && isset($description)){
+    if(isset($user_id) && isset($titre) && isset($description)){
         $control->modifierListe($id, $titre,$description);
     }
+    header('Location: /liste/display');
+    exit();
 })->name('modifie_liste');
 
 $app->get('/liste/modify/:id', function ($id) {

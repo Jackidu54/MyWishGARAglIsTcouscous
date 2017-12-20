@@ -47,7 +47,7 @@ class ControleurListe
     	$liste->titre = $titre;
     	$liste->description = $description;
     	$liste->expiration = date("Y-m-d", strtotime("+1 year"));
-    	$l->save();
+    	$liste->save();
     }
 
     function ajouterMessage($id, $message){
