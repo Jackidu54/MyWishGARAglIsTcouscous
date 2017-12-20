@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+namespace mywishlist\models;
+
+use Illuminate\Database\Eloquent\Model;
+
 $_SESSION[authSessionVar];
 
 class Authentication{	
