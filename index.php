@@ -64,6 +64,8 @@ $app->post('/liste/modify/valide/:id', function ($id) {
 $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $control->afficherModificationListe($id);
+    header('Location: /liste/display');
+    exit();
 })->name('modifie_liste');
 
 $app->get('/', function () {
@@ -74,6 +76,8 @@ $app->get('/', function () {
 $app->get('/liste/create', function () {
     $control=new ControleurListe();
     $control->afficheCreationListe();
+    header('Location: /liste/display');
+    exit();
 })->name('creation_liste');
 
 $app->post('/liste/message/:id', function ($id) {
@@ -91,6 +95,8 @@ $app->get('/item/display/:num', function ($num) {
 $app->get('/item/add', function () {
     $control=new ControleurItem();
     $control->afficherAjouterItem();
+    header('Location: /liste/display');
+    exit();
 })->name('ajoute_item');
 
 $app->post('/item/add/valid/:num', function ($num) {
@@ -101,6 +107,8 @@ $app->post('/item/add/valid/:num', function ($num) {
     if(isset($titre) && isset($description)){
         $control->ajouterItem($titre,$description);
     }
+    header('Location: /liste/display');
+    exit();
 })->name('ajoute_item_valide');
 
 $app->get('/item/reserve/:num', function ($num) {
