@@ -85,7 +85,7 @@ article ol li:before {
 article input{
 	display: block;
 }
-#suprlist {
+#suprlist, #modlist{
 	float: right;
 	height: 95%;
 }

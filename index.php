@@ -58,7 +58,7 @@ $app->post('/liste/modify/valide/:id', function ($id) {
     }
 })->name('modifie_liste_valide');
 
-$app->get('/liste/modify/:id', function ($id) {
+$app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $control->afficherModificationListe($id);
 })->name('modifie_liste');
