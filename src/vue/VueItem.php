@@ -34,10 +34,14 @@ html;
         }
             
         if ($this->selecteur == self::$RESERVE_ITEM) {
-            $liste_id = $this->model;
+            $id = $this->model;
+            $app =\Slim\Slim::getInstance();
+            $rootUri = $app->request->getRootUri();
+            $itemUrl = $app->urlFor('ajoute_item_valide', ['id'=> $id]);
+            $urlCreerItem = $rootUri . $itemUrl;
             $contenu = <<<html
 <h1>Reservation d'un item</h1>
-<form id="formreserveitem" method="post" action="/item/creer/$liste_id">
+<form id="formreserveitem" method="post" action="$urlCreerItem">
 
     <label for"formnomreserve">Nom de l'item</label>
     <input type="text" id="formnomreserve" name="nom" required placeholder="<nom de l'item>">

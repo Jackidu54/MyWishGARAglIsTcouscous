@@ -28,6 +28,11 @@ class VueListe
         if ($this->selecteur == self::$AFFICHE_1_LISTE) {
             $liste = $this->modele;
             $message="";
+            $app =\Slim\Slim::getInstance();
+            $rootUri = $app->request->getRootUri();
+            $itemUrl = $app->urlFor('createur_item', ['id'=> $liste->no]);
+            $urlAjouterItem = $rootUri . $itemUrl;
+            
             if (isset($liste->message)) {
                 $message=<<<html
 <p>$liste->message</p>
@@ -71,9 +76,10 @@ html;
             
 html;
             }
+            
             $contenu = $contenu . <<<html
 </ol>
-<form id="ajoutItem" method="post" action="/item/ajouter/$liste->no">
+<form id="ajoutItem" method="post" action="$urlAjouterItem">
 <button type="submit" name="valid" >ajouter un nouvel item</button>
 </form>
 <br>

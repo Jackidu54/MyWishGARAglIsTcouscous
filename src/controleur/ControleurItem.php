@@ -30,7 +30,7 @@ class ControleurItem{
 	}
 
 	function createurItem($id_liste){
-		$vue=new VueItem(VueItem::$RESERVE_ITEM, null);
+		$vue=new VueItem(VueItem::$RESERVE_ITEM, $id_liste);
         echo $vue->render();
 	}
 	
@@ -47,7 +47,7 @@ class ControleurItem{
         $i->liste_id = $liste_id;
         $i->nom = $nom;
         $i->descr = $descr;
-        $i->url = $utl;
+        $i->url = $url;
         $i->tarif = $tarif;
         $i->save();
 	}

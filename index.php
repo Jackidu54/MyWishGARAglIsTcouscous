@@ -59,7 +59,7 @@ $app->post('/liste/modify/valide/:id', function ($id) {
     }
     header('Location: /liste/display');
     exit();
-})->name('modifie_liste');
+})->name('valide_liste');
 
 $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
@@ -88,10 +88,10 @@ $app->post('/liste/message/:id', function ($id) {
 })->name('cree_message');
 
 
-$app->get('/item/ajouter/:id', function($id) {
+$app->post('/item/ajouter/:id', function($id) {
     $control=new ControleurItem();
     $control->createurItem($id);
-})->name('createur d\'item');
+})->name('createur_item');
 
 $app->get('/item/display/:num', function ($num) {
     $control=new ControleurItem();
@@ -100,9 +100,12 @@ $app->get('/item/display/:num', function ($num) {
 
 
 $app->post('/item/creer/:id', function ($id) {
+    $app = \Slim\Slim::getInstance();
     $control=new ControleurItem();
     $titre = filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING);
     $description = filter_var($app->request->post('descr'),FILTER_SANITIZE_STRING);
+    $url = filter_var($app->request->post('url'),FILTER_SANITIZE_STRING);
+    $tarif = filter_var($app->request->post('tarif'),FILTER_SANITIZE_STRING);
     if(isset($titre) && isset($description)){
         $control->ajouterItem($id,$titre,$description, $url, $tarif);
     }
