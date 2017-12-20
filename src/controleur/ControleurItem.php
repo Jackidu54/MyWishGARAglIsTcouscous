@@ -24,19 +24,14 @@ class ControleurItem{
         echo $vue->render();
     }
 	
-	function validerItem($idItem, $liste_id, $nom, $descr, $img, $url, $tarif)
-	{
-		$item = new Item();
-		$item->id = $idItem;
-		$item->liste_id = $liste_id;
-		$item->nom = $nom;
-		$item->descr = $descr;
-		$item->img = $img;
-	}
-
 	function reserverItem()
 	{
 
+	}
+
+	function createurItem($id_liste){
+		$vue=new VueItem(VueItem::$RESERVE_ITEM, null);
+        echo $vue->render();
 	}
 	
 	function annulerReservation($idList, $idItem)
@@ -45,5 +40,15 @@ class ControleurItem{
 		if($item->liste_id == $idList){
 			$item->liste_id = 0;
 		}
+	}
+
+	function ajouterItem($liste_id, $nom, $descr, $url, $tarif){
+        $i = new Item();
+        $i->liste_id = $liste_id;
+        $i->nom = $nom;
+        $i->descr = $descr;
+        $i->url = $utl;
+        $i->tarif = $tarif;
+        $i->save();
 	}
 }

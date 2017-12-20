@@ -46,7 +46,7 @@ html;
     }
             $contenu = $contenu . <<<html
 </ol>
-<form id="ajoutItem" method="post" action="/item/ajouter">
+<form id="ajoutItem" method="post" action="/item/ajouter/$liste->no">
 <button type="submit" name="valid" >ajouter un nouvel item</button>
 </form>
 <form id="ajoutMessage" methode=post" action="/liste/message/$liste->id">   

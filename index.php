@@ -85,25 +85,23 @@ $app->post('/liste/message/:id', function ($id) {
 })->name('cree_message');
 
 
+$app->get('/item/ajouter/:id', function($id) {
+    $control=new ControleurItem();
+    $control->createurItem($id);
+})->name('createur d\'item');
+
 $app->get('/item/display/:num', function ($num) {
     $control=new ControleurItem();
     $control->afficherItem($num);
 })->name('affiche_1_item');
 
-$app->get('/item/add', function () {
-    $control=new ControleurItem();
-    $control->afficherAjouterItem();
-    header('Location: /liste/display');
-    exit();
-})->name('ajoute_item');
 
-$app->post('/item/add/valid/:num', function ($num) {
+$app->post('/item/creer/:id', function ($id) {
     $control=new ControleurItem();
-    $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING);
-    $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING);
-    $idliste=$app->request->post('idliste');
+    $titre = filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING);
+    $description = filter_var($app->request->post('descr'),FILTER_SANITIZE_STRING);
     if(isset($titre) && isset($description)){
-        $control->ajouterItem($titre,$description);
+        $control->ajouterItem($id,$titre,$description, $url, $tarif);
     }
     header('Location: /liste/display');
     exit();

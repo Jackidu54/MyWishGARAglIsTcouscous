@@ -34,9 +34,10 @@ html;
         }
             
         if ($this->selecteur == self::$RESERVE_ITEM) {
+            $liste_id = $this->model;
             $contenu = <<<html
 <h1>Reservation d'un item</h1>
-<form id="formreserveitem" method="post" action="/liste/display/id">
+<form id="formreserveitem" method="post" action="/item/creer/$liste_id">
 
     <label for"formnomreserve">Nom de l'item</label>
     <input type="text" id="formnomreserve" name="nom" required placeholder="<nom de l'item>">
@@ -44,9 +45,12 @@ html;
     <label for"formdescitem">Description de l'item</label>
     <input type="text" id="formdescitem" name="descr" required placeholder="<description de l'item>">
 
-    <label for"formimageitem">Image de l'item</label>
-    <input type="text" id="formimageitem" name="img" required placeholder="<image de l'item>">
+    <label for"formimageitem">url</label>
+    <input type="text" id="formimageitem" name="url" required placeholder="<url de l'item>">
     
+    <label for"formTarif">tarif</label>
+    <input type="text" id="formTarif" name="tarif" required placeholder="<tarif de l'item>">
+
     <button type="submit" name="valid" >Ajouter</button>
 </form>
 html;
