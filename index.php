@@ -85,7 +85,7 @@ $app->post('/liste/message/:id', function ($id) {
     $control->ajouterMessage($id, $message);
     header("Location: /liste/display/$id");
     exit();
-})->name('cree_message');
+})->name('creer_message');
 
 
 $app->post('/item/ajouter/:id', function($id) {

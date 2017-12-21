@@ -31,7 +31,9 @@ class VueListe
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
             $itemUrl = $app->urlFor('createur_item', ['id'=> $liste->no]);
+            $itemMessage = $app->urlFor('creer_message', ['id'=> $liste->no]);
             $urlAjouterItem = $rootUri . $itemUrl;
+            $urlItemMessage = $rootUri . $itemMessage;
             
             if (isset($liste->message)) {
                 $message=<<<html
@@ -60,7 +62,7 @@ html;
             if (isset($liste->message)) {
                 $message = $liste->message;
                 $formulaire = <<<html
-<form id="modifMessage" method="post" action="/liste/message/$liste->no">
+<form id="modifMessage" method="post" action="$urlItemMessage">
 <label>modifier le message de la liste</label>
 <input type="text" id="messageliste" name="message" value="$message">
 <button type="submit" name="valid" >Valider</button>
@@ -68,7 +70,7 @@ html;
 html;
             } else {
                 $formulaire = <<<html
-<form id="ajoutMessage" method="post" action="/liste/message/$liste->no">
+<form id="ajoutMessage" method="post" action="$urlItemMessage">
 <label>ajouter un message de la liste</label>
 <input type="text" id="messageliste" name="message">
 <button type="submit" name="valid" >Valider</button>
