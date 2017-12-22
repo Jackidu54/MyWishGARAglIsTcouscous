@@ -52,8 +52,8 @@ html;
     <label for"formimageitem">url</label>
     <input type="text" id="formimageitem" name="url" required placeholder="<url de l'item>">
     
-    <label for"formTarif">tarif</label>
-    <input type="number" step=".01" id="formTarif" name="tarif" required placeholder="<tarif de l'item>">
+    <label for"formTarif">tarif (€)</label>
+    <input type="number" step=".01" id="formTarif" name="tarif" required placeholder="5,00">
 
     <button type="submit" name="valid" >Ajouter</button>
 </form>
