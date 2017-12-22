@@ -89,14 +89,18 @@ $formulaire
 html;
         }
         if ($this->selecteur == self::$AFFICHE_LISTES) {
+            $app =\Slim\Slim::getInstance();
+            $rootUri = $app->request->getRootUri();
             $contenu = <<<html
 <h1>Mes WishListes</h1>
   <p>Veuillez sélectionner votre liste dans cette liste de liste</p>
   <ul>
 html;
             foreach ($this->modele as $liste) {
+                $afficherListeUrl = $app->urlFor('affiche_1_liste', ['id'=> $liste->no]);
+                $url1liste = $rootUri . $afficherListeUrl;
                 $contenu = $contenu . <<<html
-    <li id="liste_affichee"><a href="/liste/display/$liste->no">$liste->titre</a>
+    <li id="liste_affichee"><a href="$url1liste">$liste->titre</a>
 	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" >supprimer la liste</button></form>
 	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" >Modifier la liste</button></form></li>
 html;

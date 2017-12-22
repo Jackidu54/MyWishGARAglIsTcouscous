@@ -3,6 +3,8 @@ require_once 'vendor/autoload.php';
 use mywishlist\controleur\ControleurListe;
 use \Illuminate\Database\Capsule\Manager as DB;
 use mywishlist\controleur\ControleurItem;
+use mywishlist\controleur\ControleurUrl;
+
 $db = new DB();
 $t=parse_ini_file( 'src/conf/conf.ini' );
 $db->addConnection( [
@@ -19,22 +21,25 @@ $db->setAsGlobal();
 $db->bootEloquent();
 $app = new \Slim\Slim();
 
+
 $app->get('/liste/display', function () {
     $control=new ControleurListe();
     $control->afficherListes();
 })->name('affiche_listes');
 
-$app->get('/liste/display/:num', function ($num) {
+
+$app->get('/liste/display/:id', function ($id) {
     $control=new ControleurListe();
-    $control->afficherListe($num);
+    $control->afficherListe($id);
 })->name('affiche_1_liste');
 
 $app->post('/liste/delete/:id', function($id) {
     $control=new ControleurListe();
     $control->supprimerListe($id);
-    header('Location: /liste/display');
+    $url = ControleurUrl::urlName('affiche_listes');
+    header('Location: '.$url);
     exit();
-})->name('supprimer liste');
+})->name('supprimer_liste');
 
 $app->post('/liste/create/valide', function () {
     $app = \Slim\Slim::getInstance();
@@ -57,19 +62,19 @@ $app->post('/liste/modify/valide/:id', function ($id) {
     if(isset($user_id) && isset($titre) && isset($description)){
         $control->modifierListe($id, $titre,$description);
     }
-    header('Location: /liste/display');
-    exit();
+    $url = ControleurUrl::urlName('affiche_listes');
+    header('Location: '.$url);
+    exit();  
 })->name('valide_liste');
 
 $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $control->afficherModificationListe($id);
-    header('Location: /liste/display');
-    exit();
 })->name('modifie_liste');
 
 $app->get('/', function () {
-    header('Location: /liste/display');
+    $url = ControleurUrl::urlName('affiche_listes');
+    header('Location: '.$url);
     exit();
 })->name('route_defaut');
 
@@ -83,7 +88,8 @@ $app->post('/liste/message/:id', function ($id) {
     $control=new ControleurListe();
     $message = $app->request->post('message');
     $control->ajouterMessage($id, $message);
-    header("Location: /liste/display/$id");
+    $url = ControleurUrl::urlId('affiche_1_liste', $id);
+    header("Location: ".$url);
     exit();
 })->name('creer_message');
 
@@ -93,7 +99,7 @@ $app->post('/item/ajouter/:id', function($id) {
     $control->createurItem($id);
 })->name('createur_item');
 
-$app->get('/item/display/:num', function ($num) {
+$app->get('/item/display/:id', function ($id) {
     $control=new ControleurItem();
     $control->afficherItem($num);
 })->name('affiche_1_item');
@@ -109,15 +115,15 @@ $app->post('/item/creer/:id', function ($id) {
     if(isset($titre) && isset($description)){
         $control->ajouterItem($id,$titre,$description, $url, $tarif);
     }
-    header('Location: /liste/display');
-    exit();
+    $url = ControleurUrl::urlName('affiche_listes');
+    header('Location: '.$url);
 })->name('ajoute_item_valide');
 
-$app->get('/item/reserve/:num', function ($num) {
+$app->get('/item/reserve/:id', function ($id) {
     echo "yolo";
 })->name('reserve_item');
 
-$app->get('/item/cancel/:num', function ($num) {
+$app->get('/item/cancel/:id', function ($id) {
     echo "tu annules $num";
 })->name('annule_item');
 
