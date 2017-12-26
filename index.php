@@ -30,9 +30,18 @@ $app->get('/liste/display', function () {
         $control=new ControleurListe();
         $control->afficherListes();
     }else{
-        echo "probleme pas de profile chargé";
+        $app->redirect('/user/inscription');
     }
 })->name('affiche_listes');
+
+$app->get('/liste/display/all', function() {
+    if(isset($_SESSION['profile']) && $_SESSION['profile']['jeton']>=3){
+        $control=new ControleurListe();
+        $control->afficherAdminListes();
+    }else{
+        $app->redirect('/liste/display');
+    }
+})->name('listes_all');
 
 
 $app->get('/liste/display/:id', function ($id) {

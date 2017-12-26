@@ -13,14 +13,14 @@ class Authentication{
 		$app = \Slim\Slim::getInstance();
 		$pseudo = $app->request->post('pseudo');
 		$user = User::select()->where('pseudo', '=', $pseudo)->first();
+		$occ = !($user==null);
+		$mail = $app->request->post('mail');
 		if(!isset($user)){
-			if($app->request->post('pass')==$app->request->post('passVerif'))// && $user->pseudo != $app->request->post('pseudo')){
-				{
+			if($app->request->post('pass')==$app->request->post('passVerif') && filter_var($mail, FILTER_VALIDATE_EMAIL) && !$occ){
 				$hash=password_hash($app->request->post('pass'), PASSWORD_DEFAULT, ['cost'=>14] );
 				$u = new User();
 				$u->pseudo = $app->request->post('pseudo');
 				$u->pass = $hash;
-				$u->mail = $app->request->post('mail');
 				$u->droit = 1;
 				$u->jeton = 1;
 				$u->save();

@@ -7,7 +7,7 @@ use mywishlist\vue\VueListe;
 class ControleurListe
 {
 
-    function afficherListesAdmin()
+    function afficherAdminListes()
     {
         $listes = Liste::select()->get();
         $vue = new VueListe(VueListe::$AFFICHE_LISTES, $listes);

@@ -1,6 +1,7 @@
 <?php
 namespace mywishlist\vue;
 use mywishlist\controleur\ControleurUrl;
+use mywishlist\models\User;
 
 class VueListe
 {
@@ -30,6 +31,8 @@ class VueListe
         if ($this->selecteur == self::$AFFICHE_1_LISTE) {
             $liste = $this->modele;
             $message="";
+            $user = User::select()->where('id', '=', $liste->user_id)->first();
+            $pseudo = $user->pseudo;
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
             $itemUrl = $app->urlFor('createur_item', ['id'=> $liste->no]);
@@ -47,6 +50,7 @@ html;
 <p>description : $liste->description </p>  
 <p>Expire le : $liste->expiration</p>
 $message
+<p>Crée par l'utilisateur : $pseudo</p>
 <ol>
 
 html;
@@ -164,11 +168,18 @@ html;
   
 <nav>
   <ul>
-    <li><a href="#">Créer un compte</a></li>
     <li><a href="$inscription">Se déconnecter</a></li>
     <li><a href="/liste/display">Affiche mes listes</a></li>
     <li><a href="/liste/create">Créer une liste</a></li>
     <li><a href="#">Ordonner les items</a></li>
+html;
+    if($_SESSION['profile']['jeton']==4){
+        $url = ControleurUrl::urlName('listes_all');
+        $html = $html . <<<html
+    <li><a href="$url">Afficher toutes les listes</a></li>
+html;
+    }
+    $html = $html . <<<html
   </ul>
 </nav>
 
