@@ -7,9 +7,15 @@ use mywishlist\vue\VueListe;
 class ControleurListe
 {
 
-    function afficherListes()
+    function afficherListesAdmin()
     {
         $listes = Liste::select()->get();
+        $vue = new VueListe(VueListe::$AFFICHE_LISTES, $listes);
+        echo $vue->render();
+    }
+
+    function afficherListes(){
+        $listes = Liste::select()->where('user_id', '=', $_SESSION['profile']['id'])->get();
         $vue = new VueListe(VueListe::$AFFICHE_LISTES, $listes);
         echo $vue->render();
     }
@@ -29,7 +35,7 @@ class ControleurListe
     {
         $date = date("Y-m-d", strtotime("+1 year"));
         $l = new Liste();
-        $l->user_id = $user;
+        $l->user_id = $_SESSION['profile']['id'];
         $l->titre = $titre;
         $l->description = $description;
         $l->expiration = $date;

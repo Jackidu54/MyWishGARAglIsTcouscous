@@ -1,5 +1,6 @@
 <?php
 namespace mywishlist\vue;
+use mywishlist\controleur\ControleurUrl;
 
 class VueListe
 {
@@ -25,6 +26,7 @@ class VueListe
     function render()
     {
         $contenu = "";
+        $inscription = ControleurUrl::urlName('inscription');
         if ($this->selecteur == self::$AFFICHE_1_LISTE) {
             $liste = $this->modele;
             $message="";
@@ -163,7 +165,7 @@ html;
 <nav>
   <ul>
     <li><a href="#">Créer un compte</a></li>
-    <li><a href="#">Se connecter</a></li>
+    <li><a href="$inscription">Se déconnecter</a></li>
     <li><a href="/liste/display">Affiche mes listes</a></li>
     <li><a href="/liste/create">Créer une liste</a></li>
     <li><a href="#">Ordonner les items</a></li>
