@@ -9,4 +9,9 @@ class ControleurUser
 		$vue = new VueInscription(null,null);
 		echo $vue->render();
 	}
+
+	public function afficherPannel(){
+		$vue = new VueConfig(null,null);
+		echo $vue->render();
+	}
 }

@@ -7,6 +7,10 @@ use mywishlist\models\User;
 
 class Authentication{	
 	
+	public static $ACCESS_USER = 1;
+	public static $ACCESS_MODO = 2;
+	public static $ACCESS_ADMIN = 3;
+	public static $ACCESS_SUP_ADMIN = 4;
 
 
 	static function createUser () {
@@ -49,7 +53,8 @@ class Authentication{
 	}
 	
 	static function checkAccessRights ($required){
-		
+		if($_SESSION['profile']['jeton']>=$required)return true;
+		else return false;
 	}
 
 }

@@ -26,6 +26,7 @@ $app = new \Slim\Slim();
 session_start();
 
 $app->get('/liste/display', function () {
+    $app = Slim\Slim::getInstance();
     if(isset($_SESSION['profile'])){
         $control=new ControleurListe();
         $control->afficherListes();
@@ -35,7 +36,7 @@ $app->get('/liste/display', function () {
 })->name('affiche_listes');
 
 $app->get('/liste/display/all', function() {
-    if(isset($_SESSION['profile']) && $_SESSION['profile']['jeton']>=3){
+    if(isset($_SESSION['profile']) && Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN)){
         $control=new ControleurListe();
         $control->afficherAdminListes();
     }else{
@@ -171,6 +172,11 @@ $app->post('/user/connect', function() {
         $app->redirect('/user/inscription');
     }
 })->name('connect_user');
+
+$app->get('/user/pannel', function() {
+    $app = \SLim\Slim::getInstance();
+
+})->name('pannel');
 
 $app->get('/item/reserve/:id', function ($id) {
     echo "yolo";

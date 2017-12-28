@@ -2,6 +2,7 @@
 namespace mywishlist\vue;
 use mywishlist\controleur\ControleurUrl;
 use mywishlist\models\User;
+use mywishlist\controleur\Authentication;
 
 class VueListe
 {
@@ -173,7 +174,7 @@ html;
     <li><a href="/liste/create">Créer une liste</a></li>
     <li><a href="#">Ordonner les items</a></li>
 html;
-    if($_SESSION['profile']['jeton']==4){
+    if(Authentication::checkAccessRights(Authentication::$ACCESS_SUP_ADMIN)){
         $url = ControleurUrl::urlName('listes_all');
         $html = $html . <<<html
     <li><a href="$url">Afficher toutes les listes</a></li>
