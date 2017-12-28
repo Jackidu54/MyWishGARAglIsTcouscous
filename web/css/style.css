@@ -110,3 +110,38 @@ article input{
 #liste_affichee{
 	height: 2em;
 }
+
+.se_connecter{
+	border:none;
+	padding:6px 0 6px 0;
+	border-radius:2px;
+	box-shadow:3px 3px 12px #999;
+	background:#fff;
+	font:bold 13px Arial;
+	color:#555;
+}
+
+.se_connecter:hover{
+	border:none;
+	padding:6px 0 6px 0;
+	box-shadow:0px 0px 0px;
+	background:#fff;
+	font:bold 13px Arial;
+	color:#555;
+}
+
+.champ_inscr{
+	padding:3px;
+ 	border:1px solid #F5C5C5;
+	border-radius:5px;
+	width:200px;
+	box-shadow:1px 1px 2px #C0C0C0 inset;
+}
+
+.champ_con{
+	padding:3px;
+ 	border:1px solid #2ABB3F;
+	border-radius:5px;
+	width:200px;
+	box-shadow:1px 1px 2px #C0C0C0 inset;
+}

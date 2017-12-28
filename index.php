@@ -159,6 +159,7 @@ $app->post('/user/create', function() {
 
 $app->post('/user/connect', function() {
     $app = \Slim\Slim::getInstance();
+    if($app->request->post('pseudo')!=null && $app->request->post('pass')!=null)
     try{
         Authentication::authenticate($app->request->post('pseudo'));
     }catch (AuthException $ae) {

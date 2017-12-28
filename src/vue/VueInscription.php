@@ -26,27 +26,30 @@ class VueInscription
 		<head>
 	  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Inscription</title>
+		<link rel="stylesheet" href="/web/css/style.css">
+		<body>
 		<h1>Inscription</h1>
         <form id="creerUser" method="post" action="$urlCreer">
 		<label>Pseudo</label>
-		<input type="text" id="pseudo" name="pseudo">
-		<label>Pass</label>
-		<input type="password" id="pass" name="pass">
-		<label>Confirm pass</label>
-		<input type="password" id="pass" name="passVerif">
+		<input type="text" id="pseudo" name="pseudo" class="champ_inscr">
+		<label>Mot de passe</label>
+		<input type="password" id="pass" name="pass" class="champ_inscr">
+		<label>Confirmer</label>
+		<input type="password" id="pass" name="passVerif" class="champ_inscr">
 		<label>Mail</label>
-		<input type="text" id="mail" name="mail">
-		<button type="submit" name="valid" >S'inscrire</button>
+		<input type="text" id="mail" name="mail" class="champ_inscr">
+		<button type="submit" name="valid" class="se_connecter">S'inscrire</button>
 		</form>
 
 		<h1>Connexion</h1>
 		<form id="connectUser" method="post" action="$urlConne">
 		<label>Pseudo</label>
-		<input type="text" id="pseudo" name="pseudo">
+		<input type="text" id="pseudo" name="pseudo" class="champ_con">
 		<label>Mot de passe</label>
-		<input type="password" id="pass" name="pass">
-		<button type="submit" name="valid" >Se connecter</button>
+		<input type="password" id="pass" name="pass" class="champ_con">
+		<button type="submit" name="valid" class="se_connecter">Se connecter</button>
 		</form>
+		</body>
 		</html>
 html;
         return $contenu;
