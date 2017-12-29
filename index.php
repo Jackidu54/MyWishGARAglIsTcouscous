@@ -175,7 +175,8 @@ $app->post('/user/connect', function() {
 
 $app->get('/user/pannel', function() {
     $app = \SLim\Slim::getInstance();
-
+    $cu = new ControleurUser();
+    $cu->afficherPannel();
 })->name('pannel');
 
 $app->get('/item/reserve/:id', function ($id) {

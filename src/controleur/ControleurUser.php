@@ -11,7 +11,8 @@ class ControleurUser
 	}
 
 	public function afficherPannel(){
-		$vue = new VueConfig(null,null);
+		$select = $_SESSION['profile']['jeton'];
+		$vue = new VueConfig($select,null);
 		echo $vue->render();
 	}
 }
