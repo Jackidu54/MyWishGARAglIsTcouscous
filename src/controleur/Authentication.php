@@ -31,6 +31,7 @@ class Authentication{
 				$u->pass = $hash;
 				$u->droit = 1;
 				$u->jeton = 1;
+				$u->mail = $mail;
 				$u->save();
 				Authentication::loadProfile($app->request->post('pseudo'));
 				return true;

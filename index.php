@@ -40,6 +40,7 @@ $app->get('/liste/display/all', function() {
         $control=new ControleurListe();
         $control->afficherAdminListes();
     }else{
+        $app = Slim\Slim::getInstance();
         $app->redirect('/liste/display');
     }
 })->name('listes_all');

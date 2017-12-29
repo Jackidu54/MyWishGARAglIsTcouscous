@@ -1,6 +1,9 @@
 <?php
 namespace mywishlist\vue;
 
+use mywishlist\controleur\Authentication;
+use mywishlist\controleur\ControleurUrl;
+
 class VueItem
 {
     public static $AFFICHER_1_ITEM=0;
