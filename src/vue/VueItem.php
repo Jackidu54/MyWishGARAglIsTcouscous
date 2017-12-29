@@ -76,8 +76,8 @@ html;
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Titre de la page</title>
   <link rel="stylesheet" href="/web/css/style.css">
-  
-  
+
+
 </head>
 <body>
 
@@ -86,14 +86,21 @@ html;
 <header>
    <h1>Liste de Cadeaux</h1>
 </header>
-
+  
 <nav>
   <ul>
-    <li><a href="#">Créer un compte</a></li>
-    <li><a href="#">Se connecter</a></li>
+    <li><a href="$inscription">Se déconnecter</a></li>
     <li><a href="/liste/display">Affiche mes listes</a></li>
     <li><a href="/liste/create">Créer une liste</a></li>
-    <li><a href="#">Ordonner les items</a></li>
+html;
+    if(Authentication::checkAccessRights(Authentication::$ACCESS_SUP_ADMIN)){
+        $url = ControleurUrl::urlName('listes_all');
+        $html = $html . <<<html
+    <li><a href="$url">Afficher toutes les listes</a></li>
+html;
+    }
+    $html = $html . <<<html
+    <li><a href="$urlPannel">Parametres</a></li>
   </ul>
 </nav>
 

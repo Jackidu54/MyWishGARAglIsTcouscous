@@ -173,7 +173,6 @@ html;
     <li><a href="$inscription">Se déconnecter</a></li>
     <li><a href="/liste/display">Affiche mes listes</a></li>
     <li><a href="/liste/create">Créer une liste</a></li>
-    <li><a href="$urlPannel">Parametres</a></li>
 html;
     if(Authentication::checkAccessRights(Authentication::$ACCESS_SUP_ADMIN)){
         $url = ControleurUrl::urlName('listes_all');
@@ -182,6 +181,7 @@ html;
 html;
     }
     $html = $html . <<<html
+    <li><a href="$urlPannel">Parametres</a></li>
   </ul>
 </nav>
 

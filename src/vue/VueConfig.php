@@ -15,11 +15,11 @@ class VueConfig
 
     private static $SUP_ADMIN = 4;
 
-    public static $ERR_VERIF = 1;
+    public static $ERR_VERIF = 2;
 
-    public static $OK = 0;
+    public static $OK = 1;
 
-    public static $ERR_MDP = 2;
+    public static $ERR_MDP = 3;
 
     private $selecteur;
 
@@ -98,7 +98,6 @@ $html = <<<html
     <li><a href="$inscription">Se déconnecter</a></li>
     <li><a href="/liste/display">Affiche mes listes</a></li>
     <li><a href="/liste/create">Créer une liste</a></li>
-    <li><a href="#">Ordonner les items</a></li>
 html;
     if(Authentication::checkAccessRights(Authentication::$ACCESS_SUP_ADMIN)){
         $url = ControleurUrl::urlName('listes_all');

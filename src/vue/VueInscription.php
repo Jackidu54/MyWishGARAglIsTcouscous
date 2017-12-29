@@ -28,7 +28,13 @@ class VueInscription
 		<title>Inscription</title>
 		<link rel="stylesheet" href="/web/css/style.css">
 		<body>
+		
+		<header>
+	    <h1>Liste de Cadeaux</h1>
+		</header>
+		
 		<h1>Inscription</h1>
+        
         <form id="creerUser" method="post" action="$urlCreer">
 		<label>Pseudo</label>
 		<input type="text" id="pseudo" name="pseudo" class="champ_inscr">
@@ -49,6 +55,16 @@ class VueInscription
 		<input type="password" id="pass" name="pass" class="champ_con">
 		<button type="submit" name="valid" class="se_connecter">Se connecter</button>
 		</form>
+		
+		<footer>
+		<div id="gauche">
+		Petit message de paix d'amour et d'amitié
+		</div>
+		<div id="droite">
+		Copyright
+		</div>
+		</footer>
+		
 		</body>
 		</html>
 html;
