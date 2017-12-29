@@ -3,6 +3,7 @@
 namespace mywishlist\controleur;
 
 use mywishlist\models\User;
+use mywishlist\vue\VueConfig;
 
 
 class Authentication{	
@@ -11,6 +12,9 @@ class Authentication{
 	public static $ACCESS_MODO = 2;
 	public static $ACCESS_ADMIN = 3;
 	public static $ACCESS_SUP_ADMIN = 4;
+
+	public static $OPTION_LOADPROFILE = 0;
+	public static $OPTION_CHANGEPASS = 1;
 
 
 	static function createUser () {
@@ -34,12 +38,27 @@ class Authentication{
 		}else return false;
 	}
 
-	static function authenticate ($pseudo){
+	private static function changePass($user, $password){
+		$hash=password_hash($password, PASSWORD_DEFAULT, ['cost'=>14] );
+		$user->pass = $hash;
+		$user->save();
+	}
+
+	static function authenticate ($pseudo, $pass, $option, $arg){
 		$app = \Slim\Slim::getInstance();
 		$user = User::select()->where('pseudo', '=', $pseudo)->first();
 		$hash = $user->pass;
-		if (password_verify($app->request->post('pass'), $hash)){
-			Authentication::loadProfile($app->request->post('pseudo'));
+		if (password_verify($pass, $hash)){
+			if($option==0){
+				Authentication::loadProfile($pseudo);
+			}
+			else if($option==1){
+				Authentication::changePass($user, $arg);
+			}
+		}else{
+			if($option==1){
+				$app->redirect('/user/pannel/'.VueConfig::$ERR_MDP);
+			}
 		}
 	}
 	

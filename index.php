@@ -160,9 +160,8 @@ $app->post('/user/create', function() {
 
 $app->post('/user/connect', function() {
     $app = \Slim\Slim::getInstance();
-    if($app->request->post('pseudo')!=null && $app->request->post('pass')!=null)
     try{
-        Authentication::authenticate($app->request->post('pseudo'));
+        Authentication::authenticate($app->request->post('pseudo'), $app->request->post('pass'), Authentication::$OPTION_LOADPROFILE, NULL);
     }catch (AuthException $ae) {
         echo'bad login name or passwd<br>'; 
     }
@@ -173,11 +172,21 @@ $app->post('/user/connect', function() {
     }
 })->name('connect_user');
 
-$app->get('/user/pannel', function() {
+$app->get('/user/pannel/:id', function($id) {
     $app = \SLim\Slim::getInstance();
     $cu = new ControleurUser();
-    $cu->afficherPannel();
+    $cu->afficherPannel($id);
 })->name('pannel');
+
+$app->post('/user/changePass', function() {
+    $app = \Slim\Slim::getInstance();
+    if($app->request->post('pass')!=null && null!=$app->request->post('newPass') && $app->request->post('passVerif')!=null){
+        $cu = new ControleurUser();
+        $cu->changePass($app->request->post('pseudo'), $app->request->post('pass'),$app->request->post('newPass'), $app->request->post('passVerif'));
+    }else {
+        $app->redirect('/user/inscription');
+    }
+})->name('changePass');
 
 $app->get('/item/reserve/:id', function ($id) {
     echo "yolo";

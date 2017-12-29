@@ -149,7 +149,7 @@ html;
 </form>
 html;
         }
-        $urlPannel = ControleurUrl::getName('pannel');
+        $urlPannel = ControleurUrl::urlId('pannel', 0);
         $html = <<<html
 <!DOCTYPE html>
 <html lang="fr">

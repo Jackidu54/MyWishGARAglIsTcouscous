@@ -37,7 +37,7 @@ class VueInscription
 		<label>Confirmer</label>
 		<input type="password" id="pass" name="passVerif" class="champ_inscr">
 		<label>Mail</label>
-		<input type="text" id="mail" name="mail" class="champ_inscr">
+		<input type="email" id="mail" name="mail" class="champ_inscr">
 		<button type="submit" name="valid" class="se_connecter">S'inscrire</button>
 		</form>
 
