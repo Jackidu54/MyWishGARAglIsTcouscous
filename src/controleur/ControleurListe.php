@@ -86,8 +86,8 @@ class ControleurListe
     }
 
     function afficherContributeurs($id){
-        $ids = Guest::select()->where('id_liste', '=', $id)->get();
-        $vue = new VueListe(VueListe::$DISPLAY_CONTRI, $ids);
+        $liste = Liste::select()->where('no', '=', $id)->first();
+        $vue = new VueListe(VueListe::$DISPLAY_CONTRI, $liste);
         echo $vue->render();
     }
 

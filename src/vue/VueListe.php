@@ -3,6 +3,7 @@ namespace mywishlist\vue;
 use mywishlist\controleur\ControleurUrl;
 use mywishlist\models\User;
 use mywishlist\models\Liste;
+use mywishlist\models\Guest;
 use mywishlist\controleur\Authentication;
 
 class VueListe
@@ -118,25 +119,32 @@ html;
         }
 
         if($this->selecteur == self::$DISPLAY_CONTRI) {
-            $proprio = $_SESSION['profile']['pseudo'];
+            $liste = $this->modele;
+            $propr = User::select()->where('id', '=', $liste->user_id)->first();
+            $proprio = $propr->pseudo;
+            $ids = Guest::select()->where('id_liste', '=', $liste->no)->get();
+
             $users = array();
-            $id_liste = -1;
-            foreach($this->modele as $guest){
+
+            foreach($ids as $guest){
                 $id = $guest->id_user;
                 $user = User::select()->where('id', '=', $id)->get()->first();
                 array_push($users, $user);
-                $id_liste = $guest->id_liste;
             }
-            $liste = Liste::select()->where('no', '=', $id_liste)->first();
+
             $contenu = <<<html
             <h2>Liste appartenant à : $proprio</h2>
 html;
-            if($id_liste!=-1){
             $contenu = $contenu.<<<html
             <h3>Liste des contributeurs</h3>
             <ul>
 html;
             foreach($users as $user){
+                if(Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN) && $liste->user_id != $_SESSION['profile']['id']){
+                    $message = $_SESSION['profile']['pseudo'] . ", voulez vous supprimer $user->pseudo des invités de $proprio ?";
+                }else{
+                    $message = "Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?";
+                }
                 $contenu = $contenu . <<<html
                 <li id="liste_affichee">$user->pseudo
                 <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid">supprimer de la liste</button></form>
@@ -144,24 +152,23 @@ html;
                 </li>
                 <script>
                     function confirmation(){
-                        return confirm("Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?");
+                        return confirm("$message");
                     } 
                 </script>
 html;
             }
             $contenu = $contenu . <<<html
              </ul>
-
+html;
+        if($liste->user_id==$_SESSION['profile']['id'] || Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN)){
+            $contenu = $contenu . <<<html
              <form id="addUser" method="post" action="/liste/user/add/$liste->no">
             <label>Ajouter un utilisateur</label>
-            <input type="text" id="pass" name="pseudo" class="champ_con" required placeholder="entrez un pseudo valide">
+            <input type="text" id="pass" name="pseudo" class="champ_con" required placeholder="Entrez un pseudo valide">
             <button type="submit" name="valid" class="se_connecter">Ajouter</button>
             </form>
-
 html;
-
-            }
-            
+        }
         }
 
         if ($this->selecteur == self::$AFFICHE_LISTES) {

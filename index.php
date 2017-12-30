@@ -25,13 +25,16 @@ $db->bootEloquent();
 $app = new \Slim\Slim();
 session_start();
 
+//Actions sur les listes
+
+
 $app->get('/liste/display', function () {
     $app = Slim\Slim::getInstance();
     if(isset($_SESSION['profile'])){
         $control=new ControleurListe();
         $control->afficherListes();
     }else{
-        $app->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
     }
 })->name('affiche_listes');
 
@@ -66,6 +69,7 @@ $app->post('/liste/delete/:id', function($id) {
 $app->post('/liste/create/valide', function () {
     $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
+    if(isset($_SESSION['profile'])){
     if($app->request->post('titre')!=null && $app->request->post('description')!=null && isset($_SESSION['profile'])){
         $user_id = $_SESSION['profile']['id'];
         $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
@@ -73,9 +77,13 @@ $app->post('/liste/create/valide', function () {
         $control->creerListe($user_id, $titre, $description);
     }
     $app->redirect('/liste/display');
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('validation_liste');
 
 $app->post('/liste/modify/valide/:id', function ($id) {
+    if(isset($_SESSION['profile'])){
 	$app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
     $user_id = 1; //temporaire
@@ -86,38 +94,62 @@ $app->post('/liste/modify/valide/:id', function ($id) {
     }
     $url = ControleurUrl::urlName('affiche_listes');
     header('Location: '.$url);
-    exit();  
+    exit();
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('valide_liste');
 
 $app->post('/liste/modify/:id', function ($id) {
+    if(isset($_SESSION['profile'])){
     $control=new ControleurListe();
     $control->afficherModificationListe($id);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('modifie_liste');
 
 
 $app->get('/liste/create', function () {
+    if(isset($_SESSION['profile'])){
     $control=new ControleurListe();
     $control->afficheCreationListe();
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('creation_liste');
 
 $app->get('/liste/users/:id', function($id) {
+    if(isset($_SESSION['profile'])){
     $control=new ControleurListe();
     $control->afficherContributeurs($id);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('contributeurs');
 
 $app->post('/liste/user/delete/:no/:id', function($id_liste, $id_user) {
+    if(isset($_SESSION['profile'])){
     $control=new ControleurListe();
     $control->supprimerGuest($id_liste, $id_user);
     \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('supprimer_guest');
 
 $app->post('/liste/user/add/:no', function($id_liste) {
+    if(isset($_SESSION['profile'])){
     $control=new ControleurListe();
     $control->ajouterGuest($id_liste);
     \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('ajouter_guest');
 
 $app->post('/liste/message/:id', function ($id) {
+    if(isset($_SESSION['profile'])){
     $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
     $message = $app->request->post('message');
@@ -125,21 +157,36 @@ $app->post('/liste/message/:id', function ($id) {
     $url = ControleurUrl::urlId('affiche_1_liste', $id);
     header("Location: ".$url);
     exit();
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('creer_message');
 
 
+//Actions sur les items
+
+
 $app->post('/item/ajouter/:id', function($id) {
+    if(isset($_SESSION['profile'])){
     $control=new ControleurItem();
     $control->createurItem($id);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('createur_item');
 
 $app->get('/item/display/:id', function ($id) {
+    if(isset($_SESSION['profile'])){
     $control=new ControleurItem();
     $control->afficherItem($id);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('affiche_1_item');
 
 
 $app->post('/item/creer/:id', function ($id) {
+    if(isset($_SESSION['profile'])){
     $app = \Slim\Slim::getInstance();
     $control=new ControleurItem();
     $titre = filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING);
@@ -150,14 +197,47 @@ $app->post('/item/creer/:id', function ($id) {
         $control->ajouterItem($id,$titre,$description, $url, $tarif);
     }
     $app->redirect('/liste/display/'.$id);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('ajoute_item_valide');
 
 $app->post('/item/delete/:id', function ($id) {
+    if(isset($_SESSION['profile'])){
     $app = \Slim\Slim::getInstance();
     $control = new ControleurItem();
     $control->supprimerItem($id);
     $app->redirect('/liste/display');
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
 })->name('delete_item');
+
+$app->get('/user/pannel/:id', function($id) {
+    if(isset($_SESSION['profile'])){
+    $app = \SLim\Slim::getInstance();
+    $cu = new ControleurUser();
+    $cu->afficherPannel($id);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
+})->name('pannel');
+
+//Action sur l'utilisateur
+
+$app->post('/user/changePass', function() {
+    if(isset($_SESSION['profile'])){
+    $app = \Slim\Slim::getInstance();
+    if($app->request->post('pass')!=null && null!=$app->request->post('newPass') && $app->request->post('passVerif')!=null){
+        $cu = new ControleurUser();
+        $cu->changePass($app->request->post('pseudo'), $app->request->post('pass'),$app->request->post('newPass'), $app->request->post('passVerif'));
+    }else {
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
+    }
+})->name('changePass');
 
 $app->get('/user/inscription', function() {
     $_SESSION['profile'] = null;
@@ -166,7 +246,6 @@ $app->get('/user/inscription', function() {
 })->name('inscription');
 
 $app->post('/user/create', function() {
-    
     $rep = Authentication::createUser();
         
     
@@ -188,27 +267,11 @@ $app->post('/user/connect', function() {
     if(isset($_SESSION['profile'])){
         $app->redirect('/liste/display');
     }else {
-        $app->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/inscription');
     }
 })->name('connect_user');
 
-$app->get('/user/pannel/:id', function($id) {
-    $app = \SLim\Slim::getInstance();
-    $cu = new ControleurUser();
-    $cu->afficherPannel($id);
-})->name('pannel');
-
-$app->post('/user/changePass', function() {
-    $app = \Slim\Slim::getInstance();
-    if($app->request->post('pass')!=null && null!=$app->request->post('newPass') && $app->request->post('passVerif')!=null){
-        $cu = new ControleurUser();
-        $cu->changePass($app->request->post('pseudo'), $app->request->post('pass'),$app->request->post('newPass'), $app->request->post('passVerif'));
-    }else {
-        $app->redirect('/user/inscription');
-    }
-})->name('changePass');
-
-
+//actions non finies
 
 $app->get('/item/reserve/:id', function ($id) {
     echo "yolo";
