@@ -15,6 +15,11 @@ class ControleurItem{
         }
     }
 
+    function supprimerItem($id){
+        $item = Item::select()->where('id', '=', $id)->get()->first();
+        $item->delete();
+    }
+
     function afficherItem($num)
     {
         $item = Item::select()->where('id', '=', $num)->get()->first();

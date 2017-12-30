@@ -72,9 +72,10 @@ html;
 
 html;
                 if($liste->user_id==$_SESSION['profile']['id'] || Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN)){
+                    $suprItem = ControleurUrl::urlId('delete_item', $item->id);
                     $contenu =$contenu.<<<html
                     <td>
-                    <form><button type="submit" name="valid" >supprimer</button></form>
+                    <form id="supprItem" method="post" action="$suprItem"><button type="submit" name="valid" >supprimer</button></form>
                     </td>
 html;
                 }

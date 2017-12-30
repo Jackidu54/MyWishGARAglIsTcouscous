@@ -132,9 +132,15 @@ $app->post('/item/creer/:id', function ($id) {
     if(isset($titre) && isset($description)){
         $control->ajouterItem($id,$titre,$description, $url, $tarif);
     }
-    $url = ControleurUrl::urlName('affiche_listes');
-    header('Location: '.$url);
+    $app->redirect('/liste/display/'.$id);
 })->name('ajoute_item_valide');
+
+$app->post('/item/delete/:id', function ($id) {
+    $app = \Slim\Slim::getInstance();
+    $control = new ControleurItem();
+    $control->supprimerItem($id);
+    $app->redirect('/liste/display');
+})->name('delete_item');
 
 $app->get('/user/inscription', function() {
     $_SESSION['profile'] = null;
