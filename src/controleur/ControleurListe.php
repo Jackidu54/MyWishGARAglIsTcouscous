@@ -2,6 +2,8 @@
 namespace mywishlist\controleur;
 
 use mywishlist\models\Liste;
+use mywishlist\models\Guest;
+use mywishlist\models\User;
 use mywishlist\vue\VueListe;
 
 class ControleurListe
@@ -81,5 +83,17 @@ class ControleurListe
     {
         $liste = Liste::select()->where('no', '=', $id)->first();
         $liste->delete();
+    }
+
+    function afficherContributeurs($id){
+        $ids = Guest::select()->where('id_liste', '=', $id)->get();
+        $vue = new VueListe(VueListe::$DISPLAY_CONTRI, $ids);
+        echo $vue->render();
+    }
+
+    function supprimerGuest($id_liste, $id_user){
+        $guest = Guest::select()->where('id_liste', '=', $id_liste, ' and ', 'id_user', '=', $id_user)->first();
+        echo '$guest->id';
+        $guest->delete();
     }
 }

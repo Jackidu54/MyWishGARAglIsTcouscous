@@ -100,6 +100,17 @@ $app->get('/liste/create', function () {
     $control->afficheCreationListe();
 })->name('creation_liste');
 
+$app->get('/liste/users/:id', function($id) {
+    $control=new ControleurListe();
+    $control->afficherContributeurs($id);
+})->name('contributeurs');
+
+$app->post('/liste/user/delete/:no/:id', function($id_liste, $id_user) {
+    $control=new ControleurListe();
+    $control->supprimerGuest($id_liste, $id_user);
+    \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
+})->name('supprimer_guest');
+
 $app->post('/liste/message/:id', function ($id) {
     $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
@@ -190,6 +201,8 @@ $app->post('/user/changePass', function() {
         $app->redirect('/user/inscription');
     }
 })->name('changePass');
+
+
 
 $app->get('/item/reserve/:id', function ($id) {
     echo "yolo";

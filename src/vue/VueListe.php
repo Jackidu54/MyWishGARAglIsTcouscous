@@ -2,6 +2,7 @@
 namespace mywishlist\vue;
 use mywishlist\controleur\ControleurUrl;
 use mywishlist\models\User;
+use mywishlist\models\Liste;
 use mywishlist\controleur\Authentication;
 
 class VueListe
@@ -14,6 +15,8 @@ class VueListe
     public static $CREATION_LISTE = 2;
 
     public static $MODIFY_LISTE = 3;
+
+    public static $DISPLAY_CONTRI = 4;
 
     private $selecteur;
 
@@ -113,6 +116,39 @@ html;
 $formulaire
 html;
         }
+
+        if($this->selecteur == self::$DISPLAY_CONTRI) {
+            $proprio = $_SESSION['profile']['pseudo'];
+            $users = array();
+            $id_liste = -1;
+            foreach($this->modele as $guest){
+                $id = $guest->id_user;
+                $user = User::select()->where('id', '=', $id)->get()->first();
+                array_push($users, $user);
+                $id_liste = $guest->id_liste;
+            }
+            $liste = Liste::select()->where('no', '=', $id_liste)->first();
+            $contenu = <<<html
+            <h2>Liste appartenant à : $proprio</h2>
+html;
+            if($id_liste!=-1){
+            $contenu = $contenu.<<<html
+            <h3>Liste des contributeurs</h3>
+            <ul>
+html;
+            foreach($users as $user){
+                $contenu = $contenu . <<<html
+                <li><p>$user->pseudo
+                <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id"><button type="submit" name="valid" >supprimer de la liste</button></form>
+                </p>
+                </li>
+
+html;
+            }
+            $contenu = $contenu . "</ul>";
+            }
+        }
+
         if ($this->selecteur == self::$AFFICHE_LISTES) {
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
@@ -124,8 +160,11 @@ html;
             foreach ($this->modele as $liste) {
                 $afficherListeUrl = $app->urlFor('affiche_1_liste', ['id'=> $liste->no]);
                 $url1liste = $rootUri . $afficherListeUrl;
+                $temp = $app->urlFor('contributeurs', array('id' => $liste->no));
+                $urlContrib = $rootUri . $temp;
                 $contenu = $contenu . <<<html
     <li id="liste_affichee"><a href="$url1liste">$liste->titre</a>
+    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid">contributeurs</button></a>
 	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" >supprimer la liste</button></form>
 	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" >Modifier la liste</button></form></li>
 html;
