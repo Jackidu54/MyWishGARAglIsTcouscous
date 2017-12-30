@@ -118,7 +118,7 @@ $app->post('/item/ajouter/:id', function($id) {
 
 $app->get('/item/display/:id', function ($id) {
     $control=new ControleurItem();
-    $control->afficherItem($num);
+    $control->afficherItem($id);
 })->name('affiche_1_item');
 
 
@@ -143,12 +143,10 @@ $app->get('/user/inscription', function() {
 })->name('inscription');
 
 $app->post('/user/create', function() {
-    try{
-        $rep = Authentication::createUser();
+    
+    $rep = Authentication::createUser();
         
-    }catch (AuthException $ae){
-        echo "probleme creation";
-    }
+    
     if($rep){
         $url = ControleurUrl::urlName('affiche_listes');
         header("Location: ".$url);
@@ -161,11 +159,9 @@ $app->post('/user/create', function() {
 
 $app->post('/user/connect', function() {
     $app = \Slim\Slim::getInstance();
-    try{
+    
         Authentication::authenticate($app->request->post('pseudo'), $app->request->post('pass'), Authentication::$OPTION_LOADPROFILE, NULL);
-    }catch (AuthException $ae) {
-        echo'bad login name or passwd<br>'; 
-    }
+    
     if(isset($_SESSION['profile'])){
         $app->redirect('/liste/display');
     }else {

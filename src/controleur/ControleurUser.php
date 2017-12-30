@@ -4,6 +4,7 @@ namespace mywishlist\controleur;
 use mywishlist\vue\VueConfig;
 use mywishlist\vue\VueInscription;
 use mywishlist\Controleur\Authentication;
+use mywishlist\models\User;
 
 class ControleurUser
 {
@@ -12,9 +13,9 @@ class ControleurUser
 		echo $vue->render();
 	}
 
-	public function afficherPannel($code){
+	public function afficherPannel($id){
 		$select = $_SESSION['profile']['jeton'];
-		$vue = new VueConfig($select,$code);
+		$vue = new VueConfig($select,$id);
 		echo $vue->render();
 	}
 

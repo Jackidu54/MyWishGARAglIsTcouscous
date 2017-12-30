@@ -52,18 +52,35 @@ html;
 <p>Expire le : $liste->expiration</p>
 $message
 <p>Crée par l'utilisateur : $pseudo</p>
-<ol>
-
+<table>
+<tr>
+       <th></th>
+       <th>Ttire</th>
+       <th>Etat de reservation</th>
+</tr>
 html;
             $items = $liste->items();
+            $compteuritem=0;
             foreach ($items as $item) {
+                $compteuritem++;
                 $contenu = $contenu . <<<html
-<li>
-<a href="/item/display/$item->id">
-<p class="descritem">$item->nom, etat de reservation : non reservé</p>
-<img src="/web/img/$item->img" alt="$item->img">
+<tr>
+<td><p id="compteuritem">$compteuritem</p></td>
+<td><a href="/item/display/$item->id"><p class="descritem">$item->nom</p></td></a>
+<td><p>$item->reserve</p></td>
+<td><img src="/web/img/$item->img" alt="$item->img"></td>
+
+html;
+                if($liste->user_id==$_SESSION['profile']['id'] || Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN)){
+                    $contenu =$contenu.<<<html
+                    <td>
+                    <form><button type="submit" name="valid" >supprimer</button></form>
+                    </td>
+html;
+                }
+                $contenu=$contenu.<<<html
 </a>
-</li>
+</tr>
 html;
             }
             if (isset($liste->message)) {
@@ -87,7 +104,7 @@ html;
             }
             
             $contenu = $contenu . <<<html
-</ol>
+</table>
 <form id="ajoutItem" method="post" action="$urlAjouterItem">
 <button type="submit" name="valid" >ajouter un nouvel item</button>
 </form>
