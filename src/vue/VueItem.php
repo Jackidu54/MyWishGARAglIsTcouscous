@@ -1,12 +1,16 @@
 <?php
 namespace mywishlist\vue;
 
+use mywishlist\controleur\Authentication;
+use mywishlist\controleur\ControleurUrl;
+
 class VueItem
 {
     public static $AFFICHER_1_ITEM=0;
     public static $RESERVE_ITEM=1;
     public static $ANNULER_ITEM=2;
     public static $CREATION_MESSAGE=3;
+    public static $CREATION_ITEM=4;
     private $selecteur;
     private $model;
     function __construct($select,$modele){
@@ -17,7 +21,7 @@ class VueItem
     function render()
     {
         $contenu = "";
-           
+        $inscription = ControleurUrl::urlName('inscription');
         if ($this->selecteur == self::$AFFICHER_1_ITEM) {
             $tmp=$this->model;
             $contenu = <<<html
@@ -33,7 +37,7 @@ html;
             
         }
             
-        if ($this->selecteur == self::$RESERVE_ITEM) {
+        if ($this->selecteur == self::$CREATION_ITEM) {
             $id = $this->model;
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
@@ -99,6 +103,7 @@ html;
     <li><a href="$url">Afficher toutes les listes</a></li>
 html;
     }
+    $urlPannel = ControleurUrl::urlId('pannel', 0);
     $html = $html . <<<html
     <li><a href="$urlPannel">Parametres</a></li>
   </ul>
