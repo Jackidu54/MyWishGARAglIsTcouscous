@@ -149,7 +149,17 @@ html;
                 </script>
 html;
             }
-            $contenu = $contenu . "</ul>";
+            $contenu = $contenu . <<<html
+             </ul>
+
+             <form id="addUser" method="post" action="/liste/user/add/$liste->no">
+            <label>Ajouter un utilisateur</label>
+            <input type="text" id="pass" name="pseudo" class="champ_con" required placeholder="entrez un pseudo valide">
+            <button type="submit" name="valid" class="se_connecter">Ajouter</button>
+            </form>
+
+html;
+
             }
             
         }
@@ -159,7 +169,7 @@ html;
             $rootUri = $app->request->getRootUri();
             $contenu = <<<html
 <h1>Mes WishListes</h1>
-  <p>Veuillez sélectionner votre liste dans cette liste de liste</p>
+  <p>Voici vos listes</p>
   <ul>
 html;
             foreach ($this->modele as $liste) {

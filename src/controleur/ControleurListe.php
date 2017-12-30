@@ -93,7 +93,19 @@ class ControleurListe
 
     function supprimerGuest($id_liste, $id_user){
         $guest = Guest::select()->where('id_liste', '=', $id_liste, ' and ', 'id_user', '=', $id_user)->first();
-        echo '$guest->id';
         $guest->delete();
+    }
+
+    function ajouterGuest($id_liste){
+        $app = \Slim\Slim::getInstance();
+        $pseudo = $app->request->post('pseudo');
+        $user = User::select('id')->where('pseudo', '=', $pseudo)->first();
+        if($user!=null){
+            $id = $user->id;
+            $guest = new Guest();
+            $guest->id_liste = $id_liste;
+            $guest->id_user = $id;
+            $guest->save();
+        }
     }
 }

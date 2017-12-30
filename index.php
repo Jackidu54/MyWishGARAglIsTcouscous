@@ -111,6 +111,12 @@ $app->post('/liste/user/delete/:no/:id', function($id_liste, $id_user) {
     \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
 })->name('supprimer_guest');
 
+$app->post('/liste/user/add/:no', function($id_liste) {
+    $control=new ControleurListe();
+    $control->ajouterGuest($id_liste);
+    \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
+})->name('ajouter_guest');
+
 $app->post('/liste/message/:id', function ($id) {
     $app = \Slim\Slim::getInstance();
     $control=new ControleurListe();
