@@ -149,6 +149,14 @@ html;
 </form>
 html;
         }
+        $user = $_SESSION['profile']['pseudo'];
+        if($_SESSION['profile']['jeton']==4){
+            $role = 'super admin';
+        }else if($_SESSION['profile']['jeton']==2){
+            $role = 'moderateur';
+        }else if($_SESSION['profile']['jeton']==3){
+            $role = 'Administrateur';
+        }else $role = 'simple utilisateur';
         $urlPannel = ControleurUrl::urlId('pannel', 0);
         $html = <<<html
 <!DOCTYPE html>
@@ -191,7 +199,7 @@ html;
 
 <footer>
 <div id="gauche">
-Petit message de paix d'amour et d'amitié
+Bienvenu $role $user
 </div>
 <div id="droite">
 Copyright
