@@ -138,15 +138,20 @@ html;
 html;
             foreach($users as $user){
                 $contenu = $contenu . <<<html
-                <li><p>$user->pseudo
-                <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id"><button type="submit" name="valid" >supprimer de la liste</button></form>
+                <li id="liste_affichee">$user->pseudo
+                <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid">supprimer de la liste</button></form>
                 </p>
                 </li>
-
+                <script>
+                    function confirmation(){
+                        return confirm("Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?");
+                    } 
+                </script>
 html;
             }
             $contenu = $contenu . "</ul>";
             }
+            
         }
 
         if ($this->selecteur == self::$AFFICHE_LISTES) {
@@ -265,7 +270,6 @@ Copyright
 </footer>
 
 </div>
-
 </body>
 </html>
 html;
