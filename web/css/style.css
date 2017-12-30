@@ -23,14 +23,7 @@ header{
     text-align: center;
 }
 
-footer{
-	padding: 1em;
-    color: white;
-    background-color: black;
-    text-align: center;
-	bottom:0;
-	width:97%;
-}
+
 
 nav {
     float: left;
@@ -145,3 +138,32 @@ article input{
 	width:200px;
 	box-shadow:1px 1px 2px #C0C0C0 inset;
 }
+
+html, body {
+	height: 100%;
+	width : 100%;
+	margin: 0; padding: 0;
+}
+body {
+	display : table;
+	min-height: 100%;
+ 	margin: 0;
+  	padding: 0;
+	width: 100%;
+	margin-bottom: 5em;
+}
+
+footer{
+	display: table-row;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 2em;
+    color: white;
+    background-color: black;
+    text-align: center;
+    position:fixed;
+}
+
+* {-moz-box-sizing: border-box; box-sizing: border-box;}
