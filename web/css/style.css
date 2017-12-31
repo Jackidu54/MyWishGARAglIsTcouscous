@@ -203,7 +203,7 @@ footer{
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4CAF50;
+  background: #296365;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -222,7 +222,7 @@ footer{
   font-size: 12px;
 }
 .form .message a {
-  color: #4CAF50;
+  color: #296365;
   text-decoration: none;
 }
 .form .register-form {
