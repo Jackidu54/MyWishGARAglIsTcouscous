@@ -28,7 +28,7 @@ class VueInscription
 		<html lang="fr">
 		<head>
 	  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Inscription</title>
+		<title>MyWhishlist</title>
 		<link rel="stylesheet" href="/web/css/style.css">
 		<body class="bodyinscr">
 		
