@@ -34,7 +34,7 @@ $app->get('/liste/display', function () {
         $control=new ControleurListe();
         $control->afficherListes();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('affiche_listes');
 
@@ -78,7 +78,7 @@ $app->post('/liste/create/valide', function () {
     }
     $app->redirect('/liste/display');
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('validation_liste');
 
@@ -96,7 +96,7 @@ $app->post('/liste/modify/valide/:id', function ($id) {
     header('Location: '.$url);
     exit();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('valide_liste');
 
@@ -105,7 +105,7 @@ $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $control->afficherModificationListe($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('modifie_liste');
 
@@ -115,7 +115,7 @@ $app->get('/liste/create', function () {
     $control=new ControleurListe();
     $control->afficheCreationListe();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('creation_liste');
 
@@ -124,7 +124,7 @@ $app->get('/liste/users/:id', function($id) {
     $control=new ControleurListe();
     $control->afficherContributeurs($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('contributeurs');
 
@@ -134,7 +134,7 @@ $app->post('/liste/user/delete/:no/:id', function($id_liste, $id_user) {
     $control->supprimerGuest($id_liste, $id_user);
     \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('supprimer_guest');
 
@@ -144,7 +144,7 @@ $app->post('/liste/user/add/:no', function($id_liste) {
     $control->ajouterGuest($id_liste);
     \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('ajouter_guest');
 
@@ -158,7 +158,7 @@ $app->post('/liste/message/:id', function ($id) {
     header("Location: ".$url);
     exit();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('creer_message');
 
@@ -171,7 +171,7 @@ $app->post('/item/ajouter/:id', function($id) {
     $control=new ControleurItem();
     $control->createurItem($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('createur_item');
 
@@ -180,7 +180,7 @@ $app->get('/item/display/:id', function ($id) {
     $control=new ControleurItem();
     $control->afficherItem($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('affiche_1_item');
 
@@ -198,7 +198,7 @@ $app->post('/item/creer/:id', function ($id) {
     }
     $app->redirect('/liste/display/'.$id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('ajoute_item_valide');
 
@@ -209,7 +209,7 @@ $app->post('/item/delete/:id', function ($id) {
     $control->supprimerItem($id);
     $app->redirect('/liste/display');
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('delete_item');
 
@@ -219,9 +219,20 @@ $app->get('/user/pannel/:id', function($id) {
     $cu = new ControleurUser();
     $cu->afficherPannel($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('pannel');
+
+$app->post('/user/pannel/change/:id', function($id) {
+    $app = \Slim\Slim::getInstance();
+    if(isset($_SESSION['profile']) && $app->request->post('newRole')!=null){
+        $cu = new ControleurUser();
+        $cu->changerDroit($id);
+        $app->redirect('/user/pannel/0');
+    }else{
+        $app->redirect('/user/connection');
+    }
+})->name('changer_role');
 
 //Action sur l'utilisateur
 
@@ -232,17 +243,23 @@ $app->post('/user/changePass', function() {
         $cu = new ControleurUser();
         $cu->changePass($app->request->post('pseudo'), $app->request->post('pass'),$app->request->post('newPass'), $app->request->post('passVerif'));
     }else {
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('changePass');
+
+$app->get('/user/connection', function() {
+    $_SESSION['profile'] = null;
+    $control=new ControleurUser();
+    $control->afficherFormConnect();
+})->name('connection');
 
 $app->get('/user/inscription', function() {
     $_SESSION['profile'] = null;
     $control=new ControleurUser();
-    $control->afficherForm();
+    $control->afficherFormInscript();
 })->name('inscription');
 
 $app->post('/user/create', function() {
@@ -267,7 +284,7 @@ $app->post('/user/connect', function() {
     if(isset($_SESSION['profile'])){
         $app->redirect('/liste/display');
     }else {
-        \Slim\Slim::getInstance()->redirect('/user/inscription');
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('connect_user');
 

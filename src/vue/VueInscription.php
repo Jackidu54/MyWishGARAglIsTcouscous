@@ -6,6 +6,9 @@ use mywishlist\controleur\ControleurUrl;
 class VueInscription
 {
 
+	public static $CONNECT=1;
+	public static $INSCRIPT=2;
+
 	private $model;
 	private $selecteur;
 
@@ -27,34 +30,52 @@ class VueInscription
 	  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Inscription</title>
 		<link rel="stylesheet" href="/web/css/style.css">
-		<body>
+		<body class="bodyinscr">
 		
 		<header>
 	    <h1>Liste de Cadeaux</h1>
 		</header>
+html;
 		
-		<h1>Inscription</h1>
-        
-        <form id="creerUser" method="post" action="$urlCreer">
-		<label>Pseudo</label>
-		<input type="text" id="pseudo" name="pseudo" class="champ_inscr">
-		<label>Mot de passe</label>
-		<input type="password" id="pass" name="pass" class="champ_inscr">
-		<label>Confirmer</label>
-		<input type="password" id="pass" name="passVerif" class="champ_inscr">
-		<label>Mail</label>
-		<input type="email" id="mail" name="mail" class="champ_inscr">
-		<button type="submit" name="valid" class="se_connecter">S'inscrire</button>
-		</form>
 
-		<h1>Connexion</h1>
-		<form id="connectUser" method="post" action="$urlConne">
-		<label>Pseudo</label>
-		<input type="text" id="pseudo" name="pseudo" class="champ_con">
-		<label>Mot de passe</label>
-		<input type="password" id="pass" name="pass" class="champ_con">
-		<button type="submit" name="valid" class="se_connecter">Se connecter</button>
-		</form>
+		if($this->selecteur == VueInscription::$CONNECT)
+		{
+
+		$contenu = $contenu . <<<eof
+		<div class="login-page">
+		  <div class="form">
+		    <form class="login-form" method="post" action="$urlConne">
+		      <input type="text" name="pseudo" placeholder="username"/>
+		      <input type="password" name="pass" placeholder="password"/>
+		      <button>login</button>
+		      <p class="message">Non enregistré? <a href="/user/inscription">Créer un compte</a></p>
+		    </form>
+		  </div>
+		</div>
+
+eof;
+		
+		}
+
+		else if($this->selecteur == VueInscription::$INSCRIPT){
+			$contenu = $contenu . <<<eof
+			<div class="login-page">
+			  <div class="form">
+			    <form class="login-form" method="post" action="$urlCreer">
+		    		<input type="text" id="pseudo" name="pseudo" placeholder="pseudo">
+					<input type="password" id="pass" name="pass" placeholder="mot de passe">
+					<input type="password" id="pass" name="passVerif" placeholder="confirmer">
+					<input type="email" id="mail" name="mail" placeholder="adresse mail">
+			      <button>create</button>
+			      <p class="message">Déjà enregistré? <a href="/user/connection">Se connecter</a></p>
+			    </form>
+			  </div>
+			</div>
+eof;
+		}
+
+		$contenu = $contenu . <<<html
+		 
 		
 		<footer>
 		<div id="gauche">
@@ -65,10 +86,17 @@ class VueInscription
 		</div>
 		</footer>
 		
+
+		<script>
+		$('.message a').click(function(){
+		   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+		});
+		</script>
+
 		</body>
 		</html>
 html;
+
         return $contenu;
    	}
-
 }

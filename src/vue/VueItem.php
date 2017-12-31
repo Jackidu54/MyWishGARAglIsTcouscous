@@ -21,7 +21,7 @@ class VueItem
     function render()
     {
         $contenu = "";
-        $inscription = ControleurUrl::urlName('inscription');
+        $inscription = ControleurUrl::urlName('connection');
         if ($this->selecteur == self::$AFFICHER_1_ITEM) {
             $tmp=$this->model;
             $contenu = <<<html

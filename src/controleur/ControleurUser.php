@@ -8,14 +8,21 @@ use mywishlist\models\User;
 
 class ControleurUser
 {
-	public function afficherForm(){
-		$vue = new VueInscription(null,null);
+	public function afficherFormConnect(){
+		$vue = new VueInscription(VueInscription::$CONNECT,null);
+		echo $vue->render();
+	}
+
+	public function afficherFormInscript(){
+		$vue = new VueInscription(VueInscription::$INSCRIPT,null);
 		echo $vue->render();
 	}
 
 	public function afficherPannel($id){
-		$select = $_SESSION['profile']['jeton'];
+		$users = User::select()->where('droit', '<', $_SESSION['profile']['droit'])->get();
+		$select = $_SESSION['profile']['droit'];
 		$vue = new VueConfig($select,$id);
+		$vue->setUsers($users);
 		echo $vue->render();
 	}
 
@@ -29,5 +36,12 @@ class ControleurUser
 			$code = VueConfig::$ERR_VERIF;
 			$app->redirect('/user/pannel/'.$code);
 		}
+	}
+
+	public function changerDroit($id){
+		$app = \Slim\SLim::getInstance();
+		$user = User::select()->where('id', '=', $id)->first();
+		$user->droit = $app->request->post('newRole');
+		$user->save();
 	}
 }

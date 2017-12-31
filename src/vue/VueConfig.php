@@ -25,10 +25,16 @@ class VueConfig
 
     private $modele;
 
+    private $users;
+
     function __construct($select, $model)
     {
         $this->selecteur = $select;
         $this->modele = $model;
+    }
+
+    function setUsers($users){
+        $this->users = $users;
     }
 
     function render()
@@ -73,6 +79,76 @@ html;
         $contenu = $contenu . <<<html
         <p>Le mot de passe n'est pas bon</p>
 html;
+    }
+
+    if($this->selecteur >=2){
+        $contenu = $contenu . <<<html
+        <h3>Droits des utilisateurs</h3>
+        <table>
+            <tr>
+                <th>Pseudo</th>
+                <th>mail</th>
+                <th>droit</th>
+                <th>changer de Role</th>
+            </tr>
+html;
+        foreach ($this->users as $user) {
+            $droit = "";
+            $options = "";
+            switch ($user->droit) {
+                case 2:
+                    $droit = "Moderateur";
+                    break;
+                case 3:
+                    $droit = "Administrateur";
+                    break;
+                case 4:
+                    $droit = "Super Admin";
+                    break;
+                default:
+                    $droit = "Utilisateur";
+                    break;
+            }
+            switch ($_SESSION['profile']['droit']) {
+                case 2:
+                    $options = '
+                        <option value="1">Utilisateur
+                        <option value="2">Moderateur
+                    ';
+                    break;
+                case 3:
+                    $options = '
+                        <option value="1">Utilisateur
+                        <option value="2">Moderateur
+                        <option value="3">Admin
+                    ';           
+                case 4:
+                    $options = '
+                        <option value="1">Utilisateur
+                        <option value="2">Moderateur
+                        <option value="3">Admin
+                    ';    
+                default:
+                    # code...
+                    break;
+            }
+            $contenu = $contenu . <<<html
+            <tr>
+                <td>$user->pseudo</td>
+                <td>$user->mail</td>
+                <td>$droit</td>
+                <td>
+                <form method="post" action="/user/pannel/change/$user->id">
+                <select name="newRole" size="1">
+html;
+            $contenu = $contenu . $options .'
+                </select>
+                <input type="submit" value="Valider" title="test" />
+                </form>
+                </td>
+            </tr>';
+        }
+        $contenu = $contenu . "</table>";
     }
 
 $html = <<<html

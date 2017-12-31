@@ -32,7 +32,7 @@ class VueListe
     function render()
     {
         $contenu = "";
-        $inscription = ControleurUrl::urlName('inscription');
+        $inscription = ControleurUrl::urlName('connection');
         if ($this->selecteur == self::$AFFICHE_1_LISTE) {
             $liste = $this->modele;
             $message="";
