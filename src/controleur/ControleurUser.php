@@ -21,7 +21,7 @@ class ControleurUser
 	}
 
 	public function afficherPannel($id){
-		$users = User::select()->where('droit', '<', $_SESSION['profile']['droit'])->get();
+		$users = User::select()->where('droit', '<', $_SESSION['profile']['droit'])->orderBy('pseudo')->get();
 		$select = $_SESSION['profile']['droit'];
 		$vue = new VueConfig($select,$id);
 		$vue->setUsers($users);

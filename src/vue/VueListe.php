@@ -136,7 +136,7 @@ html;
             <h2>Liste appartenant à : $proprio</h2>
 html;
             $contenu = $contenu.<<<html
-            <h3>Liste des contributeurs</h3>
+            <h3>Liste des gérants</h3>
             <ul>
 html;
             foreach($users as $user){
@@ -145,8 +145,11 @@ html;
                 }else{
                     $message = "Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?";
                 }
+                if($user->pseudo == $_SESSION['profile']['pseudo']){
+                    $pseudo = "Vous"; 
+                }else $pseudo = "$user->pseudo";
                 $contenu = $contenu . <<<html
-                <li id="liste_affichee">$user->pseudo
+                <li id="liste_affichee">$pseudo
                 <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid">supprimer de la liste</button></form>
                 </p>
                 </li>

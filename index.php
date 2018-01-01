@@ -306,7 +306,7 @@ $app->get('/item/cancel/:id', function ($id) {
 
 
 $app->get('/', function () {
-    $url = ControleurUrl::urlName('inscription');
+    $url = ControleurUrl::urlName('connection');
     header('Location: '.$url);
     exit();
 })->name('route_defaut');
