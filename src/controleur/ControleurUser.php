@@ -5,6 +5,8 @@ use mywishlist\vue\VueConfig;
 use mywishlist\vue\VueInscription;
 use mywishlist\Controleur\Authentication;
 use mywishlist\models\User;
+use mywishlist\models\Liste;
+use mywishlist\models\Guest;
 
 class ControleurUser
 {
@@ -43,5 +45,20 @@ class ControleurUser
 		$user = User::select()->where('id', '=', $id)->first();
 		$user->droit = $app->request->post('newRole');
 		$user->save();
+	}
+
+	public function supprimerUser($id){
+		$user = User::select()->where('id', '=', $id)->first();
+		$listes = Liste::select()->where('user_id', '=', $user->id)->get();
+		if($_SESSION['profile']['droit']>$user->droit){
+			foreach($listes as $liste){
+				$guests = Guest::select()->where('id_liste', '=', $liste->no)->get();
+				foreach ($guests as $value) {
+					$value->delete();
+				}
+				$liste->delete();
+			}
+			$user->delete();
+		}
 	}
 }

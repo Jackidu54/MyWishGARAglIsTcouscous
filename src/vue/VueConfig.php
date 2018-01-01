@@ -3,6 +3,7 @@ namespace mywishlist\vue;
 use mywishlist\controleur\ControleurUrl;
 use mywishlist\models\User;
 use mywishlist\controleur\Authentication;
+use mywishlist\vue\VueHtml;
 
 class VueConfig
 {
@@ -39,7 +40,7 @@ class VueConfig
 
     function render()
     {
-    $inscription = ControleurUrl::urlName('inscription');
+    $inscription = ControleurUrl::urlName('connection');
     $urlChange = ControleurUrl::urlName('changePass');
     $contenu = "";
     $verif1 = 'champ_con';
@@ -90,6 +91,7 @@ html;
                 <th>mail</th>
                 <th>droit</th>
                 <th>changer de Role</th>
+                <th>action</th>
             </tr>
 html;
         foreach ($this->users as $user) {
@@ -141,69 +143,24 @@ html;
                 <form method="post" action="/user/pannel/change/$user->id">
                 <select name="newRole" size="1">
 html;
-            $contenu = $contenu . $options .'
+            $contenu = $contenu . $options . <<<eof
                 </select>
                 <input type="submit" value="Valider" title="test" />
                 </form>
                 </td>
-            </tr>';
+                <td><form id="suprUser" method="post" action="/user/delete/$user->id" onsubmit="return confirmation('$user->pseudo');"><button type="submit" name="valid">supprimer</button></form></td>
+                <script>
+                    function confirmation(id){
+                        return confirm("voulez vous vraiment supprimer "+id+" ?");
+                    } 
+                </script>
+            </tr>
+eof;
         }
         $contenu = $contenu . "</table>";
     }
-
-$html = <<<html
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Titre de la page</title>
-  <link rel="stylesheet" href="/web/css/style.css">
-
-
-</head>
-<body>
-
-<div class="container">
-
-<header>
-   <h1>Liste de Cadeaux</h1>
-</header>
-  
-<nav>
-  <ul>
-    <li><a href="$inscription">Se déconnecter</a></li>
-    <li><a href="/liste/display">Affiche mes listes</a></li>
-    <li><a href="/liste/create">Créer une liste</a></li>
-html;
-    if(Authentication::checkAccessRights(Authentication::$ACCESS_SUP_ADMIN)){
-        $url = ControleurUrl::urlName('listes_all');
-        $html = $html . <<<html
-    <li><a href="$url">Afficher toutes les listes</a></li>
-html;
-    }
-    $html = $html . <<<html
-  </ul>
-</nav>
-
-<article>
-  $contenu
-</article>
-
-<footer>
-<div id="gauche">
-Petit message de paix d'amour et d'amitié
-</div>
-<div id="droite">
-Copyright
-</div>
-
-</footer>
-
-</div>
-
-</body>
-</html>
-html;
+        $vue=new VueHtml($contenu, VueHtml::$ARTICLE);
+        $html = $vue->render();
         return $html;
 
     }

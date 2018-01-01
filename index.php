@@ -288,6 +288,12 @@ $app->post('/user/connect', function() {
     }
 })->name('connect_user');
 
+$app->post('/user/delete/:id', function($id){
+    $cu = new ControleurUser();
+    $cu->supprimerUser($id);
+    \Slim\Slim::getInstance()->redirect('/user/pannel/0');
+})->name('supprimer_user');
+
 //actions non finies
 
 $app->get('/item/reserve/:id', function ($id) {
