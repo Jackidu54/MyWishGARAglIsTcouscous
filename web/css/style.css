@@ -165,6 +165,7 @@ footer{
     background-color: black;
     text-align: center;
     position:fixed;
+    z-index: 5;
 }
 
 .bodyinscr{

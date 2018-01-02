@@ -7,6 +7,7 @@ use mywishlist\Controleur\Authentication;
 use mywishlist\models\User;
 use mywishlist\models\Liste;
 use mywishlist\models\Guest;
+use mywishlist\models\Partage;
 
 class ControleurUser
 {
@@ -60,5 +61,21 @@ class ControleurUser
 			}
 			$user->delete();
 		}
+	}
+	
+	public function afficherPanelPartage($id_liste){
+	    $vue = new VueInscription(VueInscription::$CONNECT_PARTAGE,$id_liste);
+	    echo $vue->render();
+	}
+	public function inscrirePartage($id,$mail){
+	    filter_var($mail, FILTER_VALIDATE_EMAIL);
+	    if(isset($mail) && isset($id)){
+	        $id=Liste::select()->where('token','=',$id)->first()->no;
+	        $p=new Partage();
+	        $p->id_liste=$id;
+	        $p->email=$mail;
+	        $p->save();
+	        $_SESSION['partage']=$id_liste;
+	    }
 	}
 }

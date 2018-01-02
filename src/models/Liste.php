@@ -13,5 +13,8 @@ class Liste extends Model
     public function items(){
         return Item::select()->where("liste_id","=",$this->no)->get();
     }
+    public function urls(){
+        return UrlListe::select()->where('id','=',$this->id)->get();
+    }
 }
 

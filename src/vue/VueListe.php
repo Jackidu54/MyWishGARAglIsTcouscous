@@ -41,10 +41,22 @@ class VueListe
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
             $itemUrl = $app->urlFor('createur_item', ['id'=> $liste->no]);
+            $partageurl = $app->urlFor('partager_liste', ['id'=> $liste->no]);
             $itemMessage = $app->urlFor('creer_message', ['id'=> $liste->no]);
+            $urlapartager=ControleurUrl::urlId('afficher_liste_partagee', $liste->token);
             $urlAjouterItem = $rootUri . $itemUrl;
             $urlItemMessage = $rootUri . $itemMessage;
-            
+            $partage="";
+            if ($liste->token==null){
+                $partage=<<<html
+<form id="supprItem" method="post" action="$partageurl"><button type="submit" name="valid" >initialiser le partage</button></form>            
+html;
+            }
+            else{
+                $partage=<<<html
+<p>lien de partage : $urlapartager </p>            
+html;
+            }
             if (isset($liste->message)) {
                 $message=<<<html
 <p>$liste->message</p>
@@ -56,11 +68,14 @@ html;
 <p>Expire le : $liste->expiration</p>
 $message
 <p>Crée par l'utilisateur : $pseudo</p>
+$partage
 <table>
 <tr>
        <th></th>
        <th>Ttire</th>
        <th>Etat de reservation</th>
+       <th></th>
+       <th></th>
 </tr>
 html;
             $items = $liste->items();
@@ -84,7 +99,6 @@ html;
 html;
                 }
                 $contenu=$contenu.<<<html
-</a>
 </tr>
 html;
             }

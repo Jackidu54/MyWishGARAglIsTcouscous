@@ -5,6 +5,7 @@ use mywishlist\models\Liste;
 use mywishlist\models\Guest;
 use mywishlist\models\User;
 use mywishlist\vue\VueListe;
+use mywishlist\models\UrlListe;
 
 class ControleurListe
 {
@@ -17,7 +18,7 @@ class ControleurListe
     }
 
     function afficherListes(){
-        $listes = Liste::join('guest', 'liste.no', '=', 'guest.id_liste')->select('no', 'user_id', 'titre', 'description', 'expiration', 'token','message')->where('guest.id_user','=',$_SESSION['profile']['id']);
+        $listes = Liste::join('guest', 'liste.no', '=', 'guest.liste_id')->select('no', 'liste.user_id', 'titre', 'description', 'expiration', 'token','message')->where('guest.user_id','=',$_SESSION['profile']['id']);
         $listes2 = Liste::select('no', 'user_id', 'titre', 'description', 'expiration', 'token','message')->where('user_id','=', $_SESSION['profile']['id'])->union($listes)->orderBy('no')->get();
         $vue = new VueListe(VueListe::$AFFICHE_LISTES, $listes2);
         echo $vue->render();
@@ -113,4 +114,32 @@ class ControleurListe
             $guest->save();
         }
     }
+    function changerUrlPartage($id_liste){
+        $liste=Liste::select()->where('no','=',$id_liste)->first();
+        $str = "";
+        $chaine = "abcdefghijklmnpqrstuvwxyABCDEFGHIJKLMNOPQRSUTVWXYZ0123456789";
+        $nb_chars = strlen($chaine);
+        for($i=0; $i<20; $i++){
+            $str .= $chaine[ rand(0, ($nb_chars-1)) ];
+        }
+        while(UrlListe::select()->where('token','=',$str)->first() != null){
+            $str="";
+            for($i=0; $i<20; $i++){
+                $str .= $chaine[ rand(0, ($nb_chars-1)) ];
+            }
+        }
+        $liste->token=$str;
+        $liste->save();
+        $url=new UrlListe();
+        $url->id=$id_liste;
+        $url->token=$liste->token;
+        $url->save();
+    }
+    function afficherListePartagee()
+    {
+        
+        $vue = new VueListe(VueListe::$MODIFY_LISTE, $liste);
+        echo $vue->render();
+    }
+    
 }
