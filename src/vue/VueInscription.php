@@ -8,6 +8,7 @@ class VueInscription
 
 	public static $CONNECT=1;
 	public static $INSCRIPT=2;
+	public static $CONNECT_PARTAGE=3;
 
 	private $model;
 	private $selecteur;
@@ -23,6 +24,7 @@ class VueInscription
         $contenu = "";
         $urlCreer = ControleurUrl::urlName('creer_user');
         $urlConne = ControleurUrl::urlName('connect_user');
+        $urlPartage = ControleurUrl::urlName('creer_partage',$this->model);
         $contenu = $contenu . <<<html
         <!DOCTYPE html>
 		<html lang="fr">
@@ -72,7 +74,18 @@ eof;
 			  </div>
 			</div>
 eof;
-		}
+		}else if($this->selecteur == VueInscription::$CONNECT_PARTAGE){
+		    $contenu = $contenu . <<<eof
+			<div class="login-page">
+			  <div class="form">
+			    <form class="login-form" method="post" action="$urlPartage">
+					<input type="email" id="mail" name="mail" placeholder="adresse mail">
+			      <button>create</button>
+			    </form>
+			  </div>
+			</div>
+eof;
+			}
 
 		$contenu = $contenu . <<<html
 		 

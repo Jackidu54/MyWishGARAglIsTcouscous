@@ -162,6 +162,44 @@ $app->post('/liste/message/:id', function ($id) {
     }
 })->name('creer_message');
 
+$app->post('/liste/partage/:id', function ($id) {
+    if(isset($_SESSION['profile'])){
+    $control=new ControleurListe();
+    $control->changerUrlPartage($id);
+    $url = ControleurUrl::urlId('affiche_1_liste', $id);
+    header("Location: ".$url);
+    exit();
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/connection');
+    }
+})->name('partager_liste');
+
+//action sur les listes partagees
+
+$app->get('/partage/:id', function ($id) {
+    if(isset($_SESSION['partage'])){
+        $control=new ControleurListe();
+        $control->afficherListePartagee($_SESSION['partage']);
+    }else{
+        \Slim\Slim::getInstance()->redirect("/partage/connection/$id");
+    }
+})->name('afficher_liste_partagee');
+
+$app->get('/partage/connection/:id', function ($id) {
+    $control=new ControleurUser();
+    $control->afficherPanelPartage($id);
+})->name('connection_partage');
+
+$app->post('/partage/inscription/:id', function ($id) {
+    $_SESSION['profile'] = null;
+    $control=new ControleurUser();
+    $app = \Slim\Slim::getInstance();
+    $mail=$app->request->post('mail');
+    $control->InscrirePartage($id,$mail);
+    $url = ControleurUrl::urlId('afficher_liste_partagee', $id);
+    header("Location: ".$url);
+    exit();
+})->name('creer_partage');
 
 //Actions sur les items
 
@@ -293,6 +331,8 @@ $app->post('/user/delete/:id', function($id){
     $cu->supprimerUser($id);
     \Slim\Slim::getInstance()->redirect('/user/pannel/0');
 })->name('supprimer_user');
+
+
 
 //actions non finies
 
