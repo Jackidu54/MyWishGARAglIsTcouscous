@@ -19,6 +19,8 @@ class VueListe
 
     public static $DISPLAY_CONTRI = 4;
 
+    public static $AFFICHE_ALL = 5;
+
     private $selecteur;
 
     private $modele;
@@ -174,12 +176,15 @@ html;
         }
         }
 
-        if ($this->selecteur == self::$AFFICHE_LISTES) {
+        if ($this->selecteur == self::$AFFICHE_LISTES || $this->selecteur == self::$AFFICHE_ALL) {
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
+            if($this->selecteur == self::$AFFICHE_LISTES){
+                $titre = "Voici vos listes";
+            }else $titre = "Toutes les listes enregistrées";
             $contenu = <<<html
 <h1>Mes WishListes</h1>
-  <p>Voici vos listes</p>
+  <p>$titre</p>
   <ul>
 html;
             foreach ($this->modele as $liste) {

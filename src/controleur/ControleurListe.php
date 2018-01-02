@@ -12,7 +12,7 @@ class ControleurListe
     function afficherAdminListes()
     {
         $listes = Liste::select()->get();
-        $vue = new VueListe(VueListe::$AFFICHE_LISTES, $listes);
+        $vue = new VueListe(VueListe::$AFFICHE_ALL, $listes);
         echo $vue->render();
     }
 
