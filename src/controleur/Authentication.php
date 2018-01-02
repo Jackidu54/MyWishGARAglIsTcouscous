@@ -46,19 +46,21 @@ class Authentication{
 	}
 
 	static function authenticate ($pseudo, $pass, $option, $arg){
-		$app = \Slim\Slim::getInstance();
 		$user = User::select()->where('pseudo', '=', $pseudo)->first();
-		$hash = $user->pass;
-		if (password_verify($pass, $hash)){
-			if($option==0){
-				Authentication::loadProfile($pseudo);
-			}
-			else if($option==1){
-				Authentication::changePass($user, $arg);
-			}
-		}else{
-			if($option==1){
-				$app->redirect('/user/pannel/'.VueConfig::$ERR_MDP);
+		if($user!=null){
+			$app = \Slim\Slim::getInstance();
+			$hash = $user->pass;
+			if (password_verify($pass, $hash)){
+				if($option==0){
+					Authentication::loadProfile($pseudo);
+				}
+				else if($option==1){
+					Authentication::changePass($user, $arg);
+				}
+			}else{
+				if($option==1){
+					$app->redirect('/user/pannel/'.VueConfig::$ERR_MDP);
+				}
 			}
 		}
 	}

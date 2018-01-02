@@ -17,8 +17,9 @@ class ControleurListe
     }
 
     function afficherListes(){
-        $listes = Liste::join('guest', 'liste.no', '=', 'guest.id_liste')->select('no', 'user_id', 'titre', 'description', 'expiration', 'token','message')->where('guest.id_user','=',$_SESSION['profile']['id']);
-        $listes2 = Liste::select('no', 'user_id', 'titre', 'description', 'expiration', 'token','message')->where('user_id','=', $_SESSION['profile']['id'])->union($listes)->orderBy('no')->get();
+        $listes = Liste::select()->where('user_id','=', $_SESSION['profile']['id']);
+        $listes2 = Liste::join('guest', 'liste.no', '=', 'guest.liste_id')->select('no', 'liste.user_id', 'titre', 'description', 'expiration', 'token','message')->where('guest.user_id','=',$_SESSION['profile']['id'])->union($listes)->get();
+        //$listes2 = Liste::select()->where('liste.user_id','=', $_SESSION['profile']['id'])->union($listes)->orderBy('no')->get();
         $vue = new VueListe(VueListe::$AFFICHE_LISTES, $listes2);
         echo $vue->render();
     }
