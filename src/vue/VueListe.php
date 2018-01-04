@@ -20,6 +20,8 @@ class VueListe
     public static $DISPLAY_CONTRI = 4;
 
     public static $AFFICHE_ALL = 5;
+    
+    public static $PARTAGE=6;
 
     private $selecteur;
 
@@ -249,6 +251,74 @@ html;
     <button type="submit" name="valid" >Enregistrer modification</button>
 </form>
 html;
+        }
+            
+        if ($this->selecteur == self::$PARTAGE) {
+            $liste = $this->modele;
+            $message="";
+            $user = User::select()->where('id', '=', $liste->user_id)->first();
+            $pseudo = $user->pseudo;
+            if (isset($liste->message)) {
+                $message=<<<html
+<p>$liste->message</p>
+html;
+            }
+            $contenu = <<<html
+<h1>Wishliste $liste->titre</h1>
+<p>description : $liste->description </p>
+<p>Expire le : $liste->expiration</p>
+$message
+<p>Crée par l'utilisateur : $pseudo</p>
+<table>
+<tr>
+       <th></th>
+       <th>Ttire</th>
+       <th>Etat de reservation</th>
+       <th></th>
+       <th></th>
+</tr>
+html;
+            $items = $liste->items();
+            $compteuritem=0;
+            foreach ($items as $item) {
+                $compteuritem++;
+                $contenu = $contenu . <<<html
+<tr>
+<td><p id="compteuritem">$compteuritem</p></td>
+<td><a href="/item/display/$item->id"><p class="descritem">$item->nom</p></td></a>
+<td><p>$item->reserve</p></td>
+<td><img src="/web/img/$item->img" alt="$item->img"></td>
+
+html;
+                if( $item->reserve=="non reservé" ){
+                    $suprItem =ControleurUrl::urlId('reserve_item', $item->id);
+                    $contenu =$contenu.<<<html
+                    <td>
+                    <form id="reserveritem" method="post" action="$suprItem"><button type="submit" name="valid" >reserver</button></form>
+                    </td>
+html;
+                }
+                else{
+                    if($item->email==$_SESSION['email']){
+                        $suprItem =ControleurUrl::urlId('dereserve_item', $item->id);
+                        $contenu =$contenu.<<<html
+                    <td>
+                    <form id="dereserveritem" method="post" action="$suprItem"><button type="submit" name="valid" >dereserver</button></form>
+                    </td>
+html;
+                    }
+                    else{
+                $contenu =$contenu.<<<html
+                    <td>
+                    </td>
+html;
+                    }
+                }
+            }
+            $contenu=$contenu.<<<html
+</tr>
+html;
+            
         }
         $vue=new VueHtml($contenu, VueHtml::$ARTICLE);
         $html = $vue->render();

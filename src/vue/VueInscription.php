@@ -24,7 +24,9 @@ class VueInscription
         $contenu = "";
         $urlCreer = ControleurUrl::urlName('creer_user');
         $urlConne = ControleurUrl::urlName('connect_user');
-        $urlPartage = ControleurUrl::urlName('creer_partage',$this->model);
+        $id=$this->model;
+        $urlPartage = $app->urlFor('creer_partage', ['id'=> $id]);
+        
         $contenu = $contenu . <<<html
         <!DOCTYPE html>
 		<html lang="fr">

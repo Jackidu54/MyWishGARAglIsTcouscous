@@ -139,7 +139,8 @@ class ControleurListe
     function afficherListePartagee()
     {
         
-        $vue = new VueListe(VueListe::$MODIFY_LISTE, $liste);
+        $liste=Liste::select()->where('token','=',$_SESSION['partage'])->first();
+        $vue = new VueListe(VueListe::$PARTAGE, $liste);
         echo $vue->render();
     }
     

@@ -177,11 +177,13 @@ $app->post('/liste/partage/:id', function ($id) {
 //action sur les listes partagees
 
 $app->get('/partage/:id', function ($id) {
-    if(isset($_SESSION['partage'])){
+    if(isset($_SESSION['partage']) && $_SESSION['partage']==$id && isset($_SESSION['email'])){
         $control=new ControleurListe();
         $control->afficherListePartagee($_SESSION['partage']);
     }else{
-        \Slim\Slim::getInstance()->redirect("/partage/connection/$id");
+        $url = ControleurUrl::urlId('connection_partage', $id);
+        header("Location: ".$url);
+        exit();
     }
 })->name('afficher_liste_partagee');
 
@@ -336,9 +338,21 @@ $app->post('/user/delete/:id', function($id){
 
 //actions non finies
 
-$app->get('/item/reserve/:id', function ($id) {
-    echo "yolo";
+$app->post('/item/reserve/:id', function ($id) {
+    $controleur=new ControleurItem();
+    $controleur->reserverItem($id);
+    $url = ControleurUrl::urlId('afficher_liste_partagee', $_SESSION['partage']);
+    header("Location: ".$url);
+    exit();
 })->name('reserve_item');
+
+$app->post('/item/dereserve/:id', function ($id) {
+    $controleur=new ControleurItem();
+    $controleur->dereserverItem($id);
+    $url = ControleurUrl::urlId('afficher_liste_partagee', $_SESSION['partage']);
+    header("Location: ".$url);
+    exit();
+})->name('dereserve_item');
 
 $app->get('/item/cancel/:id', function ($id) {
     echo "tu annules $num";

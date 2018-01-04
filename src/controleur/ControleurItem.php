@@ -29,11 +29,22 @@ class ControleurItem{
         echo $vue->render();
     }
 	
-	function reserverItem()
+	function reserverItem($id)
 	{
-
+        $item=Item::select()->where('id','=',$id)->first();
+        $item->reserve="reservé";
+        $item->email=$_SESSION['email'];
+        $item->save();
 	}
 
+	function dereserverItem($id)
+	{
+	    $item=Item::select()->where('id','=',$id)->first();
+	    $item->reserve="non reservé";
+	    unset($item->email);
+	    $item->save();
+	}
+	
 	function createurItem($id_liste){
 		$vue=new VueItem(VueItem::$CREATION_ITEM, $id_liste);
         echo $vue->render();
