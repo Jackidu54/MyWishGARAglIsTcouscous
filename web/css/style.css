@@ -23,8 +23,6 @@ header{
     text-align: center;
 }
 
-
-
 nav {
     float: left;
     max-width: 160px;
@@ -42,7 +40,7 @@ nav ul a {
 }
 
 article {
-    margin-left: 170px;
+    margin-left: 200px;
     border-left: 1px solid gray;
     padding: 1em;
     /*min-height: 100% ;*/
@@ -165,6 +163,17 @@ footer{
     text-align: center;
     position:fixed;
     z-index: 5;
+}
+
+input[type="button"]{
+  height: 50px;
+  width: 180px;
+  margin-left: -10%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
 }
 
 .bodyinscr{

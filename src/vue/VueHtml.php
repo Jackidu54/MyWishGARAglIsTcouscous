@@ -53,18 +53,19 @@ class VueHtml{
 		  
 		<nav>
 		  <ul>
-		    <li><a href="$urlConnect">Se déconnecter</a></li>
-		    <li><a href="/liste/display">Affiche mes listes</a></li>
-		    <li><a href="/liste/create">Créer une liste</a></li>
+            <li><a href="$urlConnect"><input type="button" value="Se déconnecter"></a></li>
+		    <li><a href="/liste/display"><input type="button" value="Affiche mes listes"></a></li>
+		    <li><a href="/liste/create"><input type="button" value="Créer une liste"></a></li>
+            
 html;
 		    if(Authentication::checkAccessRights(Authentication::$ACCESS_SUP_ADMIN)){
 		        $url = ControleurUrl::urlName('listes_all');
 		        $html = $html . <<<html
-		    <li><a href="$url">Afficher toutes les listes</a></li>
+		    <li><a href="$url"><input type="button" value="Afficher toutes les listes"></a></li>
 html;
 		    }
 		    $html = $html . <<<html
-		    <li><a href="$urlPannel">Parametres</a></li>
+		    <li><a href="$urlPannel"><input type="button" value="Param&#232;tres"></a></li>
 		  </ul>
 		</nav>
 
@@ -74,7 +75,7 @@ html;
 
 		<footer>
 		<div id="gauche">
-		Bienvenu $role $user
+		Bienvenue $role $user
 		</div>
 		<div id="droite">
 		Copyright

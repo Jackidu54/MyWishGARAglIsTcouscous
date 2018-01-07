@@ -98,7 +98,7 @@ html;
                     $suprItem = ControleurUrl::urlId('delete_item', $item->id);
                     $contenu =$contenu.<<<html
                     <td>
-                    <form id="supprItem" method="post" action="$suprItem"><button type="submit" name="valid" >supprimer</button></form>
+                    <form id="supprItem" method="post" action="$suprItem"><button type="submit" name="valid" >Supprimer</button></form>
                     </td>
 html;
                 }
@@ -210,8 +210,8 @@ html;
                 $urlContrib = $rootUri . $temp;
                 $contenu = $contenu . <<<html
     <li id="liste_affichee"><a href="$url1liste">$liste->titre</a>
-    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid">contributeurs</button></a>
-	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" >supprimer la liste</button></form>
+    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid">Contributeurs</button></a>
+	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" >Supprimer la liste</button></form>
 	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" >Modifier la liste</button></form></li>
 html;
             }
