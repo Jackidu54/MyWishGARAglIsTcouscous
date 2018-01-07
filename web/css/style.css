@@ -7,7 +7,6 @@ div.container {
 }
 
 
-
 a:visited {
 	color: blue;
 }
@@ -19,7 +18,7 @@ a:hover {
 header{
     padding: 1em;
     color: white;
-    background-color: black;
+    background-color: #4c586f;
     clear: left;
     text-align: center;
 }
@@ -162,7 +161,7 @@ footer{
 	right: 0;
 	padding: 2em;
     color: white;
-    background-color: black;
+    background-color: #4c586f;
     text-align: center;
     position:fixed;
     z-index: 5;
@@ -174,9 +173,15 @@ footer{
 
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
 
+.login-image{
+  width: 360px;
+  padding: 3% 0 0;
+  margin: auto;
+}
+
 .login-page {
   width: 360px;
-  padding: 8% 0 0;
+  padding: 3% 0 0;
   margin: auto;
 }
 .form {
@@ -204,7 +209,7 @@ footer{
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #296365;
+  background: #4c586f;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -215,7 +220,7 @@ footer{
   cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
+  background: #3e3e3b;
 }
 .form .message {
   margin: 15px 0 0;

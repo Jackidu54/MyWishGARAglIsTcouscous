@@ -6,26 +6,32 @@ use mywishlist\controleur\ControleurUrl;
 class VueInscription
 {
 
-	public static $CONNECT=1;
-	public static $INSCRIPT=2;
-	public static $CONNECT_PARTAGE=3;
+    public static $CONNECT = 1;
 
-	private $model;
-	private $selecteur;
+    public static $INSCRIPT = 2;
 
-	function __construct($select, $model){
-		$this->model = $model;
-		$this->selecteur = $select;
-	}
+    public static $CONNECT_PARTAGE = 3;
 
-	 function render()
+    private $model;
+
+    private $selecteur;
+
+    function __construct($select, $model)
     {
-    	$app = \Slim\Slim::getInstance();
+        $this->model = $model;
+        $this->selecteur = $select;
+    }
+
+    function render()
+    {
+        $app = \Slim\Slim::getInstance();
         $contenu = "";
         $urlCreer = ControleurUrl::urlName('creer_user');
         $urlConne = ControleurUrl::urlName('connect_user');
-        $id=$this->model;
-        $urlPartage = $app->urlFor('creer_partage', ['id'=> $id]);
+        $id = $this->model;
+        $urlPartage = $app->urlFor('creer_partage', [
+            'id' => $id
+        ]);
         
         $contenu = $contenu . <<<html
         <!DOCTYPE html>
@@ -37,16 +43,18 @@ class VueInscription
 		<body class="bodyinscr">
 		
 		<header>
-	    <h1>Liste de Cadeaux</h1>
+        <img src="/web/img/gift.png">
+        <span><h1>Liste de Cadeaux</h1></span>
 		</header>
 html;
-		
-
-		if($this->selecteur == VueInscription::$CONNECT)
-		{
-
-		$contenu = $contenu . <<<eof
-		<div class="login-page">
+        
+        if ($this->selecteur == VueInscription::$CONNECT) {
+            
+            $contenu = $contenu . <<<eof
+        <center><div class="login-image" style="display: inline-block; margin-top:-30px" width="30%">
+        <img src="/web/img/fondConnection.png" style="width:420px;height:290px;">
+        </div>
+		<div class="login-page" style="display: inline-block" width="30%">
 		  <div class="form">
 		    <form class="login-form" method="post" action="$urlConne">
 		      <input type="text" name="pseudo" placeholder="username"/>
@@ -56,13 +64,11 @@ html;
 		    </form>
 		  </div>
 		</div>
-
+        </center>
 eof;
-		
-		}
-
-		else if($this->selecteur == VueInscription::$INSCRIPT){
-			$contenu = $contenu . <<<eof
+        } 
+        else if ($this->selecteur == VueInscription::$INSCRIPT) {
+            $contenu = $contenu . <<<eof
 			<div class="login-page">
 			  <div class="form">
 			    <form class="login-form" method="post" action="$urlCreer">
@@ -76,8 +82,8 @@ eof;
 			  </div>
 			</div>
 eof;
-		}else if($this->selecteur == VueInscription::$CONNECT_PARTAGE){
-		    $contenu = $contenu . <<<eof
+        } else if ($this->selecteur == VueInscription::$CONNECT_PARTAGE) {
+            $contenu = $contenu . <<<eof
 			<div class="login-page">
 			  <div class="form">
 			    <form class="login-form" method="post" action="$urlPartage">
@@ -87,9 +93,9 @@ eof;
 			  </div>
 			</div>
 eof;
-			}
-
-		$contenu = $contenu . <<<html
+        }
+        
+        $contenu = $contenu . <<<html
 		 
 		
 		<footer>
@@ -111,7 +117,7 @@ eof;
 		</body>
 		</html>
 html;
-
+        
         return $contenu;
-   	}
+    }
 }
