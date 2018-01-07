@@ -206,10 +206,10 @@ $app->post('/partage/inscription/:id', function ($id) {
 //Actions sur les items
 
 
-$app->post('/item/ajouter/:id', function($id) {
+$app->get('/item/ajouter/:id', function($id) {
     if(isset($_SESSION['profile'])){
-    $control=new ControleurItem();
-    $control->createurItem($id);
+        $control=new ControleurItem();
+        $control->createurItem($id);
     }else{
         \Slim\Slim::getInstance()->redirect('/user/connection');
     }
@@ -227,16 +227,20 @@ $app->get('/item/display/:id', function ($id) {
 
 $app->post('/item/creer/:id', function ($id) {
     if(isset($_SESSION['profile'])){
-    $app = \Slim\Slim::getInstance();
-    $control=new ControleurItem();
-    $titre = filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING);
-    $description = filter_var($app->request->post('descr'),FILTER_SANITIZE_STRING);
-    $url = filter_var($app->request->post('url'),FILTER_SANITIZE_STRING);
-    $tarif = filter_var($app->request->post('tarif'),FILTER_SANITIZE_STRING);
-    if(isset($titre) && isset($description)){
-        $control->ajouterItem($id,$titre,$description, $url, $tarif);
-    }
-    $app->redirect('/liste/display/'.$id);
+        $app = \Slim\Slim::getInstance();
+        $control=new ControleurItem();
+        $titre = filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING);
+        $description = filter_var($app->request->post('descr'),FILTER_SANITIZE_STRING);
+        $url = filter_var($app->request->post('url'),FILTER_SANITIZE_STRING);
+        $tarif = filter_var($app->request->post('tarif'),FILTER_SANITIZE_STRING);
+        if(isset($titre) && isset($description)){
+            $control->ajouterItem($id,$titre,$description, $url, $tarif);
+        }
+        if(isset($_SESSION['erreur']['tarifItem'])){
+            $app->redirect('/item/ajouter/'.$id);
+        }else {
+            $app->redirect('/liste/display/'.$id);
+        }
     }else{
         \Slim\Slim::getInstance()->redirect('/user/connection');
     }
@@ -247,7 +251,7 @@ $app->post('/item/delete/:id', function ($id) {
     $app = \Slim\Slim::getInstance();
     $control = new ControleurItem();
     $control->supprimerItem($id);
-    $app->redirect('/liste/display');
+    $app->redirect('/liste/display/'.$app->request->post('listeid'));
     }else{
         \Slim\Slim::getInstance()->redirect('/user/connection');
     }

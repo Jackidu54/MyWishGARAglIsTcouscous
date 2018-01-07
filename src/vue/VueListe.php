@@ -48,7 +48,7 @@ class VueListe
             $partageurl = $app->urlFor('partager_liste', ['id'=> $liste->no]);
             $itemMessage = $app->urlFor('creer_message', ['id'=> $liste->no]);
             $urlapartager=ControleurUrl::urlId('afficher_liste_partagee', $liste->token);
-            $urlAjouterItem = $rootUri . $itemUrl;
+            $urlAjouterItem = ControleurUrl::urlId('createur_item', $liste->no);
             $urlItemMessage = $rootUri . $itemMessage;
             $partage="";
             if ($liste->token==null){
@@ -79,6 +79,7 @@ $partage
        <th>Ttire</th>
        <th>Etat de reservation</th>
        <th></th>
+       <th>Tarif</th>
        <th></th>
 </tr>
 html;
@@ -92,13 +93,16 @@ html;
 <td><a href="/item/display/$item->id"><p class="descritem">$item->nom</p></td></a>
 <td><p>$item->reserve</p></td>
 <td><img src="/web/img/$item->img" alt="$item->img"></td>
+<td><p>$item->tarif €</p></td>
 
 html;
                 if($liste->user_id==$_SESSION['profile']['id'] || Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN)){
                     $suprItem = ControleurUrl::urlId('delete_item', $item->id);
                     $contenu =$contenu.<<<html
                     <td>
-                    <form id="supprItem" method="post" action="$suprItem"><button type="submit" name="valid" >Supprimer</button></form>
+                    <form id="supprItem" method="post" action="$suprItem">
+                    <input type="hidden" name="listeid" value="$liste->no">
+                    <button type="submit" name="valid" >Supprimer</button></form>
                     </td>
 html;
                 }
@@ -128,9 +132,7 @@ html;
             
             $contenu = $contenu . <<<html
 </table>
-<form id="ajoutItem" method="post" action="$urlAjouterItem">
-<button type="submit" name="valid" >ajouter un nouvel item</button>
-</form>
+<a href="$urlAjouterItem"><button type="submit" name="valid" >ajouter un nouvel item</button></a>
 <br>
 $formulaire
 html;

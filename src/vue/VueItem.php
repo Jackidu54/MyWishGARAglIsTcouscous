@@ -45,7 +45,7 @@ html;
             $urlCreerItem = $rootUri . $itemUrl;
             $contenu = <<<html
 <h1>Reservation d'un item</h1>
-<form id="formreserveitem" method="post" action="$urlCreerItem">
+<form id="formreserveitem" method="post" action="$urlCreerItem" enctype="multipart/form-data">
 
     <label for"formnomreserve">Nom de l'item</label>
     <input type="text" id="formnomreserve" name="nom" required placeholder="<nom de l'item>">
@@ -56,12 +56,22 @@ html;
     <label for"formimageitem">url</label>
     <input type="text" id="formimageitem" name="url" required placeholder="<url de l'item>">
     
+    <label for="mon_fichier">Fichier (tous formats | max. 1 Mo) :</label><br />
+     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+     <input type="file" name="mon_image" id="mon_fichier" /><br />
+
     <label for"formTarif">tarif (€)</label>
     <input type="number" step=".01" id="formTarif" name="tarif" required placeholder="5,00">
 
     <button type="submit" name="valid" >Ajouter</button>
 </form>
 html;
+if(isset($_SESSION['erreur']['tarifItem'])){
+    $contenu = $contenu . <<<html
+    <p>attention le prix ne doit pas exceder 1000€ exclu</p>
+html;
+    $_SESSION['erreur']['tarifItem'] = null;
+}
         }
         
         if ($this->selecteur == self::$ANNULER_ITEM) {

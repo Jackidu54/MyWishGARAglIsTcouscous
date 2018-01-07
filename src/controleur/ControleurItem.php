@@ -59,12 +59,25 @@ class ControleurItem{
 	}
 
 	function ajouterItem($liste_id, $nom, $descr, $url, $tarif){
-        $i = new Item();
-        $i->liste_id = $liste_id;
-        $i->nom = $nom;
-        $i->descr = $descr;
-        $i->url = $url;
-        $i->tarif = $tarif;
-        $i->save();
+        if($tarif<1000){
+            $app = \Slim\Slim::getInstance();
+            $dir = __DIR__;
+            $dir2 = $_FILES['mon_image']['tmp_name'];
+            $hash = md5(uniqid(rand(), true));
+            echo "$dir";
+            echo $dir2;
+            $extension_upload = strtolower(  substr(  strrchr($_FILES['mon_image']['name'], '.')  ,1)  );
+            move_uploaded_file($_FILES['mon_image']['tmp_name'],__DIR__."..\\..\\..\\web\\img\\$hash".".$extension_upload");
+            $i = new Item();
+            $i->liste_id = $liste_id;
+            $i->nom = $nom;
+            $i->descr = $descr;
+            $i->url = $url;
+            $i->tarif = $tarif;
+            $i->img = $hash;
+            $i->save();
+        }else {
+            $_SESSION['erreur']['tarifItem'] = true;
+        }
 	}
 }
