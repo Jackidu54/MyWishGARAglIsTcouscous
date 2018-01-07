@@ -38,12 +38,14 @@ class ControleurListe
 
     function creerListe($user, $titre, $description)
     {
+        $token = md5(uniqid(rand(), true));
         $date = date("Y-m-d", strtotime("+1 year"));
         $l = new Liste();
         $l->user_id = $_SESSION['profile']['id'];
         $l->titre = $titre;
         $l->description = $description;
         $l->expiration = $date;
+        $l->token = $token;
         $l->save();
     }
 

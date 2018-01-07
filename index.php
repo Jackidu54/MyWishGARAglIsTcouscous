@@ -194,6 +194,7 @@ $app->get('/partage/connection/:id', function ($id) {
 
 $app->post('/partage/inscription/:id', function ($id) {
     $_SESSION['profile'] = null;
+    $_SESSION['profile']['droit'] == 0;
     $control=new ControleurUser();
     $app = \Slim\Slim::getInstance();
     $mail=$app->request->post('mail');
