@@ -31,6 +31,11 @@ html;
     <a>Description : $tmp->descr </br></a>
 <img src="/web/img/$tmp->img" alt="$tmp->img">
 html;
+        if($tmp->url != null){
+            $contenu = $contenu . <<<html
+            <a href="$tmp->url"><p>En savoir plus</p></a>
+html;
+        }
             
             $contenu=$contenu.<<<html
 html;

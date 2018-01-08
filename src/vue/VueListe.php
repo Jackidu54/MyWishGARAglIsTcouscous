@@ -51,9 +51,9 @@ class VueListe
             $urlAjouterItem = ControleurUrl::urlId('createur_item', $liste->no);
             $urlItemMessage = $rootUri . $itemMessage;
             $partage="";
-            if ($liste->token==null){
+            if ($liste->token==null || strstr($liste->token, "nosecure")){
                 $partage=<<<html
-<form id="supprItem" method="post" action="$partageurl"><button type="submit" name="valid" >initialiser le partage</button></form>            
+<form id="partagItem" method="post" action="$partageurl"><button type="submit" name="valid" >initialiser le partage</button></form>            
 html;
             }
             else{
