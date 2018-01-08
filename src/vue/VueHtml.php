@@ -33,7 +33,7 @@ class VueHtml{
 		            $role = 'Administrateur';
 		        }else if($_SESSION['profile']['jeton']==1){
 		        	$role = 'Utilisateur';
-		        }else $role = 'Noble Visiteur';
+		        }else $role = 'visiteur '.$_SESSION['email'];
 		        $urlPannel = ControleurUrl::urlId('pannel', 0);
 		        $html = <<<html
 		<!DOCTYPE html>
