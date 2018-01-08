@@ -2,8 +2,6 @@
 @CHARSET "ISO-8859-1";
 div.container {
     width: 100%;
-    border: 1px solid gray;
-    
 }
 
 
@@ -40,9 +38,13 @@ nav ul a {
 }
 
 article {
+	margin-top: 2em;
+	margin-bottom: 2em;
     margin-left: 200px;
-    border-left: 1px solid gray;
+    margin-right: 200px;
+    box-shadow: 1px 1px 12px #555;
     padding: 1em;
+    overflow:hidden;
     /*min-height: 100% ;*/
 }
 #gauche{
