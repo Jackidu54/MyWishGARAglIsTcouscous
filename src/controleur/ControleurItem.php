@@ -17,6 +17,7 @@ class ControleurItem{
 
     function supprimerItem($id){
         $item = Item::select()->where('id', '=', $id)->get()->first();
+        unlink(__DIR__."..\\..\\..\\web\\img\\".$item->img);
         $item->delete();
     }
 
@@ -74,7 +75,7 @@ class ControleurItem{
             $i->descr = $descr;
             $i->url = $url;
             $i->tarif = $tarif;
-            $i->img = $hash;
+            $i->img = "$hash".".$extension_upload";
             $i->save();
         }else {
             $_SESSION['erreur']['tarifItem'] = true;
