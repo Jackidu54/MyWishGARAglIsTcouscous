@@ -177,6 +177,7 @@ input[type="button"]{
   font-family: "Roboto", sans-serif;
   outline: 1;
   background: #4c586f;
+  transition: 0.5s;
 }
 
 input[type="button"]:hover{

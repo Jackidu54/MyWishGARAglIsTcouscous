@@ -297,6 +297,8 @@ $app->post('/user/changePass', function() {
 
 $app->get('/user/connection', function() {
     $_SESSION['profile'] = null;
+    $_SESSION['partage'] = null;
+    $_SESSION['email'] = null;
     $control=new ControleurUser();
     $control->afficherFormConnect();
 })->name('connection');
