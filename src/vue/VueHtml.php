@@ -24,16 +24,19 @@ class VueHtml{
 				$html = "";
 				$urlConnect = ControleurUrl::urlName('connection');
 				$urlPannel = ControleurUrl::urlId('pannel', 0);
-				$user = $_SESSION['profile']['pseudo'];
-		        if($_SESSION['profile']['jeton']==4){
-		            $role = 'super admin';
-		        }else if($_SESSION['profile']['jeton']==2){
-		            $role = 'moderateur';
-		        }else if($_SESSION['profile']['jeton']==3){
-		            $role = 'Administrateur';
-		        }else if($_SESSION['profile']['jeton']==1){
-		        	$role = 'Utilisateur';
-		        }else $role = 'visiteur '.$_SESSION['email'];
+				$user = "";
+				if(isset($_SESSION['profile']['pseudo']) && isset($_SESSION['profile']['jeton'])){
+					$user = $_SESSION['profile']['pseudo'];
+			        if($_SESSION['profile']['jeton']==4){
+			            $role = 'super admin';
+			        }else if($_SESSION['profile']['jeton']==2){
+			            $role = 'moderateur';
+			        }else if($_SESSION['profile']['jeton']==3){
+			            $role = 'Administrateur';
+			        }else if($_SESSION['profile']['jeton']==1){
+			        	$role = 'Utilisateur';
+			        }
+		    	}else $role = 'visiteur '.$_SESSION['email'];
 		        $urlPannel = ControleurUrl::urlId('pannel', 0);
 		        $html = <<<html
 		<!DOCTYPE html>

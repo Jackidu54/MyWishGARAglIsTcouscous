@@ -67,6 +67,13 @@ class ControleurUser
 	    $vue = new VueInscription(VueInscription::$CONNECT_PARTAGE,$id_liste);
 	    echo $vue->render();
 	}
+
+	public static function verifPartage($id_liste){
+		if(Liste::select()->where('token', '=', $id_liste)->first() != null){
+			return true;
+		}else return false;
+	}
+
 	public function inscrirePartage($id,$mail){
 	    filter_var($mail, FILTER_VALIDATE_EMAIL);
 	    if(isset($mail) && isset($id)){

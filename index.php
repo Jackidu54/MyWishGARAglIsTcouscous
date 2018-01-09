@@ -177,31 +177,47 @@ $app->post('/liste/partage/:id', function ($id) {
 //action sur les listes partagees
 
 $app->get('/partage/:id', function ($id) {
-    if(isset($_SESSION['partage']) && $_SESSION['partage']==$id && isset($_SESSION['email'])){
-        $control=new ControleurListe();
-        $control->afficherListePartagee($_SESSION['partage']);
+    if(ControleurUser::verifPartage($id)){
+        $_SESSION['tokenInvite'] = $id;
+        if(isset($_SESSION['partage']) && $_SESSION['partage']==$id && isset($_SESSION['email'])){
+            $control=new ControleurListe();
+            $control->afficherListePartagee($_SESSION['partage']);
+        }else{
+            $url = ControleurUrl::urlId('connection_partage', $id);
+            header("Location: ".$url);
+            exit();
+        }
     }else{
-        $url = ControleurUrl::urlId('connection_partage', $id);
-        header("Location: ".$url);
-        exit();
+        \Slim\Slim::getInstance()->redirect('/user/connection');
     }
 })->name('afficher_liste_partagee');
 
 $app->get('/partage/connection/:id', function ($id) {
-    $control=new ControleurUser();
-    $control->afficherPanelPartage($id);
+    if(isset($_SESSION['tokenInvite']) && ControleurUser::verifPartage($id)){
+        $_SESSION['profile'] = null; 
+        $control=new ControleurUser();
+        $rep = $control->verifPartage($id);
+        $control->afficherPanelPartage($id);
+    }else{
+        \Slim\Slim::getInstance()->redirect('/user/connection');
+    }
 })->name('connection_partage');
 
 $app->post('/partage/inscription/:id', function ($id) {
-    $_SESSION['profile'] = null;
-    $_SESSION['profile']['droit'] == 0;
-    $control=new ControleurUser();
-    $app = \Slim\Slim::getInstance();
-    $mail=$app->request->post('mail');
-    $control->InscrirePartage($id,$mail);
-    $url = ControleurUrl::urlId('afficher_liste_partagee', $id);
-    header("Location: ".$url);
-    exit();
+    if($_SESSION['tokenInvite']){
+        unset($_SESSION['profile']);
+        $_SESSION['profile']['droit'] = 0;
+        $_SESSION['tokenInvite'] = $id;
+        $control=new ControleurUser();
+        $app = \Slim\Slim::getInstance();
+        $mail=$app->request->post('mail');
+        $control->InscrirePartage($id,$mail);
+        $url = ControleurUrl::urlId('afficher_liste_partagee', $id);
+        header("Location: ".$url);
+        exit();
+    }else{
+        $app->redirect('/user/connection');
+    }
 })->name('creer_partage');
 
 //Actions sur les items
@@ -217,9 +233,17 @@ $app->get('/item/ajouter/:id', function($id) {
 })->name('createur_item');
 
 $app->get('/item/display/:id', function ($id) {
-    if(isset($_SESSION['profile'])){
-    $control=new ControleurItem();
-    $control->afficherItem($id);
+    if (isset($_SESSION['email']) && isset($_SESSION['tokenInvite'])){
+        $control=new ControleurItem();
+        $rep = $control->itemVerif($id, $_SESSION['tokenInvite']);
+        if($rep){
+            $control->afficherItem($id);
+        }else{
+            \Slim\Slim::getInstance()->redirect('/partage/'.$_SESSION['tokenInvite']);
+        }
+    }else if(isset($_SESSION['profile'])){
+        $control=new ControleurItem();
+        $control->afficherItem($id);
     }else{
         \Slim\Slim::getInstance()->redirect('/user/connection');
     }

@@ -29,6 +29,14 @@ class ControleurItem{
         }
         echo $vue->render();
     }
+
+    function itemVerif($num, $tokenListe){
+        $item = Item::select()->where('id', '=', $num)->get()->first();
+        $liste = Liste::select()->where('token', '=', $tokenListe)->first();
+        if(isset($item) && ($item->liste_id == $liste->no)){
+            return true;
+        }else return false;
+    }
 	
 	function reserverItem($id)
 	{

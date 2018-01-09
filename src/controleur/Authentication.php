@@ -75,7 +75,8 @@ class Authentication{
 	}
 	
 	static function checkAccessRights ($required){
-		if($_SESSION['profile']['jeton']>=$required)return true;
+		if(!isset($_SESSION['profile']['jeton'])) return false;
+		else if($_SESSION['profile']['jeton']>=$required)return true;
 		else return false;
 	}
 

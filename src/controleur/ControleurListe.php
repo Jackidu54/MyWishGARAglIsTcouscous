@@ -6,7 +6,6 @@ use mywishlist\models\Guest;
 use mywishlist\models\User;
 use mywishlist\vue\VueListe;
 use mywishlist\models\UrlListe;
-
 class ControleurListe
 {
 
@@ -141,7 +140,6 @@ class ControleurListe
     }
     function afficherListePartagee()
     {
-        
         $liste=Liste::select()->where('token','=',$_SESSION['partage'])->first();
         $vue = new VueListe(VueListe::$PARTAGE, $liste);
         echo $vue->render();
