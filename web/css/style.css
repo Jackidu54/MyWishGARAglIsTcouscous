@@ -97,10 +97,13 @@ article ol li:before {
 article input{
 	display: block;
 }
+
+
 #suprlist, #modlist{
 	float: right;
 	height: 95%;
 }
+
 #liste_affichee{
 	height: 2em;
 }
@@ -236,9 +239,7 @@ input[type="button"]:hover{
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover,.form button:active,.form button:focus {
-  background: #3e3e3b;
-}
+
 .form .message {
   margin: 15px 0 0;
   color: #b3b3b3;
@@ -250,4 +251,65 @@ input[type="button"]:hover{
 }
 .form .register-form {
   display: none;
+}
+
+.formCreationListe button {
+  height: 25px;
+  width: 55px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formMod button {
+  height: 50px;
+  width: 100px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formParam button {
+  height: 30px;
+  width: 100px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formAddItem button{
+  height: 30px;
+  width: 215px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formCreationListe button:hover,.form button:active,.form button:focus {
+  background: #7581a4;
+}
+.formMod button:hover,.form button:active,.form button:focus {
+  background: #7581a4;
+}
+.formParam button:hover,.form button:active,.form button:focus {
+  background: #7581a4;
+}
+.formAddItem button:hover,.form button:active,.form button:focus {
+  background: #7581a4;
 }
