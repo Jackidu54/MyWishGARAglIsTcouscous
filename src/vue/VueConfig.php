@@ -64,7 +64,7 @@ class VueConfig
     <input type="password" id="pass" name="newPass" class="$verif2">
     <label>Confirmer</label>
     <input type="password" id="pass" name="passVerif" class="$verif3">
-    <button type="submit" name="valid" class="se_connecter">Confirmer</button>
+    <div class="formParam"><button type="submit" name="valid" class="se_connecter">Confirmer</button></div>
     </form>
 
 html;

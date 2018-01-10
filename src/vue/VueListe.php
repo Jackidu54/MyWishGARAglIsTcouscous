@@ -58,7 +58,7 @@ html;
             }
             else{
                 $partage=<<<html
-<p>lien de partage : $urlapartager </p>            
+<p>Lien de partage : $urlapartager </p>            
 html;
             }
             if (isset($liste->message)) {
@@ -114,17 +114,17 @@ html;
                 $message = $liste->message;
                 $formulaire = <<<html
 <form id="modifMessage" method="post" action="$urlItemMessage">
-<label>modifier le message de la liste</label>
+<label>Modifier le message de la liste</label>
 <input type="text" id="messageliste" name="message" value="$message">
-<button type="submit" name="valid" >Valider</button>
+<div class="formParam"><button type="submit" name="valid" >Valider</button></div>
 </form>   
 html;
             } else {
                 $formulaire = <<<html
 <form id="ajoutMessage" method="post" action="$urlItemMessage">
-<label>ajouter un message de la liste</label>
+<label>Ajouter un message de la liste :</label>
 <input type="text" id="messageliste" name="message">
-<button type="submit" name="valid" >Valider</button>
+<div class="formParam"><button type="submit" name="valid" >Valider</button></div>
 </form> 
             
 html;
@@ -132,7 +132,7 @@ html;
             
             $contenu = $contenu . <<<html
 </table>
-<a href="$urlAjouterItem"><button type="submit" name="valid" >ajouter un nouvel item</button></a>
+<div class="formAddItem"><a href="$urlAjouterItem"><button type="submit" name="valid" >Ajouter un nouvel item</button></a></div>
 <br>
 $formulaire
 html;
@@ -198,12 +198,13 @@ html;
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
             if($this->selecteur == self::$AFFICHE_LISTES){
-                $titre = "Voici vos listes";
+                $titre = "Voici vos listes :";
             }else $titre = "Toutes les listes enregistrées";
             $contenu = <<<html
-<h1>Mes WishListes</h1>
+<p><img src="/web/img/mesCadeaux.png" style="float:left"><h1>Mes WishListes</h1></p>
   <p>$titre</p>
-  <ul>
+  <div id="listes">
+    <ul>
 html;
             foreach ($this->modele as $liste) {
                 $afficherListeUrl = $app->urlFor('affiche_1_liste', ['id'=> $liste->no]);
@@ -212,14 +213,15 @@ html;
                 $urlContrib = $rootUri . $temp;
                 $contenu = $contenu . <<<html
     <li id="liste_affichee"><a href="$url1liste">$liste->titre</a>
-    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid">Contributeurs</button></a>
-	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" >Supprimer la liste</button></form>
-	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" >Modifier la liste</button></form></li>
+    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid" class="boutonListes">Contributeurs</button></a>
+	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" class="boutonListes">Supprimer la liste</button></form>
+	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" class="boutonListes">Modifier la liste</button></form></li>
 html;
             }
             
             $contenu = $contenu . <<<html
   </ul>
+</div>
 html;
         }
         if ($this->selecteur == self::$CREATION_LISTE) {
@@ -227,13 +229,13 @@ html;
 <h1>Creation d'une nouvelle liste</h1>
 <form id="formcreationliste" method="post" action="/liste/create/valide">
 
-    <label for"formnomliste">nom de la liste</label>
+    <label for"formnomliste">Nom de la liste</label>
     <input type="text" id="formnomliste" name="titre" required placeholder="<nom de la liste>">
 
-    <label for"formdescliste">description de la liste</label>    
+    <label for"formdescliste">Description de la liste</label>    
     <input type="text" id="formdescliste" name="description" required placeholder="<description de la liste>">
 
-    <button type="submit" name="valid" >Créer</button>
+    <div class="formCreationListe"><button type="submit" name="valid" >Créer</button></form>
 </form>
 html;
         }
@@ -241,16 +243,16 @@ html;
             $liste = $this->modele;
             $contenu = <<<html
 <h1>Modification d'une liste</h1>
-<h2>liste choisie : </h2>
+<h2>Liste choisie : "$liste->titre"</h2>
 <form id="formmodifliste" method="post" action="/liste/modify/valide/$liste->no">
 
-    <label for"formnomliste">nom de la liste</label>
+    <label for"formnomliste">Nom de la liste</label>
     <input type="text" id="formnomliste" name="titre" value="$liste->titre">
 
-    <label for"formdescliste">description de la liste</label>    
+    <label for"formdescliste">Description de la liste</label>    
     <input type="text" id="formdescliste" name="description" value="$liste->description">
 
-    <button type="submit" name="valid" >Enregistrer modification</button>
+    <div class="formMod"><button type="submit" name="valid" >Enregistrer modification</button></div>
 </form>
 html;
         }
@@ -266,7 +268,7 @@ html;
 html;
             }
             $contenu = <<<html
-<h1>Wishliste $liste->titre</h1>
+<h1>Wishliste : $liste->titre</h1>
 <p>description : $liste->description </p>
 <p>Expire le : $liste->expiration</p>
 $message

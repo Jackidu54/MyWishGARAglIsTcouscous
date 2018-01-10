@@ -65,7 +65,7 @@ html;
      <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
      <input type="file" name="mon_image" id="mon_fichier" /><br />
 
-    <label for"formTarif">tarif (€)</label>
+    <label for"formTarif">Tarif (€)</label>
     <input type="number" step=".01" id="formTarif" name="tarif" required placeholder="5,00">
 
     <button type="submit" name="valid" >Ajouter</button>
