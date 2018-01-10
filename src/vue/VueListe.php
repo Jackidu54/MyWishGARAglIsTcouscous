@@ -189,7 +189,7 @@ html;
              <form id="addUser" method="post" action="/liste/user/add/$liste->no">
             <label>Ajouter un utilisateur</label>
             <input type="text" id="pass" name="pseudo" class="champ_con" required placeholder="Entrez un pseudo valide">
-            <button type="submit" name="valid" class="se_connecter">Ajouter</button>
+            <button type="submit" name="valid" class="formParam">Ajouter</button>
             </form>
 html;
         }
@@ -212,10 +212,11 @@ html;
                 $temp = $app->urlFor('contributeurs', array('id' => $liste->no));
                 $urlContrib = $rootUri . $temp;
                 $contenu = $contenu . <<<html
-    <li class="liste_affichee"><a href="$url1liste">$liste->titre</a>
+    <a href="$url1liste"><li class="liste_affichee">$liste->titre
     <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid" class="boutonListes">Contributeurs</button></a>
 	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" class="boutonListes">Supprimer la liste</button></form>
-	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" class="boutonListes">Modifier la liste</button></form></li>
+	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" class="boutonListes">Modifier la liste</button></form>
+</li></a>
 html;
             }
             

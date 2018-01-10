@@ -3,6 +3,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\models\Liste;
 use mywishlist\models\Guest;
+use mywishlist\models\Partage;
 use mywishlist\models\User;
 use mywishlist\vue\VueListe;
 use mywishlist\models\UrlListe;
@@ -92,7 +93,7 @@ class ControleurListe
         foreach ($guests as $guest) {
             $guest->delete();
         }
-        $partage = partage::select()->where('id_liste', '=', $id)->get();
+        $partage = Partage::select()->where('id_liste', '=', $id)->get();
         foreach ($partage as $val) {
             $val->delete();
         }
