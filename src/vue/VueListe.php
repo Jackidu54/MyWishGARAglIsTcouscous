@@ -142,12 +142,12 @@ html;
             $liste = $this->modele;
             $propr = User::select()->where('id', '=', $liste->user_id)->first();
             $proprio = $propr->pseudo;
-            $ids = Guest::select()->where('id_liste', '=', $liste->no)->get();
+            $ids = Guest::select()->where('liste_id', '=', $liste->no)->get();
 
             $users = array();
 
             foreach($ids as $guest){
-                $id = $guest->id_user;
+                $id = $guest->user_id;
                 $user = User::select()->where('id', '=', $id)->get()->first();
                 array_push($users, $user);
             }
@@ -160,29 +160,30 @@ html;
             <ul>
 html;
             foreach($users as $user){
-                if(Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN) && $liste->user_id != $_SESSION['profile']['id']){
-                    $message = $_SESSION['profile']['pseudo'] . ", voulez vous supprimer $user->pseudo des invités de $proprio ?";
-                }else{
-                    $message = "Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?";
-                }
-                if($user->pseudo == $_SESSION['profile']['pseudo']){
-                    $pseudo = "Vous"; 
-                }else $pseudo = "$user->pseudo";
-                $contenu = $contenu . <<<html
-                <li id="liste_affichee">$pseudo
-                <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid">supprimer de la liste</button></form>
-                </p>
-                </li>
-                <script>
-                    function confirmation(){
-                        return confirm("$message");
-                    } 
-                </script>
+                    if(Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN) && $liste->user_id != $_SESSION['profile']['id']){
+                        //$message = $_SESSION['profile']['pseudo'] . ", voulez vous supprimer $user->pseudo des invités de $proprio ?";
+                    }else{
+                        $message = "Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?";
+                    }
+                    if($user->pseudo == $_SESSION['profile']['pseudo']){
+                        $pseudo = "Vous"; 
+                    }else $pseudo = "$user->pseudo";
+                    $contenu = $contenu . <<<html
+                    <li id="liste_affichee">$pseudo
+                    <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid">supprimer de la liste</button></form>
+                    </p>
+                    </li>
+                    <script>
+                        function confirmation(){
+                            return confirm("$message");
+                        } 
+                    </script> 
 html;
             }
             $contenu = $contenu . <<<html
              </ul>
 html;
+
         if($liste->user_id==$_SESSION['profile']['id'] || Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN)){
             $contenu = $contenu . <<<html
              <form id="addUser" method="post" action="/liste/user/add/$liste->no">
@@ -192,8 +193,7 @@ html;
             </form>
 html;
         }
-        }
-
+    }
         if ($this->selecteur == self::$AFFICHE_LISTES || $this->selecteur == self::$AFFICHE_ALL) {
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
