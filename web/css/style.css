@@ -301,15 +301,35 @@ input[type="button"]:hover{
   transition: 0.5s;
 }
 
-.formCreationListe button:hover,.form button:active,.form button:focus {
+.formCreationListe button:hover,.formCreationListe button:active,.formCreationListe button:focus {
   background: #7581a4;
 }
-.formMod button:hover,.form button:active,.form button:focus {
+.formMod button:hover,.formMod button:active,.formMod button:focus {
   background: #7581a4;
 }
-.formParam button:hover,.form button:active,.form button:focus {
+.formParam button:hover,.formParam button:active,.formParam button:focus {
   background: #7581a4;
 }
-.formAddItem button:hover,.form button:active,.form button:focus {
+.formAddItem button:hover,.formAddItem button:active,.formAddItem button:focus {
+  background: #7581a4;
+}
+
+#listes{
+  -webkit-padding-start: 60px;
+}
+
+.boutonListes{
+  height: 30px;
+  width: 125px;
+  margin-top: 0.5%;
+  font-size: 12px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.boutonListes:hover,.boutonListes:active,.boutonListes:focus {
   background: #7581a4;
 }

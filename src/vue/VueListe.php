@@ -203,7 +203,8 @@ html;
             $contenu = <<<html
 <p><img src="/web/img/mesCadeaux.png" style="float:left"><h1>Mes WishListes</h1></p>
   <p>$titre</p>
-  <ul>
+  <div id="listes">
+    <ul>
 html;
             foreach ($this->modele as $liste) {
                 $afficherListeUrl = $app->urlFor('affiche_1_liste', ['id'=> $liste->no]);
@@ -212,14 +213,15 @@ html;
                 $urlContrib = $rootUri . $temp;
                 $contenu = $contenu . <<<html
     <li id="liste_affichee"><a href="$url1liste">$liste->titre</a>
-    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid">Contributeurs</button></a>
-	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" >Supprimer la liste</button></form>
-	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" >Modifier la liste</button></form></li>
+    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid" class="boutonListes">Contributeurs</button></a>
+	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" class="boutonListes">Supprimer la liste</button></form>
+	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" class="boutonListes">Modifier la liste</button></form></li>
 html;
             }
             
             $contenu = $contenu . <<<html
   </ul>
+</div>
 html;
         }
         if ($this->selecteur == self::$CREATION_LISTE) {
