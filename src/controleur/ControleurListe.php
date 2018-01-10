@@ -92,6 +92,10 @@ class ControleurListe
         foreach ($guests as $guest) {
             $guest->delete();
         }
+        $partage = partage::select()->where('id_liste', '=', $id)->get();
+        foreach ($partage as $val) {
+            $val->delete();
+        }
     }
 
     function afficherContributeurs($id){
@@ -101,7 +105,7 @@ class ControleurListe
     }
 
     function supprimerGuest($id_liste, $id_user){
-        $guest = Guest::select()->where('id_liste', '=', $id_liste, ' and ', 'id_user', '=', $id_user)->first();
+        $guest = Guest::select()->where('liste_id', '=', $id_liste)->where('user_id', '=', $id_user)->first();
         $guest->delete();
     }
 
@@ -112,8 +116,8 @@ class ControleurListe
         if($user!=null){
             $id = $user->id;
             $guest = new Guest();
-            $guest->id_liste = $id_liste;
-            $guest->id_user = $id;
+            $guest->liste_id = $id_liste;
+            $guest->user_id = $id;
             $guest->save();
         }
     }
