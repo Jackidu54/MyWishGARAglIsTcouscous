@@ -87,7 +87,7 @@ html;
 		Bienvenue $role $user
 		</div>
 		<div id="droite">
-		Copyright
+		&#169; Copyright 2018
 		</div>
 
 		</footer>

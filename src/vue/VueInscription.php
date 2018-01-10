@@ -103,7 +103,7 @@ eof;
 		Petit message de paix d'amour et d'amitié
 		</div>
 		<div id="droite">
-		Copyright
+		&#169; Copyright 2018
 		</div>
 		</footer>
 		

@@ -102,7 +102,7 @@ html;
                     <td>
                     <form id="supprItem" method="post" action="$suprItem">
                     <input type="hidden" name="listeid" value="$liste->no">
-                    <button type="submit" name="valid" >Supprimer</button></form>
+                    <button type="submit" name="valid" class="mon_fichier-label">Supprimer</button></form>
                     </td>
 html;
                 }
@@ -204,7 +204,7 @@ html;
 <p><img src="/web/img/mesCadeaux.png" style="float:left"><h1>Mes WishListes</h1></p>
   <p>$titre</p>
   <div id="listes">
-    <ul>
+    <ul class="rounded-list">
 html;
             foreach ($this->modele as $liste) {
                 $afficherListeUrl = $app->urlFor('affiche_1_liste', ['id'=> $liste->no]);
@@ -212,7 +212,7 @@ html;
                 $temp = $app->urlFor('contributeurs', array('id' => $liste->no));
                 $urlContrib = $rootUri . $temp;
                 $contenu = $contenu . <<<html
-    <li id="liste_affichee"><a href="$url1liste">$liste->titre</a>
+    <li class="liste_affichee"><a href="$url1liste">$liste->titre</a>
     <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid" class="boutonListes">Contributeurs</button></a>
 	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" class="boutonListes">Supprimer la liste</button></form>
 	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" class="boutonListes">Modifier la liste</button></form></li>

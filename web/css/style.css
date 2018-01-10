@@ -4,11 +4,6 @@ div.container {
     width: 100%;
 }
 
-
-a:visited {
-	color: blue;
-}
-
 a:hover {
 	color: black;
 }
@@ -102,10 +97,6 @@ article input{
 #suprlist, #modlist{
 	float: right;
 	height: 95%;
-}
-
-#liste_affichee{
-	height: 2em;
 }
 
 .se_connecter{
@@ -315,7 +306,7 @@ input[type="button"]:hover{
 }
 
 #listes{
-  -webkit-padding-start: 60px;
+  -webkit-padding-start: 70px;
 }
 
 .boutonListes{
@@ -332,4 +323,115 @@ input[type="button"]:hover{
 
 .boutonListes:hover,.boutonListes:active,.boutonListes:focus {
   background: #7581a4;
+}
+
+.boutonReservation{
+  height: 30px;
+  width: 125px;
+  margin-top: 0.5%;
+  font-size: 12px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.boutonReservation:hover,.boutonReservation:active,.boutonReservation:focus {
+  background: #7581a4;
+}
+
+.mon_fichier-label {
+  display: block; 
+  height: 30px;
+  width: 150px;
+  text-align: center;
+  margin-top: 0.5%;
+  padding-top: 0.8%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+.mon_fichier-label:hover {
+    color: #7581a4;
+}
+
+.mon_fichier {
+    display: none;
+}
+
+.rounded-list li{
+  position: relative;
+  display: block;
+  padding: .4em .4em .4em 2em;
+  margin: .5em 0;
+  background: #ddd;
+  color: #444;
+  text-decoration: none;
+  border-radius: .3em;
+  transition: all .3s ease-out;
+}
+
+.rounded-list li:hover{
+  background: #7581a4;
+}
+
+.rounded-list li:hover:before{
+  transform: rotate(360deg);
+}
+
+.rounded-list li:before{
+  content: counter(li);
+  counter-increment: li;
+  position: absolute;
+  left: -1.3em;
+  top: 50%;
+  margin-top: -1.3em;
+  background: #87ceeb;
+  height: 2em;
+  width: 2em;
+  line-height: 2em;
+  border: .3em solid #fff;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2em;
+  transition: all .3s ease-out;
+}
+
+ul{
+  counter-reset: li; /* Initialise le compteur */
+  list-style: none; /* Supprime la numérotation par défaut */
+  list-style: decimal; /* Restitue la numérotation par défaut pour IE6/7 */
+  font: 15px 'trebuchet MS', 'lucida sans';
+  padding: 0;
+  margin-bottom: 4em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+a:-webkit-any-link {
+  color: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+li {
+  display: list-item;
+  text-align: none;
+}
+
+.liste_affichee a, a:visited{
+  color:black;
+  text-decoration: none;
+}
+
+.liste_affichee{
+  height: 3em;
+  padding-left:2em; 
+  vertical-align: center;
+}
+
+.liste_affichee li{
 }

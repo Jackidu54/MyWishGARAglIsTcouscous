@@ -58,17 +58,18 @@ html;
     <label for"formdescitem">Description de l'item</label>
     <input type="text" id="formdescitem" name="descr" required placeholder="<description de l'item>">
 
-    <label for"formimageitem">url</label>
+    <label for"formimageitem">Url</label>
     <input type="text" id="formimageitem" name="url" required placeholder="<url de l'item>">
     
     <label for="mon_fichier">Fichier (tous formats | max. 1 Mo) :</label><br />
      <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
-     <input type="file" name="mon_image" id="mon_fichier" /><br />
+     <label for="fichier" class="mon_fichier-label">Choisissez un fichier</label>
+     <input type="file" name="mon_image" class="mon_fichier" id="fichier" /><br />
 
     <label for"formTarif">Tarif (€)</label>
     <input type="number" step=".01" id="formTarif" name="tarif" required placeholder="5,00">
 
-    <button type="submit" name="valid" >Ajouter</button>
+    <button type="submit" name="valid" class="boutonReservation">Ajouter</button>
 </form>
 html;
 if(isset($_SESSION['erreur']['tarifItem'])){
