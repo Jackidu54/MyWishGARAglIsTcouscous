@@ -64,7 +64,7 @@ class VueConfig
     <input type="password" id="pass" name="newPass" class="$verif2">
     <label>Confirmer</label>
     <input type="password" id="pass" name="passVerif" class="$verif3">
-    <button type="submit" name="valid" class="se_connecter">Confirmer</button>
+    <div class="formParam"><button type="submit" name="valid" class="formParam">Confirmer</button></div>
     </form>
 
 html;
@@ -145,10 +145,10 @@ html;
 html;
             $contenu = $contenu . $options . <<<eof
                 </select>
-                <input type="submit" value="Valider" title="test" />
+                <input type="submit" id="formParam" value="Valider" title="test" />
                 </form>
                 </td>
-                <td><form id="suprUser" method="post" action="/user/delete/$user->id" onsubmit="return confirmation('$user->pseudo');"><button type="submit" name="valid">supprimer</button></form></td>
+                <td><form id="suprUser" method="post" action="/user/delete/$user->id" onsubmit="return confirmation('$user->pseudo');"><button type="submit" class="formParam" name="valid">Supprimer</button></form></td>
                 <script>
                     function confirmation(id){
                         return confirm("voulez vous vraiment supprimer "+id+" ?");

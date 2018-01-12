@@ -4,11 +4,6 @@ div.container {
     width: 100%;
 }
 
-
-a:visited {
-	color: blue;
-}
-
 a:hover {
 	color: black;
 }
@@ -97,31 +92,10 @@ article ol li:before {
 article input{
 	display: block;
 }
+
 #suprlist, #modlist{
 	float: right;
 	height: 95%;
-}
-#liste_affichee{
-	height: 2em;
-}
-
-.se_connecter{
-	border:none;
-	padding:6px 0 6px 0;
-	border-radius:2px;
-	box-shadow:3px 3px 12px #999;
-	background:#fff;
-	font:bold 13px Arial;
-	color:#555;
-}
-
-.se_connecter:hover{
-	border:none;
-	padding:6px 0 6px 0;
-	box-shadow:0px 0px 0px;
-	background:#fff;
-	font:bold 13px Arial;
-	color:#555;
 }
 
 .champ_inscr{
@@ -236,9 +210,7 @@ input[type="button"]:hover{
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover,.form button:active,.form button:focus {
-  background: #3e3e3b;
-}
+
 .form .message {
   margin: 15px 0 0;
   color: #b3b3b3;
@@ -250,4 +222,235 @@ input[type="button"]:hover{
 }
 .form .register-form {
   display: none;
+}
+
+.formCreationListe button {
+  height: 25px;
+  width: 55px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formMod button {
+  height: 50px;
+  width: 100px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formParam{
+  height: 30px;
+  width: 100px;
+  box-shadow:3px 3px 12px #999;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formParam:hover{
+  height: 30px;
+  width: 100px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+  box-shadow:0px 0px 0px;
+}
+
+#formParam{
+  height: 30px;
+  width: 92px;
+  box-shadow:3px 3px 12px #999;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+#formParam:hover{
+  height: 30px;
+  width: 92px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+  box-shadow:0px 0px 0px;
+}
+
+.formAddItem button{
+  height: 30px;
+  width: 215px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formCreationListe button:hover,.formCreationListe button:active,.formCreationListe button:focus {
+  background: #7581a4;
+}
+.formMod button:hover,.formMod button:active,.formMod button:focus {
+  background: #7581a4;
+}
+.formParam button:hover,.formParam button:active,.formParam button:focus {
+  background: #7581a4;
+}
+.formAddItem button:hover,.formAddItem button:active,.formAddItem button:focus {
+  background: #7581a4;
+}
+
+#listes{
+  -webkit-padding-start: 70px;
+}
+
+.boutonListes{
+  height: 30px;
+  width: 125px;
+  margin-top: 0.5%;
+  font-size: 12px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.boutonListes:hover,.boutonListes:active,.boutonListes:focus {
+  background: #7581a4;
+}
+
+.boutonReservation{
+  height: 30px;
+  width: 125px;
+  margin-top: 0.5%;
+  font-size: 12px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.boutonReservation:hover,.boutonReservation:active,.boutonReservation:focus {
+  background: #7581a4;
+}
+
+.mon_fichier-label {
+  display: block; 
+  height: 30px;
+  width: 150px;
+  text-align: center;
+  margin-top: 0.5%;
+  padding-top: 0.8%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+.mon_fichier-label:hover {
+    color: #7581a4;
+}
+
+.mon_fichier {
+    display: none;
+}
+
+.rounded-list li{
+  position: relative;
+  display: block;
+  padding: .4em .8em .4em 2em;
+  margin: .5em 0;
+  background: #ddd;
+  color: #444;
+  text-decoration: none;
+  border-radius: .3em;
+  transition: all .3s ease-out;
+}
+
+.rounded-list li:hover{
+  background: #7581a4;
+}
+
+.rounded-list li:hover:before{
+  transform: rotate(360deg);
+}
+
+.rounded-list li:before{
+  content: counter(li);
+  counter-increment: li;
+  position: absolute;
+  left: -1.3em;
+  top: 50%;
+  margin-top: -1.3em;
+  background: #87ceeb;
+  height: 2em;
+  width: 2em;
+  line-height: 2em;
+  border: .3em solid #fff;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2em;
+  transition: all .3s ease-out;
+}
+
+ul{
+  counter-reset: li; /* Initialise le compteur */
+  list-style: none; /* Supprime la numérotation par défaut */
+  list-style: decimal; /* Restitue la numérotation par défaut pour IE6/7 */
+  font: 15px 'trebuchet MS', 'lucida sans';
+  padding: 0;
+  margin-bottom: 4em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+a:-webkit-any-link {
+  color: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+li {
+  display: list-item;
+  text-align: none;
+}
+
+.liste_affichee a, a:visited{
+  color:black;
+  text-decoration: none;
+}
+
+.liste_affichee{
+  height: 3em;
+  padding-left:2em; 
+}
+
+.liste_affichee li{
 }

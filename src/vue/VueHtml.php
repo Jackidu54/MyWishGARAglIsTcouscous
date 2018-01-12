@@ -43,7 +43,7 @@ class VueHtml{
 		<html lang="fr">
 		<head>
 		  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		  <title>MyWhishlist</title>
+		  <title>MyWishlist</title>
 		  <link rel="stylesheet" href="/web/css/style.css">
 
 
@@ -87,7 +87,7 @@ html;
 		Bienvenue $role $user
 		</div>
 		<div id="droite">
-		Copyright
+		&#169; Copyright 2018
 		</div>
 
 		</footer>

@@ -58,7 +58,7 @@ html;
             }
             else{
                 $partage=<<<html
-<p>lien de partage : $urlapartager </p>            
+<p>Lien de partage : $urlapartager </p>            
 html;
             }
             if (isset($liste->message)) {
@@ -102,7 +102,7 @@ html;
                     <td>
                     <form id="supprItem" method="post" action="$suprItem">
                     <input type="hidden" name="listeid" value="$liste->no">
-                    <button type="submit" name="valid" >Supprimer</button></form>
+                    <button type="submit" name="valid" class="mon_fichier-label">Supprimer</button></form>
                     </td>
 html;
                 }
@@ -114,17 +114,17 @@ html;
                 $message = $liste->message;
                 $formulaire = <<<html
 <form id="modifMessage" method="post" action="$urlItemMessage">
-<label>modifier le message de la liste</label>
+<label>Modifier le message de la liste</label>
 <input type="text" id="messageliste" name="message" value="$message">
-<button type="submit" name="valid" >Valider</button>
+<div class="formParam"><button type="submit" name="valid" >Valider</button></div>
 </form>   
 html;
             } else {
                 $formulaire = <<<html
 <form id="ajoutMessage" method="post" action="$urlItemMessage">
-<label>ajouter un message de la liste</label>
+<label>Ajouter un message de la liste :</label>
 <input type="text" id="messageliste" name="message">
-<button type="submit" name="valid" >Valider</button>
+<div class="formParam"><button type="submit" name="valid" >Valider</button></div>
 </form> 
             
 html;
@@ -132,7 +132,7 @@ html;
             
             $contenu = $contenu . <<<html
 </table>
-<a href="$urlAjouterItem"><button type="submit" name="valid" >ajouter un nouvel item</button></a>
+<div class="formAddItem"><a href="$urlAjouterItem"><button type="submit" name="valid" >Ajouter un nouvel item</button></a></div>
 <br>
 $formulaire
 html;
@@ -142,12 +142,12 @@ html;
             $liste = $this->modele;
             $propr = User::select()->where('id', '=', $liste->user_id)->first();
             $proprio = $propr->pseudo;
-            $ids = Guest::select()->where('id_liste', '=', $liste->no)->get();
+            $ids = Guest::select()->where('liste_id', '=', $liste->no)->get();
 
             $users = array();
 
             foreach($ids as $guest){
-                $id = $guest->id_user;
+                $id = $guest->user_id;
                 $user = User::select()->where('id', '=', $id)->get()->first();
                 array_push($users, $user);
             }
@@ -160,50 +160,51 @@ html;
             <ul>
 html;
             foreach($users as $user){
-                if(Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN) && $liste->user_id != $_SESSION['profile']['id']){
-                    $message = $_SESSION['profile']['pseudo'] . ", voulez vous supprimer $user->pseudo des invités de $proprio ?";
-                }else{
-                    $message = "Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?";
-                }
-                if($user->pseudo == $_SESSION['profile']['pseudo']){
-                    $pseudo = "Vous"; 
-                }else $pseudo = "$user->pseudo";
-                $contenu = $contenu . <<<html
-                <li id="liste_affichee">$pseudo
-                <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid">supprimer de la liste</button></form>
-                </p>
-                </li>
-                <script>
-                    function confirmation(){
-                        return confirm("$message");
-                    } 
-                </script>
+                    if(Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN) && $liste->user_id != $_SESSION['profile']['id']){
+                        //$message = $_SESSION['profile']['pseudo'] . ", voulez vous supprimer $user->pseudo des invités de $proprio ?";
+                    }else{
+                        $message = "Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?";
+                    }
+                    if($user->pseudo == $_SESSION['profile']['pseudo']){
+                        $pseudo = "Vous"; 
+                    }else $pseudo = "$user->pseudo";
+                    $contenu = $contenu . <<<html
+                    <li id="liste_affichee">$pseudo
+                    <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid">supprimer de la liste</button></form>
+                    </p>
+                    </li>
+                    <script>
+                        function confirmation(){
+                            return confirm("$message");
+                        } 
+                    </script> 
 html;
             }
             $contenu = $contenu . <<<html
              </ul>
 html;
+
         if($liste->user_id==$_SESSION['profile']['id'] || Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN)){
             $contenu = $contenu . <<<html
              <form id="addUser" method="post" action="/liste/user/add/$liste->no">
             <label>Ajouter un utilisateur</label>
             <input type="text" id="pass" name="pseudo" class="champ_con" required placeholder="Entrez un pseudo valide">
-            <button type="submit" name="valid" class="se_connecter">Ajouter</button>
+            <button type="submit" name="valid" class="formParam">Ajouter</button>
             </form>
 html;
         }
-        }
-
+    }
         if ($this->selecteur == self::$AFFICHE_LISTES || $this->selecteur == self::$AFFICHE_ALL) {
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
             if($this->selecteur == self::$AFFICHE_LISTES){
-                $titre = "Voici vos listes";
+                $titre = "Voici vos listes :";
             }else $titre = "Toutes les listes enregistrées";
             $contenu = <<<html
-<h1>Mes WishListes</h1>
+<p><img src="/web/img/mesCadeaux.png" style="float:left"><h1>Mes WishListes</h1></p>
   <p>$titre</p>
-  <ul>
+  <div id="listes">
+    <ul class="rounded-list">
 html;
             foreach ($this->modele as $liste) {
                 $afficherListeUrl = $app->urlFor('affiche_1_liste', ['id'=> $liste->no]);
@@ -211,15 +212,17 @@ html;
                 $temp = $app->urlFor('contributeurs', array('id' => $liste->no));
                 $urlContrib = $rootUri . $temp;
                 $contenu = $contenu . <<<html
-    <li id="liste_affichee"><a href="$url1liste">$liste->titre</a>
-    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid">Contributeurs</button></a>
-	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" >Supprimer la liste</button></form>
-	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" >Modifier la liste</button></form></li>
+    <a href="$url1liste"><li class="liste_affichee">$liste->titre
+    <a id="suprlist" href="/liste/users/$liste->no"><button type="submit" name="valid" class="boutonListes">Contributeurs</button></a>
+	<form id="suprlist" method="post" action="/liste/delete/$liste->no"><button type="submit" name="valid" class="boutonListes">Supprimer la liste</button></form>
+	<form id="modlist" method="post" action="/liste/modify/$liste->no"><button type="submit" name="valid" class="boutonListes">Modifier la liste</button></form>
+</li></a>
 html;
             }
             
             $contenu = $contenu . <<<html
   </ul>
+</div>
 html;
         }
         if ($this->selecteur == self::$CREATION_LISTE) {
@@ -227,13 +230,13 @@ html;
 <h1>Creation d'une nouvelle liste</h1>
 <form id="formcreationliste" method="post" action="/liste/create/valide">
 
-    <label for"formnomliste">nom de la liste</label>
+    <label for"formnomliste">Nom de la liste</label>
     <input type="text" id="formnomliste" name="titre" required placeholder="<nom de la liste>">
 
-    <label for"formdescliste">description de la liste</label>    
+    <label for"formdescliste">Description de la liste</label>    
     <input type="text" id="formdescliste" name="description" required placeholder="<description de la liste>">
 
-    <button type="submit" name="valid" >Créer</button>
+    <div class="formCreationListe"><button type="submit" name="valid" >Créer</button></form>
 </form>
 html;
         }
@@ -241,16 +244,16 @@ html;
             $liste = $this->modele;
             $contenu = <<<html
 <h1>Modification d'une liste</h1>
-<h2>liste choisie : </h2>
+<h2>Liste choisie : "$liste->titre"</h2>
 <form id="formmodifliste" method="post" action="/liste/modify/valide/$liste->no">
 
-    <label for"formnomliste">nom de la liste</label>
+    <label for"formnomliste">Nom de la liste</label>
     <input type="text" id="formnomliste" name="titre" value="$liste->titre">
 
-    <label for"formdescliste">description de la liste</label>    
+    <label for"formdescliste">Description de la liste</label>    
     <input type="text" id="formdescliste" name="description" value="$liste->description">
 
-    <button type="submit" name="valid" >Enregistrer modification</button>
+    <div class="formMod"><button type="submit" name="valid" >Enregistrer modification</button></div>
 </form>
 html;
         }
@@ -266,7 +269,7 @@ html;
 html;
             }
             $contenu = <<<html
-<h1>Wishliste $liste->titre</h1>
+<h1>Wishliste : $liste->titre</h1>
 <p>description : $liste->description </p>
 <p>Expire le : $liste->expiration</p>
 $message

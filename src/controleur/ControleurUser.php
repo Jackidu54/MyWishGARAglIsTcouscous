@@ -76,7 +76,10 @@ class ControleurUser
 
 	public function inscrirePartage($id,$mail){
 	    filter_var($mail, FILTER_VALIDATE_EMAIL);
-	    if(isset($mail) && isset($id)){
+	    if(Partage::select()->where('id_liste', '=', $id)->where('email', '=', $mail)->first() != null){
+	    	$_SESSION['partage']=$id;
+	        $_SESSION['email']=$mail;
+	    }else if(isset($mail) && isset($id)){
 	        $liste=Liste::select()->where('token','=',$id)->first();
 	        $idliste=$liste->no;
 	        $p=new Partage();
