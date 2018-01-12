@@ -93,29 +93,9 @@ article input{
 	display: block;
 }
 
-
 #suprlist, #modlist{
 	float: right;
 	height: 95%;
-}
-
-.se_connecter{
-	border:none;
-	padding:6px 0 6px 0;
-	border-radius:2px;
-	box-shadow:3px 3px 12px #999;
-	background:#fff;
-	font:bold 13px Arial;
-	color:#555;
-}
-
-.se_connecter:hover{
-	border:none;
-	padding:6px 0 6px 0;
-	box-shadow:0px 0px 0px;
-	background:#fff;
-	font:bold 13px Arial;
-	color:#555;
 }
 
 .champ_inscr{
@@ -268,7 +248,20 @@ input[type="button"]:hover{
   transition: 0.5s;
 }
 
-.formParam button {
+.formParam{
+  height: 30px;
+  width: 100px;
+  box-shadow:3px 3px 12px #999;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+.formParam:hover{
   height: 30px;
   width: 100px;
   margin-top: 0.5%;
@@ -278,6 +271,33 @@ input[type="button"]:hover{
   outline: 1;
   background: #4c586f;
   transition: 0.5s;
+  box-shadow:0px 0px 0px;
+}
+
+#formParam{
+  height: 30px;
+  width: 92px;
+  box-shadow:3px 3px 12px #999;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+}
+
+#formParam:hover{
+  height: 30px;
+  width: 92px;
+  margin-top: 0.5%;
+  font-size: 15px;
+  color:#FEFEFE;
+  font-family: "Roboto", sans-serif;
+  outline: 1;
+  background: #4c586f;
+  transition: 0.5s;
+  box-shadow:0px 0px 0px;
 }
 
 .formAddItem button{
@@ -366,7 +386,7 @@ input[type="button"]:hover{
 .rounded-list li{
   position: relative;
   display: block;
-  padding: .4em .4em .4em 2em;
+  padding: .4em .8em .4em 2em;
   margin: .5em 0;
   background: #ddd;
   color: #444;
@@ -430,7 +450,6 @@ li {
 .liste_affichee{
   height: 3em;
   padding-left:2em; 
-  vertical-align: center;
 }
 
 .liste_affichee li{
