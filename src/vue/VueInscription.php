@@ -42,6 +42,7 @@ class VueInscription
 		<link rel="stylesheet" href="/web/css/style.css">
 		<body class="bodyinscr">
 		
+
 		<header>
         <img src="/web/img/gift.png">
         <span><h1>Liste de Cadeaux</h1></span>
