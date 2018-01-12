@@ -47,7 +47,7 @@ class VueListe
             $itemUrl = $app->urlFor('createur_item', ['id'=> $liste->no]);
             $partageurl = $app->urlFor('partager_liste', ['id'=> $liste->no]);
             $itemMessage = $app->urlFor('creer_message', ['id'=> $liste->no]);
-            $urlapartager=ControleurUrl::urlId('afficher_liste_partagee', $liste->token);
+            $urlapartager= "http://".$_SERVER['SERVER_NAME'] . ControleurUrl::urlId('afficher_liste_partagee', $liste->token);
             $urlAjouterItem = ControleurUrl::urlId('createur_item', $liste->no);
             $urlItemMessage = $rootUri . $itemMessage;
             $partage="";
@@ -58,7 +58,7 @@ html;
             }
             else{
                 $partage=<<<html
-<p>Lien de partage : $urlapartager </p>            
+<p>Lien de partage : <a href="$urlapartager">$urlapartager</a> </p>            
 html;
             }
             if (isset($liste->message)) {

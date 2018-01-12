@@ -34,7 +34,7 @@ $app->get('/liste/display', function () {
         $control=new ControleurListe();
         $control->afficherListes();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('affiche_listes');
 
@@ -44,7 +44,7 @@ $app->get('/liste/display/all', function() {
         $control->afficherAdminListes();
     }else{
         $app = Slim\Slim::getInstance();
-        $app->redirect('/liste/display');
+        $app->redirect(ControleurUrl::urlName('affiche_listes'));
     }
 })->name('listes_all');
 
@@ -76,9 +76,9 @@ $app->post('/liste/create/valide', function () {
         $description = filter_var($app->request->post('description'), FILTER_SANITIZE_STRING);
         $control->creerListe($user_id, $titre, $description);
     }
-    $app->redirect('/liste/display');
+    $app->redirect(ControleurUrl::urlName('affiche_listes'));
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('validation_liste');
 
@@ -96,7 +96,7 @@ $app->post('/liste/modify/valide/:id', function ($id) {
     header('Location: '.$url);
     exit();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('valide_liste');
 
@@ -105,7 +105,7 @@ $app->post('/liste/modify/:id', function ($id) {
     $control=new ControleurListe();
     $control->afficherModificationListe($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('modifie_liste');
 
@@ -115,7 +115,7 @@ $app->get('/liste/create', function () {
     $control=new ControleurListe();
     $control->afficheCreationListe();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('creation_liste');
 
@@ -124,7 +124,7 @@ $app->get('/liste/users/:id', function($id) {
     $control=new ControleurListe();
     $control->afficherContributeurs($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('contributeurs');
 
@@ -132,9 +132,9 @@ $app->post('/liste/user/delete/:no/:id', function($id_liste, $id_user) {
     if(isset($_SESSION['profile'])){
     $control=new ControleurListe();
     $control->supprimerGuest($id_liste, $id_user);
-    \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
+    \Slim\Slim::getInstance()->redirect(ControleurUrl::getId('contributeurs',$id_liste));
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('supprimer_guest');
 
@@ -142,9 +142,9 @@ $app->post('/liste/user/add/:no', function($id_liste) {
     if(isset($_SESSION['profile'])){
     $control=new ControleurListe();
     $control->ajouterGuest($id_liste);
-    \Slim\Slim::getInstance()->redirect('/liste/users/'.$id_liste);
+    \Slim\Slim::getInstance()->redirect(ControleurUrl::urlId('contributeurs',$id_liste));
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('ajouter_guest');
 
@@ -158,7 +158,7 @@ $app->post('/liste/message/:id', function ($id) {
     header("Location: ".$url);
     exit();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('creer_message');
 
@@ -170,7 +170,7 @@ $app->post('/liste/partage/:id', function ($id) {
     header("Location: ".$url);
     exit();
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('partager_liste');
 
@@ -188,7 +188,7 @@ $app->get('/partage/:id', function ($id) {
             exit();
         }
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('afficher_liste_partagee');
 
@@ -199,7 +199,7 @@ $app->get('/partage/connection/:id', function ($id) {
         $rep = $control->verifPartage($id);
         $control->afficherPanelPartage($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('connection_partage');
 
@@ -216,7 +216,7 @@ $app->post('/partage/inscription/:id', function ($id) {
         header("Location: ".$url);
         exit();
     }else{
-        $app->redirect('/user/connection');
+        $app->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('creer_partage');
 
@@ -228,7 +228,7 @@ $app->get('/item/ajouter/:id', function($id) {
         $control=new ControleurItem();
         $control->createurItem($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('createur_item');
 
@@ -239,13 +239,13 @@ $app->get('/item/display/:id', function ($id) {
         if($rep){
             $control->afficherItem($id);
         }else{
-            \Slim\Slim::getInstance()->redirect('/partage/'.$_SESSION['tokenInvite']);
+            \Slim\Slim::getInstance()->redirect(ControleurUrl::urlId('afficher_liste_partagee',$_SESSION['tokenInvite']));
         }
     }else if(isset($_SESSION['profile'])){
         $control=new ControleurItem();
         $control->afficherItem($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('affiche_1_item');
 
@@ -264,10 +264,10 @@ $app->post('/item/creer/:id', function ($id) {
         if(isset($_SESSION['erreur']['tarifItem'])){
             $app->redirect('/item/ajouter/'.$id);
         }else {
-            $app->redirect('/liste/display/'.$id);
+            $app->redirect(ControleurUrl::urlId('afficher_1_liste',$id));
         }
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('ajoute_item_valide');
 
@@ -278,7 +278,7 @@ $app->post('/item/delete/:id', function ($id) {
     $control->supprimerItem($id);
     $app->redirect('/liste/display/'.$app->request->post('listeid'));
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('delete_item');
 
@@ -288,7 +288,7 @@ $app->get('/user/pannel/:id', function($id) {
     $cu = new ControleurUser();
     $cu->afficherPannel($id);
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('pannel');
 
@@ -297,9 +297,9 @@ $app->post('/user/pannel/change/:id', function($id) {
     if(isset($_SESSION['profile']) && $app->request->post('newRole')!=null){
         $cu = new ControleurUser();
         $cu->changerDroit($id);
-        $app->redirect('/user/pannel/0');
+        $app->redirect(ControleurUrl::urlId('pannel',0));
     }else{
-        $app->redirect('/user/connection');
+        $app->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('changer_role');
 
@@ -312,10 +312,10 @@ $app->post('/user/changePass', function() {
         $cu = new ControleurUser();
         $cu->changePass($app->request->post('pseudo'), $app->request->post('pass'),$app->request->post('newPass'), $app->request->post('passVerif'));
     }else {
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
     }else{
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('changePass');
 
@@ -353,16 +353,16 @@ $app->post('/user/connect', function() {
         Authentication::authenticate($app->request->post('pseudo'), $app->request->post('pass'), Authentication::$OPTION_LOADPROFILE, NULL);
     
     if(isset($_SESSION['profile'])){
-        $app->redirect('/liste/display');
+        $app->redirect(ControleurUrl::urlName('affiche_listes'));
     }else {
-        \Slim\Slim::getInstance()->redirect('/user/connection');
+        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }
 })->name('connect_user');
 
 $app->post('/user/delete/:id', function($id){
     $cu = new ControleurUser();
     $cu->supprimerUser($id);
-    \Slim\Slim::getInstance()->redirect('/user/pannel/0');
+    \Slim\Slim::getInstance()->redirect(ControleurUrl::urlId('pannel',0));
 })->name('supprimer_user');
 
 

@@ -4,6 +4,7 @@ namespace mywishlist\controleur;
 use mywishlist\vue\VueConfig;
 use mywishlist\vue\VueInscription;
 use mywishlist\Controleur\Authentication;
+use mywishlist\Controleur\ControleurUrl;
 use mywishlist\models\User;
 use mywishlist\models\Liste;
 use mywishlist\models\Guest;
@@ -34,10 +35,10 @@ class ControleurUser
 		if($newPass == $passVerif){
 			Authentication::authenticate($_SESSION['profile']['pseudo'], $pass, Authentication::$OPTION_CHANGEPASS, $newPass);
 			$code = VueConfig::$OK;
-			$app->redirect('/user/pannel/'.$code);
+			$app->redirect(ControleurUrl::urlId('pannel',$code));
 		}else{
 			$code = VueConfig::$ERR_VERIF;
-			$app->redirect('/user/pannel/'.$code);
+			$app->redirect(ControleurUrl::urlId('pannel',$code));
 		}
 	}
 
@@ -53,7 +54,7 @@ class ControleurUser
 		$listes = Liste::select()->where('user_id', '=', $user->id)->get();
 		if($_SESSION['profile']['droit']>$user->droit){
 			foreach($listes as $liste){
-				$guests = Guest::select()->where('id_liste', '=', $liste->no)->get();
+				$guests = Guest::select()->where('liste_id', '=', $liste->no)->get();
 				foreach ($guests as $value) {
 					$value->delete();
 				}
