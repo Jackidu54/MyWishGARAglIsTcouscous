@@ -132,7 +132,7 @@ $app->post('/liste/user/delete/:no/:id', function($id_liste, $id_user) {
     if(isset($_SESSION['profile'])){
     $control=new ControleurListe();
     $control->supprimerGuest($id_liste, $id_user);
-    \Slim\Slim::getInstance()->redirect(ControleurUrl::getId('contributeurs',$id_liste));
+    \Slim\Slim::getInstance()->redirect(ControleurUrl::urlId('contributeurs',$id_liste));
     }else{
         \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
     }

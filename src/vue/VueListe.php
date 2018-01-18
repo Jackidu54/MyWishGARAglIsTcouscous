@@ -142,14 +142,13 @@ html;
             $liste = $this->modele;
             $propr = User::select()->where('id', '=', $liste->user_id)->first();
             $proprio = $propr->pseudo;
-            $ids = Guest::select()->where('liste_id', '=', $liste->no)->get();
-
+            $guests = Guest::select()->where('liste_id', '=', $liste->no)->get();
             $users = array();
 
-            foreach($ids as $guest){
+            foreach($guests as $guest){
                 $id = $guest->user_id;
-                $user = User::select()->where('id', '=', $id)->get()->first();
-                array_push($users, $user);
+                $u = User::select()->where('id', '=', $guest->user_id)->get()->first();
+                array_push($users, $u);
             }
 
             $contenu = <<<html
@@ -160,17 +159,19 @@ html;
             <ul>
 html;
             foreach($users as $user){
+            	if(isset($user)){
                     if(Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN) && $liste->user_id != $_SESSION['profile']['id']){
-                        //$message = $_SESSION['profile']['pseudo'] . ", voulez vous supprimer $user->pseudo des invités de $proprio ?";
+                        $message = $_SESSION['profile']['pseudo'] . ", voulez vous supprimer $user->pseudo des invités de $proprio ?";
                     }else{
-                        $message = "Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?";
+                    	
+                        	$message = "Êtes-vous sur de vouloir supprimer $user->pseudo de votre liste?";
                     }
                     if($user->pseudo == $_SESSION['profile']['pseudo']){
                         $pseudo = "Vous"; 
                     }else $pseudo = "$user->pseudo";
                     $contenu = $contenu . <<<html
-                    <li id="liste_affichee">$pseudo
-                    <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid">supprimer de la liste</button></form>
+                    <li class="liste_affichee"> $pseudo
+                    <form id="suprlist" method="post" action="/liste/user/delete/$liste->no/$user->id" onsubmit="return confirmation();"><button type="submit" name="valid" class="boutonListes">supprimer de la liste</button></form>
                     </p>
                     </li>
                     <script>
@@ -179,6 +180,7 @@ html;
                         } 
                     </script> 
 html;
+				}
             }
             $contenu = $contenu . <<<html
              </ul>
