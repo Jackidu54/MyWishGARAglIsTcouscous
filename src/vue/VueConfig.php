@@ -74,7 +74,7 @@ html;
 html;
     }else if($this->modele == VueConfig::$OK){
         $contenu = $contenu . <<<html
-        <p>Mot de passe changÃ©</p>
+        <p>Mot de passe changé</p>
 html;
     }else if($this->modele == VueConfig::$ERR_MDP){
         $contenu = $contenu . <<<html
@@ -134,21 +134,23 @@ html;
                     # code...
                     break;
             }
+            $urlchangementderole=ControleurUrl::urlId('changer_role', $user->id);
             $contenu = $contenu . <<<html
             <tr>
                 <td>$user->pseudo</td>
                 <td>$user->mail</td>
                 <td>$droit</td>
                 <td>
-                <form method="post" action="/user/pannel/change/$user->id">
+                <form method="post" action="$urlchangementderole">
                 <select name="newRole" size="1">
 html;
+            $urlsuppressionuser=ControleurUrl::urlId('supprimer_user',$user->id);
             $contenu = $contenu . $options . <<<eof
                 </select>
                 <input type="submit" id="formParam" value="Valider" title="test" />
                 </form>
                 </td>
-                <td><form id="suprUser" method="post" action="/user/delete/$user->id" onsubmit="return confirmation('$user->pseudo');"><button type="submit" class="formParam" name="valid">Supprimer</button></form></td>
+                <td><form id="suprUser" method="post" action="$urlsuppressionuser" onsubmit="return confirmation('$user->pseudo');"><button type="submit" class="formParam" name="valid">Supprimer</button></form></td>
                 <script>
                     function confirmation(id){
                         return confirm("voulez vous vraiment supprimer "+id+" ?");
@@ -161,7 +163,7 @@ eof;
     }
         $vue=new VueHtml($contenu, VueHtml::$ARTICLE);
         $html = $vue->render();
-        return $html;
+        return utf8_encode($html);
 
     }
 

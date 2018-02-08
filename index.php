@@ -1,8 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 use \Illuminate\Database\Capsule\Manager as DB;
-use mywishlist\controleur\ControleurListe;
-use mywishlist\controleur\ControleurItem;
+use mywishlist\controleur\ControleurCategorie;
 use mywishlist\controleur\ControleurUrl;
 use mywishlist\controleur\ControleurUser;
 use mywishlist\controleur\Authentication;
@@ -25,9 +24,9 @@ $db->bootEloquent();
 $app = new \Slim\Slim();
 session_start();
 
-//Actions sur les listes
+//Actions 
 
-
+/*
 $app->get('/liste/display', function () {
     $app = Slim\Slim::getInstance();
     if(isset($_SESSION['profile'])){
@@ -38,249 +37,8 @@ $app->get('/liste/display', function () {
     }
 })->name('affiche_listes');
 
-$app->get('/liste/display/all', function() {
-    if(isset($_SESSION['profile']) && Authentication::checkAccessRights(Authentication::$ACCESS_ADMIN)){
-        $control=new ControleurListe();
-        $control->afficherAdminListes();
-    }else{
-        $app = Slim\Slim::getInstance();
-        $app->redirect(ControleurUrl::urlName('affiche_listes'));
-    }
-})->name('listes_all');
+*/
 
-
-$app->get('/liste/display/:id', function ($id) {
-    if(isset($_SESSION['profile'])){    
-        $control=new ControleurListe();
-        $control->afficherListe($id);
-    }
-})->name('affiche_1_liste');
-
-$app->post('/liste/delete/:id', function($id) {
-    if(isset($_SESSION['profile'])){
-        $control=new ControleurListe();
-        $control->supprimerListe($id);
-        $url = ControleurUrl::urlName('affiche_listes');
-        header('Location: '.$url);
-        exit();
-    }
-})->name('supprimer_liste');
-
-$app->post('/liste/create/valide', function () {
-    $app = \Slim\Slim::getInstance();
-    $control=new ControleurListe();
-    if(isset($_SESSION['profile'])){
-    if($app->request->post('titre')!=null && $app->request->post('description')!=null && isset($_SESSION['profile'])){
-        $user_id = $_SESSION['profile']['id'];
-        $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
-        $description = filter_var($app->request->post('description'), FILTER_SANITIZE_STRING);
-        $control->creerListe($user_id, $titre, $description);
-    }
-    $app->redirect(ControleurUrl::urlName('affiche_listes'));
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('validation_liste');
-
-$app->post('/liste/modify/valide/:id', function ($id) {
-    if(isset($_SESSION['profile'])){
-	$app = \Slim\Slim::getInstance();
-    $control=new ControleurListe();
-    $user_id = 1; //temporaire
-    $titre = filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING); 
-    $description = filter_var($app->request->post('description'),FILTER_SANITIZE_STRING); 
-    if(isset($user_id) && isset($titre) && isset($description)){
-        $control->modifierListe($id, $titre,$description);
-    }
-    $url = ControleurUrl::urlName('affiche_listes');
-    header('Location: '.$url);
-    exit();
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('valide_liste');
-
-$app->post('/liste/modify/:id', function ($id) {
-    if(isset($_SESSION['profile'])){
-    $control=new ControleurListe();
-    $control->afficherModificationListe($id);
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('modifie_liste');
-
-
-$app->get('/liste/create', function () {
-    if(isset($_SESSION['profile'])){
-    $control=new ControleurListe();
-    $control->afficheCreationListe();
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('creation_liste');
-
-$app->get('/liste/users/:id', function($id) {
-    if(isset($_SESSION['profile'])){
-    $control=new ControleurListe();
-    $control->afficherContributeurs($id);
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('contributeurs');
-
-$app->post('/liste/user/delete/:no/:id', function($id_liste, $id_user) {
-    if(isset($_SESSION['profile'])){
-    $control=new ControleurListe();
-    $control->supprimerGuest($id_liste, $id_user);
-    \Slim\Slim::getInstance()->redirect(ControleurUrl::urlId('contributeurs',$id_liste));
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('supprimer_guest');
-
-$app->post('/liste/user/add/:no', function($id_liste) {
-    if(isset($_SESSION['profile'])){
-    $control=new ControleurListe();
-    $control->ajouterGuest($id_liste);
-    \Slim\Slim::getInstance()->redirect(ControleurUrl::urlId('contributeurs',$id_liste));
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('ajouter_guest');
-
-$app->post('/liste/message/:id', function ($id) {
-    if(isset($_SESSION['profile'])){
-    $app = \Slim\Slim::getInstance();
-    $control=new ControleurListe();
-    $message = $app->request->post('message');
-    $control->ajouterMessage($id, $message);
-    $url = ControleurUrl::urlId('affiche_1_liste', $id);
-    header("Location: ".$url);
-    exit();
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('creer_message');
-
-$app->post('/liste/partage/:id', function ($id) {
-    if(isset($_SESSION['profile'])){
-    $control=new ControleurListe();
-    $control->changerUrlPartage($id);
-    $url = ControleurUrl::urlId('affiche_1_liste', $id);
-    header("Location: ".$url);
-    exit();
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('partager_liste');
-
-//action sur les listes partagees
-
-$app->get('/partage/:id', function ($id) {
-    if(ControleurUser::verifPartage($id)){
-        $_SESSION['tokenInvite'] = $id;
-        if(isset($_SESSION['partage']) && $_SESSION['partage']==$id && isset($_SESSION['email'])){
-            $control=new ControleurListe();
-            $control->afficherListePartagee($_SESSION['partage']);
-        }else{
-            $url = ControleurUrl::urlId('connection_partage', $id);
-            header("Location: ".$url);
-            exit();
-        }
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('afficher_liste_partagee');
-
-$app->get('/partage/connection/:id', function ($id) {
-    if(isset($_SESSION['tokenInvite']) && ControleurUser::verifPartage($id)){
-        $_SESSION['profile'] = null; 
-        $control=new ControleurUser();
-        $rep = $control->verifPartage($id);
-        $control->afficherPanelPartage($id);
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('connection_partage');
-
-$app->post('/partage/inscription/:id', function ($id) {
-    if($_SESSION['tokenInvite']){
-        unset($_SESSION['profile']);
-        $_SESSION['profile']['droit'] = 0;
-        $_SESSION['tokenInvite'] = $id;
-        $control=new ControleurUser();
-        $app = \Slim\Slim::getInstance();
-        $mail=$app->request->post('mail');
-        $control->InscrirePartage($id,$mail);
-        $url = ControleurUrl::urlId('afficher_liste_partagee', $id);
-        header("Location: ".$url);
-        exit();
-    }else{
-        $app->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('creer_partage');
-
-//Actions sur les items
-
-
-$app->get('/item/ajouter/:id', function($id) {
-    if(isset($_SESSION['profile'])){
-        $control=new ControleurItem();
-        $control->createurItem($id);
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('createur_item');
-
-$app->get('/item/display/:id', function ($id) {
-    if (isset($_SESSION['email']) && isset($_SESSION['tokenInvite'])){
-        $control=new ControleurItem();
-        $rep = $control->itemVerif($id, $_SESSION['tokenInvite']);
-        if($rep){
-            $control->afficherItem($id);
-        }else{
-            \Slim\Slim::getInstance()->redirect(ControleurUrl::urlId('afficher_liste_partagee',$_SESSION['tokenInvite']));
-        }
-    }else if(isset($_SESSION['profile'])){
-        $control=new ControleurItem();
-        $control->afficherItem($id);
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('affiche_1_item');
-
-
-$app->post('/item/creer/:id', function ($id) {
-    if(isset($_SESSION['profile'])){
-        $app = \Slim\Slim::getInstance();
-        $control=new ControleurItem();
-        $titre = filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING);
-        $description = filter_var($app->request->post('descr'),FILTER_SANITIZE_STRING);
-        $url = filter_var($app->request->post('url'),FILTER_SANITIZE_STRING);
-        $tarif = filter_var($app->request->post('tarif'),FILTER_SANITIZE_STRING);
-        if(isset($titre) && isset($description)){
-            $control->ajouterItem($id,$titre,$description, $url, $tarif);
-        }
-        if(isset($_SESSION['erreur']['tarifItem'])){
-            $app->redirect('/item/ajouter/'.$id);
-        }else {
-            $app->redirect(ControleurUrl::urlId('afficher_1_liste',$id));
-        }
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('ajoute_item_valide');
-
-$app->post('/item/delete/:id', function ($id) {
-    if(isset($_SESSION['profile'])){
-    $app = \Slim\Slim::getInstance();
-    $control = new ControleurItem();
-    $control->supprimerItem($id);
-    $app->redirect('/liste/display/'.$app->request->post('listeid'));
-    }else{
-        \Slim\Slim::getInstance()->redirect(ControleurUrl::urlName('connection'));
-    }
-})->name('delete_item');
 
 $app->get('/user/pannel/:id', function($id) {
     if(isset($_SESSION['profile'])){
@@ -366,28 +124,6 @@ $app->post('/user/delete/:id', function($id){
 })->name('supprimer_user');
 
 
-
-//actions non finies
-
-$app->post('/item/reserve/:id', function ($id) {
-    $controleur=new ControleurItem();
-    $controleur->reserverItem($id);
-    $url = ControleurUrl::urlId('afficher_liste_partagee', $_SESSION['partage']);
-    header("Location: ".$url);
-    exit();
-})->name('reserve_item');
-
-$app->post('/item/dereserve/:id', function ($id) {
-    $controleur=new ControleurItem();
-    $controleur->dereserverItem($id);
-    $url = ControleurUrl::urlId('afficher_liste_partagee', $_SESSION['partage']);
-    header("Location: ".$url);
-    exit();
-})->name('dereserve_item');
-
-$app->get('/item/cancel/:id', function ($id) {
-    echo "tu annules $num";
-})->name('annule_item');
 
 
 $app->get('/', function () {

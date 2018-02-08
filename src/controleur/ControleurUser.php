@@ -4,11 +4,8 @@ namespace mywishlist\controleur;
 use mywishlist\vue\VueConfig;
 use mywishlist\vue\VueInscription;
 use mywishlist\Controleur\Authentication;
-use mywishlist\Controleur\ControleurUrl;
 use mywishlist\models\User;
-use mywishlist\models\Liste;
-use mywishlist\models\Guest;
-use mywishlist\models\Partage;
+use mywishlist\models\Categorie;
 
 class ControleurUser
 {
@@ -35,10 +32,10 @@ class ControleurUser
 		if($newPass == $passVerif){
 			Authentication::authenticate($_SESSION['profile']['pseudo'], $pass, Authentication::$OPTION_CHANGEPASS, $newPass);
 			$code = VueConfig::$OK;
-			$app->redirect(ControleurUrl::urlId('pannel',$code));
+			$app->redirect('/user/pannel/'.$code);
 		}else{
 			$code = VueConfig::$ERR_VERIF;
-			$app->redirect(ControleurUrl::urlId('pannel',$code));
+			$app->redirect('/user/pannel/'.$code);
 		}
 	}
 
@@ -51,44 +48,14 @@ class ControleurUser
 
 	public function supprimerUser($id){
 		$user = User::select()->where('id', '=', $id)->first();
-		$listes = Liste::select()->where('user_id', '=', $user->id)->get();
 		if($_SESSION['profile']['droit']>$user->droit){
-			foreach($listes as $liste){
-				$guests = Guest::select()->where('liste_id', '=', $liste->no)->get();
-				foreach ($guests as $value) {
-					$value->delete();
-				}
-				$liste->delete();
-			}
+			
 			$user->delete();
 		}
 	}
 	
-	public function afficherPanelPartage($id_liste){
-	    $vue = new VueInscription(VueInscription::$CONNECT_PARTAGE,$id_liste);
-	    echo $vue->render();
-	}
 
-	public static function verifPartage($id_liste){
-		if(Liste::select()->where('token', '=', $id_liste)->first() != null){
-			return true;
-		}else return false;
-	}
+	
 
-	public function inscrirePartage($id,$mail){
-	    filter_var($mail, FILTER_VALIDATE_EMAIL);
-	    if(Partage::select()->where('id_liste', '=', $id)->where('email', '=', $mail)->first() != null){
-	    	$_SESSION['partage']=$id;
-	        $_SESSION['email']=$mail;
-	    }else if(isset($mail) && isset($id)){
-	        $liste=Liste::select()->where('token','=',$id)->first();
-	        $idliste=$liste->no;
-	        $p=new Partage();
-	        $p->id_liste=$idliste;
-	        $p->email=$mail;
-	        $p->save();
-	        $_SESSION['partage']=$id;
-	        $_SESSION['email']=$mail;
-	    }
-	}
+	
 }

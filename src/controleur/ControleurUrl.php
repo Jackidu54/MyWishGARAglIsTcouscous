@@ -9,7 +9,7 @@ class ControleurUrl
 		$app =\Slim\Slim::getInstance();
 	    $rootUri = $app->request->getRootUri();
 	    $urlFor = $app->urlFor($name);
-	    $url = $rootUri . $urlFor;
+	    $url =  $urlFor;
 	    return $url;
 	}
 
@@ -17,7 +17,7 @@ class ControleurUrl
 		$app =\Slim\Slim::getInstance();
 	    $rootUri = $app->request->getRootUri();
 	    $urlFor = $app->urlFor($name, ['id'=>$id]);
-	    $url = $rootUri . $urlFor;
+	    $url =  $urlFor;
 	    return $url;
 	}
 

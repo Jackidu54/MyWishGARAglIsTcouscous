@@ -28,6 +28,8 @@ class VueInscription
         $contenu = "";
         $urlCreer = ControleurUrl::urlName('creer_user');
         $urlConne = ControleurUrl::urlName('connect_user');
+        $urlFormConnection=ControleurUrl::urlName('connection');
+        $urlFormCreation= ControleurUrl::urlName('inscription');
         $id = $this->model;
         $urlPartage = $app->urlFor('creer_partage', [
             'id' => $id
@@ -39,12 +41,12 @@ class VueInscription
 		<head>
 	  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>MyWhishlist</title>
-		<link rel="stylesheet" href="/web/css/style.css">
+		<link rel="stylesheet" href="/www/jacque14u/ProjetPhp/web/css/style.css">
 		<body class="bodyinscr">
 		
 
 		<header>
-        <img src="/web/img/gift.png">
+        <img src="/www/jacque14u/ProjetPhp/web/img/gift.png">
         <span><h1>Liste de Cadeaux</h1></span>
 		</header>
 html;
@@ -53,7 +55,7 @@ html;
             
             $contenu = $contenu . <<<eof
         <center><div class="login-image" style="display: inline-block; margin-top:-30px" width="30%">
-        <img src="/web/img/fondConnection.png" style="width:420px;height:290px;">
+        <img src="/www/jacque14u/ProjetPhp/web/img/fondConnection.png" style="width:420px;height:290px;">
         </div>
 		<div class="login-page" style="display: inline-block" width="30%">
 		  <div class="form">
@@ -61,7 +63,7 @@ html;
 		      <input type="text" name="pseudo" placeholder="username"/>
 		      <input type="password" name="pass" placeholder="password"/>
 		      <button>login</button>
-		      <p class="message">Non enregistr√©? <a href="/user/inscription">Cr√©er un compte</a></p>
+		      <p class="message">Non enregistrÈ? <a href="$urlFormCreation">CrÈer un compte</a></p>
 		    </form>
 		  </div>
 		</div>
@@ -78,7 +80,7 @@ eof;
 					<input type="password" id="pass" name="passVerif" placeholder="confirmer">
 					<input type="email" id="mail" name="mail" placeholder="adresse mail">
 			      <button>create</button>
-			      <p class="message">D√©j√† enregistr√©? <a href="/user/connection">Se connecter</a></p>
+			      <p class="message">DÈja† enregistrÈ? <a href="$urlFormConnection">Se connecter</a></p>
 			    </form>
 			  </div>
 			</div>
@@ -101,7 +103,7 @@ eof;
 		
 		<footer>
 		<div id="gauche">
-		Petit message de paix d'amour et d'amiti√©
+		
 		</div>
 		<div id="droite">
 		&#169; Copyright 2018
@@ -119,6 +121,6 @@ eof;
 		</html>
 html;
         
-        return $contenu;
+        return utf8_encode($contenu);
     }
 }

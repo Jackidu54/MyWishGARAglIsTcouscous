@@ -29,7 +29,7 @@ class VueItem
 html;
             $contenu = $contenu.<<<html
     <a>Description : $tmp->descr </br></a>
-<img src="/web/img/$tmp->img" alt="$tmp->img">
+<img src="/www/jacque14u/ProjetPhp/web/img/$tmp->img" alt="$tmp->img">
 html;
         if($tmp->url != null){
             $contenu = $contenu . <<<html
@@ -47,7 +47,7 @@ html;
             $app =\Slim\Slim::getInstance();
             $rootUri = $app->request->getRootUri();
             $itemUrl = $app->urlFor('ajoute_item_valide', ['id'=> $id]);
-            $urlCreerItem = $rootUri . $itemUrl;
+            $urlCreerItem =  $itemUrl;
             $contenu = <<<html
 <h1>Reservation d'un item</h1>
 <form id="formreserveitem" method="post" action="$urlCreerItem" enctype="multipart/form-data">
@@ -91,7 +91,7 @@ html;
 
         $vue=new VueHtml($contenu, VueHtml::$ARTICLE);
         $html = $vue->render();
-        return $html;
+        return utf8_encode($html);
     }
 }
 

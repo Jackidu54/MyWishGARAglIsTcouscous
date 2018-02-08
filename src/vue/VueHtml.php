@@ -24,6 +24,8 @@ class VueHtml{
 				$html = "";
 				$urlConnect = ControleurUrl::urlName('connection');
 				$urlPannel = ControleurUrl::urlId('pannel', 0);
+				$urlafficherListes=ControleurUrl::urlName('affiche_listes');
+				$urlCreerListe=ControleurUrl::urlName('creation_liste');
 				$user = "";
 				if(isset($_SESSION['profile']['pseudo']) && isset($_SESSION['profile']['jeton'])){
 					$user = $_SESSION['profile']['pseudo'];
@@ -37,14 +39,13 @@ class VueHtml{
 			        	$role = 'Utilisateur';
 			        }
 		    	}else $role = 'visiteur '.$_SESSION['email'];
-		        $urlPannel = ControleurUrl::urlId('pannel', 0);
 		        $html = <<<html
 		<!DOCTYPE html>
 		<html lang="fr">
 		<head>
 		  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		  <title>MyWishlist</title>
-		  <link rel="stylesheet" href="/web/css/style.css">
+		  <link rel="stylesheet" href="/www/jacque14u/ProjetPhp/web/css/style.css">
 
 
 		</head>
@@ -60,9 +61,9 @@ html;
 		$html = $html . <<<html
 		<nav>
 		  <ul>
-            <li><a href="$urlConnect"><input type="button" value="Se dÃ©connecter"></a></li>
-		    <li><a href="/liste/display"><input type="button" value="Affiche mes listes"></a></li>
-		    <li><a href="/liste/create"><input type="button" value="CrÃ©er une liste"></a></li>
+            <li><a href="$urlConnect"><input type="button" value="Se déconnecter"></a></li>
+		    <li><a href="$urlafficherListes"><input type="button" value="Affiche mes listes"></a></li>
+		    <li><a href="$urlCreerListe"><input type="button" value="Créer une liste"></a></li>
 		    <li><a href="$urlPannel"><input type="button" value="Param&#232;tres"></a></li>
             
 html;
@@ -70,7 +71,7 @@ html;
 		    if(Authentication::checkAccessRights(Authentication::$ACCESS_SUP_ADMIN)){
 		        $url = ControleurUrl::urlName('listes_all');
 		        $html = $html . <<<html
-		    <li>Options spÃ©ciales : </li>
+		    <li>Options spéciales : </li>
 		    <li><a href="$url"><input type="button" value="Afficher toutes les listes"></a></li>
 html;
 		    }
@@ -87,7 +88,7 @@ html;
 		Bienvenue $role $user
 		</div>
 		<div id="droite">
-		&#169; Copyright 2018
+		&#169; Copyright 2018 Jacque_Cordier_Brugneaux_Oberhausser_Gomas
 		</div>
 
 		</footer>
